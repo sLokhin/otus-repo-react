@@ -5,6 +5,7 @@ interface IPixel {
   x?: number;
   y?: number;
   clicked?: boolean;
+  onClick: (x: number, y: number) => void;
 }
 
 export const Pixel: FC<IPixel> = ({
@@ -12,9 +13,10 @@ export const Pixel: FC<IPixel> = ({
   x = 0,
   y = 0,
   clicked = false,
+  onClick,
 }) => {
   return (
-    <span
+    <button
       className="pixel"
       style={{
         display: "inline-flex",
@@ -22,13 +24,13 @@ export const Pixel: FC<IPixel> = ({
         alignItems: "center",
         width: "120px",
         height: "50px",
-        border: "2px solid",
-        borderColor: `${filled === "1" ? "green" : "red"}`,
+        backgroundColor: `${filled === "1" ? "green" : "red"}`,
         margin: "2px 2px",
         textAlign: "center",
       }}
+      onClick={() => onClick(x || 0, y || 0)}
     >
       {clicked ? `coords: ${x}-${y}` : "Not clicked yet"}
-    </span>
+    </button>
   );
 };

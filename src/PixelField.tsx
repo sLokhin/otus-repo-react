@@ -3,12 +3,12 @@ import { Pixel } from "./Pixel";
 
 interface IPixelFieldProps {
   pixelMass: string[][];
-  clickCounter?: number;
+  onClick: (x: number, y: number) => void;
 }
 
 export const PixelField: FC<IPixelFieldProps> = ({
   pixelMass,
-  clickCounter = 0,
+  onClick,
 }) => (
   <div
     className="pixel-field"
@@ -16,7 +16,7 @@ export const PixelField: FC<IPixelFieldProps> = ({
   >
     {pixelMass.map((row, y) => [
       ...row.map((filled: string, x) => {
-        return <Pixel key={`${x}-${y}`} filled={filled} x={x} y={y} />;
+        return <Pixel key={`${x}-${y}`} filled={filled} x={x} y={y} onClick={onClick} />;
       }),
       y !== row.length - 1 ? <br key={y} /> : null,
     ])}

@@ -10,11 +10,11 @@ export const PixelField: FC<IPixelFieldProps> = ({ pixelMass }) => (
     className="pixel-field"
     style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
   >
-    {pixelMass.map((row, y) => [
-      ...row.map((filled: string, x) => {
+    {pixelMass.map((row, x) => [
+      ...row.map((filled: string, y) => {
         return <Pixel key={`${x}-${y}`} filled={filled} x={x} y={y} />;
       }),
-      <br key={y} />,
+      <br key={x} />,
     ])}
   </div>
 );

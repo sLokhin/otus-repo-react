@@ -1,4 +1,4 @@
-
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-}
+import 'loki/configure-react';
+import  { addDecorator } from '@storybook/react';
+import  { withPropsTable } from 'storybook-addon-react-docgen';
+addDecorator(withPropsTable);

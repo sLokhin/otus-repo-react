@@ -7,7 +7,10 @@
     "start": "npx webpack serve --mode development --open --hot",
     "build": "npx webpack --mode production",
     "lint": "npx eslint --ext .js,.jsx,.ts,.tsx --fix ./",
+    "loki:update": "npm run build-storybook && npx loki update --requireReference --reactUri file:./storybook-static",
+    "loki:approve": "npx loki approve",
     "test": "npx jest",
+    "test:loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
     "calc": "npx ts-node src/calculator",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -52,6 +55,7 @@
     "html-webpack-plugin": "^4.5.1",
     "husky": "^4.3.8",
     "jest": "^26.6.3",
+    "loki": "^0.27.0",
     "prettier": "^2.2.1",
     "react-docgen-typescript-loader": "^3.7.2",
     "storybook-addon-react-docgen": "^1.2.42",
@@ -64,5 +68,20 @@
   "dependencies": {
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "loki": {
+    "configurations": {
+      "chrome.laptop": {
+        "target": "chrome.docker",
+        "width": 1366,
+        "height": 768,
+        "deviceScaleFactor": 1,
+        "mobile": false
+      },
+      "chrome.iphone7": {
+        "target": "chrome.docker",
+        "preset": "iPhone 7"
+      }
+    }
   }
 }

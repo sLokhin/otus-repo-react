@@ -38,7 +38,6 @@ import { getPixelField } from "./PixelField";
       expect(field.find(".pixel").length).toBe(6);
       expect(
         field.findWhere((el) => {
-          console.log("ELEMENT  ", el);
           return (
             el.html() === "Not clicked yet" && typeof el.type() !== "string"
           );

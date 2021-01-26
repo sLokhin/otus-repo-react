@@ -17,7 +17,6 @@ import { getPixelField } from "./PixelField";
             ["0", "0", "0"],
             ["0", "0", "0"],
           ],
-          onClick: jest.fn(),
         })
       );
       expect(field.find("br").length).toBe(3);
@@ -31,7 +30,6 @@ import { getPixelField } from "./PixelField";
             ["1", "1", "1"],
             ["0", "1", "0"],
           ],
-          onClick: jest.fn(),
         })
       );
       expect(field.find("br").length).toBe(2);
@@ -53,11 +51,8 @@ import { getPixelField } from "./PixelField";
             ["1", "1", "1"],
             ["0", "1", "0"],
           ],
-          onClick,
         })
       );
-      field.find(".pixel").at(0).simulate("click");
-      expect(onClick).toHaveBeenCalledWith(0, 0);
     });
   });
 });

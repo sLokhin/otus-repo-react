@@ -7,16 +7,13 @@ export default {
   decorators: [withKnobs],
 };
 
-const elementClickedJsx = action("Pixel clicked (jsx)")
-
 export const emptyPixelField = () => [
   <PixelField
     pixelMass={object("pixelMass", [
       ["0", "0", "0"],
       ["0", "0", "0"],
-      ["0", "0", "0"]
+      ["0", "0", "0"],
     ])}
-    onClick={elementClickedJsx}
     key="jsx"
   />,
 ];
@@ -25,9 +22,8 @@ export const commonPixelField = () => [
     pixelMass={object("pixelMass", [
       ["0", "0", "1"],
       ["0", "1", "0"],
-      ["1", "0", "1"]
+      ["1", "0", "1"],
     ])}
-    onClick={elementClickedJsx}
     key="jsx"
   />,
 ];

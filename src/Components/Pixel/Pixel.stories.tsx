@@ -7,16 +7,10 @@ export default {
   decorators: [withKnobs],
 };
 export const nonFilledPixel = () => [
-  <Pixel
-    onClick={action("Cell clicked jsx")}
-    x={number("x", 1)}
-    y={number("y", 23)}
-    key="jsx"
-  />,
+  <Pixel x={number("x", 1)} y={number("y", 23)} key="jsx" />,
 ];
 export const filledPixel = () => [
   <Pixel
-    onClick={action("Cell clicked jsx")}
     filled={text("filled with", "1")}
     x={number("x", 1)}
     y={number("y", 23)}

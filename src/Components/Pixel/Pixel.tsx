@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-interface IPixel {
+interface IPixelProps {
   filled?: string;
   x?: number;
   y?: number;
@@ -8,7 +8,7 @@ interface IPixel {
   onClick: (x: number, y: number) => void;
 }
 
-export const Pixel: FC<IPixel> = ({
+export const Pixel: FC<IPixelProps> = ({
   filled = "0",
   x = 0,
   y = 0,
@@ -34,3 +34,5 @@ export const Pixel: FC<IPixel> = ({
     </button>
   );
 };
+
+export const getPixel = (props: IPixelProps) => <Pixel {...props} />

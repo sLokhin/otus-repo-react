@@ -28,4 +28,6 @@ export const PixelField: FC<IPixelFieldProps> = ({ pixelMass, onClick }) => (
   </div>
 );
 
-export const getPixelField = (props: IPixelFieldProps) => <PixelField {...props} />
+export const getPixelField = (props: IPixelFieldProps) => (
+  <PixelField {...props} />
+);

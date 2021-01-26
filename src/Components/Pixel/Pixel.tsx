@@ -35,4 +35,4 @@ export const Pixel: FC<IPixelProps> = ({
   );
 };
 
-export const getPixel = (props: IPixelProps) => <Pixel {...props} />
+export const getPixel = (props: IPixelProps) => <Pixel {...props} />;

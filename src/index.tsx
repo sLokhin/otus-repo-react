@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { PixelField } from "./PixelField";
+import { PixelField } from "./Components/PixelField/PixelField";
 
 render(
   <PixelField

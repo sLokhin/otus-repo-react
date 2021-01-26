@@ -24,7 +24,7 @@ export const Pixel: FC<IPixel> = ({
         alignItems: "center",
         width: "120px",
         height: "50px",
-        backgroundColor: `${filled === "1" ? "green" : "red"}`,
+        backgroundColor: `${filled === "1" ? "grey" : "gainsboro"}`,
         margin: "2px 2px",
         textAlign: "center",
       }}

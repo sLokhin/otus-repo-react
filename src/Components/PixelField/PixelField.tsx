@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Pixel } from "./Pixel";
+import { Pixel } from "../Pixel/Pixel";
 
 interface IPixelFieldProps {
   pixelMass: string[][];

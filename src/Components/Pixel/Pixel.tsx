@@ -5,6 +5,7 @@ interface IPixelProps {
   filled?: string;
   x?: number;
   y?: number;
+  onClick: (coordX: number, coordY: number, newFlag: boolean) => void;
 }
 
 interface IPixelState {
@@ -16,20 +17,20 @@ export class Pixel extends Component<IPixelProps, IPixelState> {
     isClicked: false,
   };
 
-  onClick = () => {
-    const { isClicked } = this.state;
-    this.setState({ isClicked: true });
-  }
-
   render() {
     const { isClicked } = this.state;
-    const { filled, x, y } = this.props;
+    const { filled, x, y, onClick } = this.props;
+    const clickHandler = () => {
+      this.setState({ isClicked: true });
+      onClick(x || 0, y || 0, true)
+    }
+
     return (
       <div
         className="pixel-wrapper"
         style={{ display: "inline-block", margin: "2px" }}
       >
-        <PixelButton onClick={this.onClick} filled={filled}>
+        <PixelButton onClick={clickHandler} filled={filled}>
           {isClicked ? `Coords: ${x}-${y}` : "Not clicked yet"}
         </PixelButton>
       </div>

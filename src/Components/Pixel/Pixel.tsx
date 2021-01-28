@@ -12,21 +12,13 @@ interface IPixelState {
 }
 
 export class Pixel extends Component<IPixelProps, IPixelState> {
-  constructor(props: IPixelProps) {
-    super(props);
-    this.state = {
-      isClicked: false,
-    };
-    this.onClick = this.onClick.bind(this);
-  }
+  state = {
+    isClicked: false,
+  };
 
-  onClick() {
+  onClick = () => {
     const { isClicked } = this.state;
     this.setState({ isClicked: true });
-  }
-
-  componentDidMount() {
-    console.log('Component "Pixel": componentDidMount');
   }
 
   render() {

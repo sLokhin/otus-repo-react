@@ -36,16 +36,4 @@ describe("PixelField: JSX version", () => {
       }).length
     ).toBe(6);
   });
-
-  it("passed onClick inside cells", () => {
-    const onClick = jest.fn();
-    const field = mount(
-      getPixelField({
-        pixelMass: [
-          ["1", "1", "1"],
-          ["0", "1", "0"],
-        ],
-      })
-    );
-  });
 });

@@ -19,10 +19,11 @@ export class Pixel extends Component<IPixelProps, IPixelState> {
 
   render() {
     const { isClicked } = this.state;
-    const { filled, x, y, onClick } = this.props;
+    const { filled = "0", x = 0, y = 0, onClick = () => null } = this.props;
+
     const clickHandler = () => {
       this.setState({ isClicked: true });
-      onClick(x || 0, y || 0, true)
+      onClick(x, y, true)
     }
 
     return (

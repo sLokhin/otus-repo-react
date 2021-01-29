@@ -4,7 +4,8 @@ import { Pixel, getPixel } from "./Pixel";
 
 describe("Single Pixel: JSX version", () => {
   it("render default pixel", () => {
-    expect(render(getPixel({ onClick: () => null })).text()).toEqual("Not clicked yet");
+    const onClick = jest.fn();
+    expect(render(getPixel({ onClick: onClick })).text()).toEqual("Not clicked yet");
   });
 
   it("passed onClick inside Pixel", () => {
@@ -17,4 +18,12 @@ describe("Single Pixel: JSX version", () => {
     pixel.simulate("click");
     expect(onClick).toHaveBeenCalled();
   });
+
+  // Malfunction code example
+
+  // it("render default pixel", () => {
+  //   const onClick = jest.fn();
+  //   expect(render(<Pixel onClick={onClick}/>).text()).toEqual("Not clicked yet");
+  //   });
+  // });
 });

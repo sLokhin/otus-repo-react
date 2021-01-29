@@ -23,8 +23,8 @@ export class Pixel extends Component<IPixelProps, IPixelState> {
 
     const clickHandler = () => {
       this.setState({ isClicked: true });
-      onClick(x, y, true)
-    }
+      onClick(x, y, true);
+    };
 
     return (
       <div
@@ -38,5 +38,3 @@ export class Pixel extends Component<IPixelProps, IPixelState> {
     );
   }
 }
-
-export const getPixel = (props: IPixelProps) => <Pixel {...props} />;

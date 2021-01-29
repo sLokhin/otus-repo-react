@@ -25,7 +25,3 @@ export const PixelButton: FC<IPixelButtonProps> = ({
     </button>
   );
 };
-
-export const getPixelButton = (props: IPixelButtonProps) => (
-  <PixelButton {...props} />
-);

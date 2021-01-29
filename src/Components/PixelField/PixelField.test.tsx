@@ -1,17 +1,17 @@
 import React from "react";
 import { mount } from "enzyme";
-import { PixelField, getPixelField } from "./PixelField";
+import { PixelField } from "./PixelField";
 
 describe("PixelField: JSX version", () => {
   it("render empty field", () => {
     const field = mount(
-      getPixelField({
-        pixelMatrix: [
+      <PixelField
+        pixelMatrix={[
           ["0", "0", "0"],
           ["0", "0", "0"],
           ["0", "0", "0"],
-        ],
-      })
+        ]}
+      />
     );
     expect(field.find("br").length).toBe(3);
     expect(field.find(".pixel").length).toBe(9);
@@ -19,20 +19,18 @@ describe("PixelField: JSX version", () => {
 
   it("render common field", () => {
     const field = mount(
-      getPixelField({
-        pixelMatrix: [
+      <PixelField
+        pixelMatrix={[
           ["1", "1", "1"],
           ["0", "1", "0"],
-        ],
-      })
+        ]}
+      />
     );
     expect(field.find("br").length).toBe(2);
     expect(field.find(".pixel").length).toBe(6);
     expect(
       field.findWhere((el) => {
-        return (
-          el.html() === "Not clicked yet" && typeof el.type() !== "string"
-        );
+        return el.html() === "Not clicked yet" && typeof el.type() !== "string";
       }).length
     ).toBe(6);
   });

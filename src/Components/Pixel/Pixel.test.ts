@@ -15,7 +15,7 @@ describe("Single Pixel: JSX version", () => {
         onClick
       })
     );
-    pixel.simulate("click");
+    pixel.find(".pixel").at(0).simulate("click");
     expect(onClick).toHaveBeenCalled();
   });
 

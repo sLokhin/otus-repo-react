@@ -6,7 +6,7 @@ describe("PixelField: JSX version", () => {
   it("render empty field", () => {
     const field = mount(
       getPixelField({
-        pixelMass: [
+        pixelMatrix: [
           ["0", "0", "0"],
           ["0", "0", "0"],
           ["0", "0", "0"],
@@ -20,7 +20,7 @@ describe("PixelField: JSX version", () => {
   it("render common field", () => {
     const field = mount(
       getPixelField({
-        pixelMass: [
+        pixelMatrix: [
           ["1", "1", "1"],
           ["0", "1", "0"],
         ],

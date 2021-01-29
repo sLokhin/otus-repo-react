@@ -2,22 +2,22 @@ import React, { Component } from "react";
 import { Pixel } from "../Pixel/Pixel";
 
 interface IPixelFieldProps {
-  pixelMass: string[][];
+  pixelMatrix: string[][];
 }
 
 interface IPixelFieldState {
-  pixelClickedStatesMass: boolean[][];
+  pixelClickedStatesMatrix: boolean[][];
 }
 
 export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
   state = {
-    pixelClickedStatesMass: this.props.pixelMass.map(row => row.map(pixel => false))
+    pixelClickedStatesMatrix: this.props.pixelMatrix.map(row => row.map(pixel => false))
   };
 
   onClick = (coordX: number, coordY: number, newFlag: boolean) => {
-    const { pixelClickedStatesMass } = this.state;
+    const { pixelClickedStatesMatrix } = this.state;
 
-    const newClickedStatesMass: boolean[][] = pixelClickedStatesMass.map((rowMass, xIdx) => {
+    const newClickedStatesMatrix: boolean[][] = pixelClickedStatesMatrix.map((rowMass, xIdx) => {
       if (coordX === xIdx) {
         return rowMass.map((currentClickedState, yIdx) => {
           if (coordY === yIdx) {
@@ -29,20 +29,20 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
       return rowMass;
     });
 
-    console.log("NEW CLICK STATE MASS  ", newClickedStatesMass);
+    console.log("NEW CLICK STATE MATRIX  ", newClickedStatesMatrix);
 
-    this.setState({ pixelClickedStatesMass: newClickedStatesMass });
+    this.setState({ pixelClickedStatesMatrix: newClickedStatesMatrix });
   }
 
   render() {
-    const { pixelMass } = this.props;
+    const { pixelMatrix } = this.props;
     return (
       <div
         className="pixel-field"
         style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
       >
-        {pixelMass.map((row, x) => [
-          ...row.map((filled: string, y) => {
+        {pixelMatrix.map((row, x) => [
+          row.map((filled: string, y) => {
             return <Pixel key={`${x}-${y}`} filled={filled} x={x} y={y} onClick={this.onClick}/>;
           }),
           <br key={x} />,

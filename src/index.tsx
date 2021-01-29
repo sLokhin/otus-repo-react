@@ -5,7 +5,7 @@ import { PixelField } from "./Components/PixelField/PixelField";
 
 render(
   <PixelField
-    pixelMass={[
+    pixelMatrix={[
       ["1", "1", "1"],
       ["0", "1", "0"],
     ]}

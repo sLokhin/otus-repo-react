@@ -9,7 +9,7 @@ export default {
 
 export const emptyPixelField = () => [
   <PixelField
-    pixelMass={object("pixelMass", [
+    pixelMatrix={object("pixelMatrix", [
       ["0", "0", "0"],
       ["0", "0", "0"],
       ["0", "0", "0"],
@@ -19,7 +19,7 @@ export const emptyPixelField = () => [
 ];
 export const commonPixelField = () => [
   <PixelField
-    pixelMass={object("pixelMass", [
+    pixelMatrix={object("pixelMatrix", [
       ["0", "0", "1"],
       ["0", "1", "0"],
       ["1", "0", "1"],

@@ -11,7 +11,6 @@
     "loki:approve": "npx loki approve",
     "test": "npx jest",
     "test:loki": "npm run build-storybook && npx loki --requireReference --reactUri file:./storybook-static",
-    "calc": "npx ts-node src/calculator",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },

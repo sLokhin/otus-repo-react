@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PixelButton } from "../PixelButton/PixelButton";
+import { PixelButton } from "./components/PixelButton/PixelButton";
 
 interface IPixelProps {
   filled?: string;
@@ -17,21 +17,21 @@ export class Pixel extends Component<IPixelProps, IPixelState> {
     isClicked: false,
   };
 
+  onClickHandler() {
+    const { x = 0, y = 0, onClick = () => null } = this.props;
+    this.setState({ isClicked: true });
+    onClick(x, y, true);
+  }
+
   render() {
     const { isClicked } = this.state;
-    const { filled = "0", x = 0, y = 0, onClick = () => null } = this.props;
-
-    const clickHandler = () => {
-      this.setState({ isClicked: true });
-      onClick(x, y, true);
-    };
-
+    const { filled = "0", x = 0, y = 0 } = this.props;
     return (
       <div
         className="pixel-wrapper"
         style={{ display: "inline-block", margin: "2px" }}
       >
-        <PixelButton onClick={clickHandler} filled={filled}>
+        <PixelButton onClick={() => this.onClickHandler()} filled={filled}>
           {isClicked ? `Coords: ${x}-${y}` : "Not clicked yet"}
         </PixelButton>
       </div>

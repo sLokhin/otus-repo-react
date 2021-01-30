@@ -58,20 +58,23 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
         className="pixel-field"
         style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
       >
-        {pixelMatrix.map((row, x) => [
-          row.map((filled: string, y) => {
-            return (
-              <Pixel
-                key={`${x}-${y}`}
-                filled={filled}
-                x={x}
-                y={y}
-                onClick={this.onClick}
-              />
-            );
-          }),
-          <br key={x} />,
-        ])}
+        {pixelMatrix.reduce((result: any, row: string[], x: number): any => {
+          result.push(
+            row.map((filled: string, y) => {
+              return (
+                <Pixel
+                  key={`${x}-${y}`}
+                  filled={filled}
+                  x={x}
+                  y={y}
+                  onClick={this.onClick}
+                />
+              );
+            }),
+            <br key={x} />
+          );
+          return result;
+        }, [])}
       </div>
     );
   }

@@ -6,13 +6,15 @@ export default {
   title: "Lesson 5 / PixelButton",
   decorators: [withKnobs],
 };
-export const defaulPixelButton = () => [
-  <PixelButton onClick={action("Cell clicked jsx")} key="jsx" />,
-];
-export const filledPixelButton = () => [
-  <PixelButton
+
+export const defaulPixelButton = () => {
+  return <PixelButton onClick={action("Cell clicked jsx")} key="jsx" />
+};
+
+export const filledPixelButton = () => {
+  return <PixelButton
     onClick={action("Cell clicked jsx")}
     filled={text("filled with", "1")}
     key="jsx"
-  />,
-];
+  />
+};

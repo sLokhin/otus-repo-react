@@ -5,7 +5,7 @@ interface IPixelProps {
   filled?: string;
   x?: number;
   y?: number;
-  onClick: (coordX: number, coordY: number, newFlag: boolean) => void;
+  onClick?: (coordX: number, coordY: number, newFlag: boolean) => void;
 }
 
 interface IPixelState {

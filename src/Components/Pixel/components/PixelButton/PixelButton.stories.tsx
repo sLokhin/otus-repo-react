@@ -8,13 +8,15 @@ export default {
 };
 
 export const defaulPixelButton = () => {
-  return <PixelButton onClick={action("Cell clicked jsx")} key="jsx" />
+  return <PixelButton onClick={action("Cell clicked jsx")} key="jsx" />;
 };
 
 export const filledPixelButton = () => {
-  return <PixelButton
-    onClick={action("Cell clicked jsx")}
-    filled={text("filled with", "1")}
-    key="jsx"
-  />
+  return (
+    <PixelButton
+      onClick={action("Cell clicked jsx")}
+      filled={text("filled with", "1")}
+      key="jsx"
+    />
+  );
 };

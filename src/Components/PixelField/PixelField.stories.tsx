@@ -8,23 +8,27 @@ export default {
 };
 
 export const emptyPixelField = () => {
-  return <PixelField
-    pixelMatrix={object("pixelMatrix", [
-      ["0", "0", "0"],
-      ["0", "0", "0"],
-      ["0", "0", "0"],
-    ])}
-    key="jsx"
-  />
+  return (
+    <PixelField
+      pixelMatrix={object("pixelMatrix", [
+        ["0", "0", "0"],
+        ["0", "0", "0"],
+        ["0", "0", "0"],
+      ])}
+      key="jsx"
+    />
+  );
 };
 
 export const commonPixelField = () => {
-  return <PixelField
-    pixelMatrix={object("pixelMatrix", [
-      ["0", "0", "1"],
-      ["0", "1", "0"],
-      ["1", "0", "1"],
-    ])}
-    key="jsx"
-  />
+  return (
+    <PixelField
+      pixelMatrix={object("pixelMatrix", [
+        ["0", "0", "1"],
+        ["0", "1", "0"],
+        ["1", "0", "1"],
+      ])}
+      key="jsx"
+    />
+  );
 };

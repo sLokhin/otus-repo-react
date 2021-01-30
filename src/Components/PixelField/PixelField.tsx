@@ -16,10 +16,8 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
     ),
   };
 
-  onClick = (coordX: number, coordY: number, newFlag: boolean) => {
-    const { pixelClickedStatesMatrix } = this.state;
-
-    const newClickedStatesMatrix: boolean[][] = pixelClickedStatesMatrix.map(
+  getNewClickedStatesMatrix(coordX: number, coordY: number, newFlag: boolean, currentClickedMatrix: boolean[][]): boolean[][] {
+    return currentClickedMatrix.map(
       (rowMass, xIdx) => {
         if (coordX === xIdx) {
           return rowMass.map((currentClickedState, yIdx) => {
@@ -33,7 +31,12 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
         }
         return rowMass;
       }
-    );
+    )
+  }
+
+  onClick = (coordX: number, coordY: number, newFlag: boolean) => {
+    const { pixelClickedStatesMatrix } = this.state;
+    const newClickedStatesMatrix = this.getNewClickedStatesMatrix(coordX, coordY, newFlag, pixelClickedStatesMatrix);
 
     console.log("NEW CLICK STATE MATRIX  ", newClickedStatesMatrix);
 

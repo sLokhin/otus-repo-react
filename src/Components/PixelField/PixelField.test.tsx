@@ -14,6 +14,7 @@ describe("PixelField: JSX version", () => {
       />
     );
     expect(field.find("br").length).toBe(3);
+    expect(field.find(".pixel-wrapper").length).toBe(9);
     expect(field.find(".pixel").length).toBe(9);
   });
 
@@ -27,6 +28,7 @@ describe("PixelField: JSX version", () => {
       />
     );
     expect(field.find("br").length).toBe(2);
+    expect(field.find(".pixel-wrapper").length).toBe(6);
     expect(field.find(".pixel").length).toBe(6);
     expect(
       field.findWhere((el) => {

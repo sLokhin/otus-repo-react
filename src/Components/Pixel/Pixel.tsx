@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { PixelButton } from "./components/PixelButton/PixelButton";
+import styled from "@emotion/styled";
 
 interface IPixelProps {
   filled?: string;
@@ -11,6 +12,11 @@ interface IPixelProps {
 interface IPixelState {
   isClicked: boolean;
 }
+
+const PixelDiv = styled.div(() => ({
+  display: "inline-block",
+  margin: "2px",
+}))
 
 export class Pixel extends Component<IPixelProps, IPixelState> {
   state = {
@@ -27,14 +33,13 @@ export class Pixel extends Component<IPixelProps, IPixelState> {
     const { isClicked } = this.state;
     const { filled = "0", x = 0, y = 0 } = this.props;
     return (
-      <div
+      <PixelDiv
         className="pixel-wrapper"
-        style={{ display: "inline-block", margin: "2px" }}
       >
         <PixelButton onClick={() => this.onClickHandler()} filled={filled}>
           {isClicked ? `Coords: ${x}-${y}` : "Not clicked yet"}
         </PixelButton>
-      </div>
+      </PixelDiv>
     );
   }
 }

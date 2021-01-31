@@ -1,6 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
 import { PixelField } from "./PixelField";
+import { Pixel } from "../Pixel/Pixel";
+import { PixelButton } from "../Pixel/components/PixelButton/PixelButton";
 
 describe("PixelField: JSX version", () => {
   it("render empty field", () => {
@@ -14,8 +16,8 @@ describe("PixelField: JSX version", () => {
       />
     );
     expect(field.find("br").length).toBe(3);
-    expect(field.find(".pixel-wrapper").length).toBe(9);
-    expect(field.find(".pixel").length).toBe(9);
+    expect(field.find("Pixel").length).toBe(9);
+    expect(field.find("PixelButton").length).toBe(9);
   });
 
   it("render common field", () => {
@@ -28,8 +30,8 @@ describe("PixelField: JSX version", () => {
       />
     );
     expect(field.find("br").length).toBe(2);
-    expect(field.find(".pixel-wrapper").length).toBe(6);
-    expect(field.find(".pixel").length).toBe(6);
+    expect(field.find("Pixel").length).toBe(6);
+    expect(field.find("PixelButton").length).toBe(6);
     expect(
       field.findWhere((el) => {
         return el.html() === "Not clicked yet" && typeof el.type() !== "string";

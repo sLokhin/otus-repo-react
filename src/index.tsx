@@ -3,7 +3,7 @@ import { render } from "react-dom";
 
 import { PixelField } from "./Components/PixelField/PixelField";
 import { MainScreen } from "./lesson8/MainScreen";
-
+import { ErrorBoundary } from "./lesson8/ErrorBoundary";
 // render(
 //   <PixelField
 //     pixelMatrix={[
@@ -14,4 +14,9 @@ import { MainScreen } from "./lesson8/MainScreen";
 //   document.getElementById("root")
 // );
 
-render(<MainScreen />, document.getElementById("root"));
+render(
+  <ErrorBoundary>
+    <MainScreen />
+  </ErrorBoundary>,
+  document.getElementById("root")
+);

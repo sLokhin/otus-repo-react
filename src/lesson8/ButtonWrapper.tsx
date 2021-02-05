@@ -19,7 +19,7 @@ export class ButtonWrapper extends React.Component<IButtonWrapperProps, {}> {
 
   shouldComponentUpdate(nextProps: IButtonWrapperProps, {}) {
     const flag = this.props.isDisabled !== nextProps.isDisabled;
-    console.log("FLAG   ", flag);
+    console.log("FLAG from Button Wrapper ", flag);
     return flag;
   }
 

@@ -103,6 +103,9 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
   }
 
   render() {
+    if (this.state.questionDoneCounter === 5) {
+      throw new Error("Oh ...., I'm sorry...");
+    }
     return (
       <Container>
         <h1>Yes / No question</h1>

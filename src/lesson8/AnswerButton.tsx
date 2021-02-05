@@ -15,6 +15,7 @@ const Button = styled.button<IAnswerButtonProps>((props) => ({
   color: props.isDisabled ? "grey" : "",
   opacity: props.isDisabled ? 0.7 : 1,
   pointerEvents: props.isDisabled ? "none" : "auto",
+  userSelect: "none",
 }));
 
 export const AnswerButton: FC<IAnswerButtonProps> = ({

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
 import { AnswerButton } from "./AnswerButton";
+import { QuestionWindow } from "./QuestionWindow";
 const Container = styled.div`
   text-align: ${"center"};
 `;
@@ -35,6 +36,7 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     return (
       <Container>
         <h1>Yes / No question</h1>
+        <QuestionWindow></QuestionWindow>
         <ButtonWrapper>
           <AnswerButton onClick={this.increment}>Yes</AnswerButton>
           <AnswerButton onClick={this.increment}>No</AnswerButton>

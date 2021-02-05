@@ -9,14 +9,16 @@ export const getRandom: GetRandomFunction = (min, max) => {
 
 export const getJSON: GetJSONFunction = async () => {
   const min = 1;
-  const max = 199;
+  const max = 399;
   const rand = getRandom(min, max);
   return new Promise((resolve) => {
     fetch(`${QuestionLink}/${rand}`)
       .then((response) => response.json())
       .then((json) => {
-        console.log("JSON  ", json);
-        resolve(json);
+        setTimeout(() => {
+          console.log("JSON  ", json);
+          resolve(json);
+        }, 500);
       });
   });
 };

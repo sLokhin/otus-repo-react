@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
-import { AnswerButton } from "./AnswerButton";
+import { ButtonWrapper } from "./ButtonWrapper";
 import { QuestionWindow } from "./QuestionWindow";
 import { getJSON } from "./utils";
 
@@ -8,27 +8,27 @@ const Container = styled.div`
   text-align: ${"center"};
 `;
 
-const ButtonWrapper = styled.div`
-  text-align: ${"center"};
-`;
-
 interface IMainScreenState {
   questionDoneCounter: number;
   questionText: string;
   questionEmail: string;
+  jsonReceived: boolean;
 }
 
 export class MainScreen extends React.Component<{}, IMainScreenState> {
   _isMounted: boolean;
+  _defaultLoadingMessage: string;
 
   constructor({}) {
     super({});
+    this._isMounted = false;
+    this._defaultLoadingMessage = "Loading...";
     this.state = {
       questionDoneCounter: 0,
-      questionEmail: "Loading...",
-      questionText: "Loading...",
+      questionEmail: this._defaultLoadingMessage,
+      questionText: this._defaultLoadingMessage,
+      jsonReceived: false,
     };
-    this._isMounted = false;
     this.increment = this.increment.bind(this);
     this.getNewQuestion = this.getNewQuestion.bind(this);
   }
@@ -36,6 +36,9 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
   private increment() {
     this.setState((state) => ({
       questionDoneCounter: state.questionDoneCounter + 1,
+      questionEmail: this._defaultLoadingMessage,
+      questionText: this._defaultLoadingMessage,
+      jsonReceived: false,
     }));
   }
 
@@ -43,9 +46,11 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     getJSON().then((json) => {
       if (this._isMounted) {
         console.log("FROM JSON ", json.email);
+
         this.setState({
           questionEmail: json.email,
           questionText: json.body,
+          jsonReceived: true,
         });
       }
     });
@@ -61,8 +66,10 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
       this.getNewQuestion();
     }
     console.log(
-      "new state ----- ",
+      "===== new state =====",
+      "questionDoneCounter:",
       this.state.questionDoneCounter,
+      "questionEmail:",
       this.state.questionEmail
     );
   }
@@ -75,10 +82,10 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
           email={this.state.questionEmail}
           question={this.state.questionText}
         ></QuestionWindow>
-        <ButtonWrapper>
-          <AnswerButton onClick={this.increment}>Yes</AnswerButton>
-          <AnswerButton onClick={this.increment}>No</AnswerButton>
-        </ButtonWrapper>
+        <ButtonWrapper
+          isDisabled={!this.state.jsonReceived}
+          onClick={this.increment}
+        ></ButtonWrapper>
       </Container>
     );
   }

@@ -5,6 +5,10 @@ import { QuestionWindow } from "./QuestionWindow";
 import { Hint } from "./Hint";
 import { getJSON } from "./utils";
 
+const H1 = styled.h1`
+  display: ${"block"};
+`;
+
 const Container = styled.div`
   position: ${"relative"};
   text-align: ${"center"};
@@ -104,11 +108,11 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
 
   render() {
     if (this.state.questionDoneCounter === 5) {
-      throw new Error("Oh ...., I'm sorry...");
+      throw new Error("I'm sorry...");
     }
     return (
       <Container>
-        <h1>Yes / No question</h1>
+        <H1>Yes / No question</H1>
         <QuestionWindow
           email={this.state.questionEmail}
           question={this.state.questionText}

@@ -22,6 +22,7 @@ const Div = styled.div`
   font-size: ${"20px"};
   border: ${"2px solid grey"};
   background-color: ${"gainsboro"};
+  text-align: ${"center"};
 `;
 
 const Span = styled.span<ISpanProps>((props) => ({

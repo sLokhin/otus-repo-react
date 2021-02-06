@@ -108,7 +108,7 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
 
   render() {
     if (this.state.questionDoneCounter === 5) {
-      throw new Error("I'm sorry...");
+      throw new Error("I'm sorry... too many question for today");
     }
     return (
       <Container>

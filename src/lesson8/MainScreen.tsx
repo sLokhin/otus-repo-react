@@ -63,8 +63,6 @@ export class MainScreen extends React.Component<
     this.clearTimeout();
     getJSON().then((json) => {
       if (this._isMounted) {
-        console.log("FROM JSON ", json.email);
-
         this._timeoutID = setTimeout(
           () => this.setState({ showHint: true }),
           3000
@@ -101,14 +99,6 @@ export class MainScreen extends React.Component<
     if (prevState.questionDoneCounter !== this.state.questionDoneCounter) {
       this.getNewQuestion();
     }
-
-    console.log(
-      "===== new state =====",
-      "questionDoneCounter:",
-      this.state.questionDoneCounter,
-      "questionEmail:",
-      this.state.questionEmail
-    );
   }
 
   render() {

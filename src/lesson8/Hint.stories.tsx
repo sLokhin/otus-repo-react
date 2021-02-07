@@ -18,10 +18,5 @@ export const hintDefault = () => {
 };
 
 export const hintWithCustomText = () => {
-  return (
-    <Hint
-      demoStyles={true}
-      message={text("hint text", "custom text")}
-    />
-  );
+  return <Hint demoStyles={true} message={text("hint text", "custom text")} />;
 };

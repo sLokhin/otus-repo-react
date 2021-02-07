@@ -35,7 +35,6 @@ export const getJSON: GetJSONFunction = async () => {
       .then((response) => response.json())
       .then((json) => {
         setTimeout(() => {
-          console.log("JSON  ", json);
           resolve(json);
         }, 500);
       });

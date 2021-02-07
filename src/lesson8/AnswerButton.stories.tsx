@@ -18,7 +18,6 @@ export const answerButtonActive = () => {
     <AnswerButton
       onClick={action("AnswerButton clicked")}
       isDisabled={boolean("Disabled", false)}
-      key="button-active"
     />
   );
 };
@@ -28,7 +27,6 @@ export const answerButtonDisabled = () => {
     <AnswerButton
       onClick={action("AnswerButton clicked")}
       isDisabled={boolean("Disabled", true)}
-      key="button-disabled"
     />
   );
 };

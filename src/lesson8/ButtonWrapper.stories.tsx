@@ -18,7 +18,6 @@ export const buttonWrapperActive = () => {
     <ButtonWrapper
       onClick={action("ButtonWrapper clicked")}
       isDisabled={boolean("Disabled", false)}
-      key="button-wrapper-active"
     />
   );
 };
@@ -28,7 +27,6 @@ export const buttonWrapperDisabled = () => {
     <ButtonWrapper
       onClick={action("ButtonWrapper clicked")}
       isDisabled={boolean("Disabled", true)}
-      key="button-wrapper-disabled"
     />
   );
 };

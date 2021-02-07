@@ -14,5 +14,5 @@ export default {
 };
 
 export const mainScreenDefault = () => {
-  return <MainScreen key="main-screen-default" />;
+  return <MainScreen />;
 };

@@ -18,7 +18,6 @@ export const questionWindowDefault = () => {
     <QuestionWindow
       email={text("email", "default@mail.com")}
       question={text("question", "default question")}
-      key="question-window-default"
     />
   );
 };

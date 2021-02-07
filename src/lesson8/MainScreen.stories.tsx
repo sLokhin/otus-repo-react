@@ -13,6 +13,6 @@ export default {
   decorators: [withKnobs],
 };
 
-export const questionWindowDefault = () => {
+export const mainScreenDefault = () => {
   return <MainScreen key="main-screen-default" />;
 };

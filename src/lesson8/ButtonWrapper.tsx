@@ -29,15 +29,13 @@ export class ButtonWrapper extends React.Component<IButtonWrapperProps, {}> {
         <AnswerButton
           isDisabled={this.props.isDisabled}
           onClick={this.props.onClick}
-        >
-          Yes
-        </AnswerButton>
+          buttonText={"Yes"}
+        ></AnswerButton>
         <AnswerButton
           isDisabled={this.props.isDisabled}
           onClick={this.props.onClick}
-        >
-          No
-        </AnswerButton>
+          buttonText={"No"}
+        ></AnswerButton>
       </Div>
     );
   }

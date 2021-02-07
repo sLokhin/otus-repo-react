@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 interface IAnswerButtonProps {
   onClick: () => void;
   isDisabled: boolean;
-  children?: string;
+  buttonText?: string;
 }
 
 const Button = styled.button<IAnswerButtonProps>((props) => ({
@@ -21,11 +21,11 @@ const Button = styled.button<IAnswerButtonProps>((props) => ({
 export const AnswerButton: FC<IAnswerButtonProps> = ({
   onClick,
   isDisabled,
-  children = "Default",
+  buttonText = "Default",
 }) => {
   return (
     <Button isDisabled={isDisabled} onClick={onClick}>
-      {children}
+      {buttonText}
     </Button>
   );
 };

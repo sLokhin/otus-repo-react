@@ -27,10 +27,8 @@ const Div = styled.div((props) => ({
 export const Hint: FC<IHintProps> = ({
   demoStyles = false,
   message = "Answer faster, please (((",
-}) => {
-  return (
-    <Div className={demoStyles ? "timeout-hint-demo-styles" : "timeout-hint"}>
-      {message}
-    </Div>
-  );
-};
+}) => (
+  <Div className={demoStyles ? "timeout-hint-demo-styles" : "timeout-hint"}>
+    {message}
+  </Div>
+);

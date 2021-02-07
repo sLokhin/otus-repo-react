@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { MainScreen } from "./MainScreen";
-import { getRandomNumber, getURL, QuestionLink } from "./utils";
+import { getRandomNumber, createURL, QuestionLink } from "./utils";
 
 describe("MainScreen", () => {
   it("test getRandomNumber function correct params", () => {
@@ -22,21 +22,21 @@ describe("MainScreen", () => {
     );
   });
 
-  it("test getURL function", () => {
+  it("test createURL function", () => {
     const testID = 99;
-    expect(getURL(testID)).toBe(`${QuestionLink}/${testID}`);
-    expect(getURL(testID)).toBe(`${QuestionLink}/99`);
-    expect(getURL(testID)).not.toBe(`${QuestionLink}/98`);
-    expect(getURL(testID)).not.toBe(`${QuestionLink}/100`);
+    expect(createURL(testID)).toBe(`${QuestionLink}/${testID}`);
+    expect(createURL(testID)).toBe(`${QuestionLink}/99`);
+    expect(createURL(testID)).not.toBe(`${QuestionLink}/98`);
+    expect(createURL(testID)).not.toBe(`${QuestionLink}/100`);
 
-    expect(getURL(0)).toBe(`${QuestionLink}/0`);
-    expect(getURL(-15)).toBe(`${QuestionLink}/-15`);
-    expect(getURL(15)).toBe(`${QuestionLink}/15`);
+    expect(createURL(0)).toBe(`${QuestionLink}/0`);
+    expect(createURL(-15)).toBe(`${QuestionLink}/-15`);
+    expect(createURL(15)).toBe(`${QuestionLink}/15`);
 
     const randomNumber = getRandomNumber(0, 100);
-    expect(getURL(testID)).toBe(`${QuestionLink}/${testID}`);
-    expect(getURL(testID)).not.toBe(`${QuestionLink}/${testID - 1}`);
-    expect(getURL(testID)).not.toBe(`${QuestionLink}/${testID + 1}`);
+    expect(createURL(testID)).toBe(`${QuestionLink}/${testID}`);
+    expect(createURL(testID)).not.toBe(`${QuestionLink}/${testID - 1}`);
+    expect(createURL(testID)).not.toBe(`${QuestionLink}/${testID + 1}`);
   });
 
   it("render MainSreen", () => {

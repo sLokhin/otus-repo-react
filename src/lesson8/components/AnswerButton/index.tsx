@@ -7,7 +7,7 @@ interface IAnswerButtonProps {
   buttonText?: string;
 }
 
-const Button = styled.button<IAnswerButtonProps>((props) => ({
+const Button = styled.button<IAnswerButtonProps>((props: IAnswerButtonProps) => ({
   margin: "0 10px",
   width: "120px",
   height: "50px",

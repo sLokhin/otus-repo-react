@@ -7,7 +7,7 @@ import {
   object,
   boolean,
 } from "@storybook/addon-knobs";
-import { QuestionWindow } from "./QuestionWindow";
+import { QuestionWindow } from "./index";
 export default {
   title: "Lesson 8/QuestionWindow",
   decorators: [withKnobs],

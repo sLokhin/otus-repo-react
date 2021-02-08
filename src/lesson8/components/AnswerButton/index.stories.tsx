@@ -7,25 +7,25 @@ import {
   object,
   boolean,
 } from "@storybook/addon-knobs";
-import { ButtonWrapper } from "./ButtonWrapper";
+import { AnswerButton } from "./index";
 export default {
-  title: "Lesson 8/ButtonWrapper",
+  title: "Lesson 8/AnswerButton",
   decorators: [withKnobs],
 };
 
-export const buttonWrapperActive = () => {
+export const answerButtonActive = () => {
   return (
-    <ButtonWrapper
-      onClick={action("ButtonWrapper clicked")}
+    <AnswerButton
+      onClick={action("AnswerButton clicked")}
       isDisabled={boolean("Disabled", false)}
     />
   );
 };
 
-export const buttonWrapperDisabled = () => {
+export const answerButtonDisabled = () => {
   return (
-    <ButtonWrapper
-      onClick={action("ButtonWrapper clicked")}
+    <AnswerButton
+      onClick={action("AnswerButton clicked")}
       isDisabled={boolean("Disabled", true)}
     />
   );

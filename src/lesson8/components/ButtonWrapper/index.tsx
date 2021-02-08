@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
-import { AnswerButton } from "./AnswerButton";
+import { AnswerButton } from "../AnswerButton";
 
 interface IButtonWrapperProps {
   onClick: () => void;

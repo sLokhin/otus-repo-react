@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
-import { MainScreen } from "./MainScreen";
-import { getRandomNumber, createURL, QuestionLink } from "./utils";
+import { MainScreen } from "../MainScreen";
+import { getRandomNumber, createURL, QuestionLink } from "../../Utils/utils";
 
 describe("MainScreen", () => {
   it("test getRandomNumber function correct params", () => {

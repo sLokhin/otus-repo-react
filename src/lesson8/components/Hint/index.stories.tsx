@@ -7,7 +7,7 @@ import {
   object,
   boolean,
 } from "@storybook/addon-knobs";
-import { Hint } from "./Hint";
+import { Hint } from "./index";
 export default {
   title: "Lesson 8/Hint",
   decorators: [withKnobs],

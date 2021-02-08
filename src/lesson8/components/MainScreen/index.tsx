@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import styled from "@emotion/styled";
-import { ButtonWrapper } from "./ButtonWrapper";
-import { QuestionWindow } from "./QuestionWindow";
-import { Hint } from "./Hint";
-import { getJSON } from "./utils";
+import { ButtonWrapper } from "../ButtonWrapper";
+import { QuestionWindow } from "../QuestionWindow";
+import { Hint } from "../Hint";
+import { getJSON } from "../../Utils/utils";
 
 const H1 = styled.h1`
   display: ${"block"};

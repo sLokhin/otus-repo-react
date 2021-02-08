@@ -7,7 +7,7 @@ import {
   object,
   boolean,
 } from "@storybook/addon-knobs";
-import { MainScreen } from "./MainScreen";
+import { MainScreen } from "./index";
 export default {
   title: "Lesson 8/MainScreen",
   decorators: [withKnobs],

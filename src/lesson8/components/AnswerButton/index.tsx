@@ -24,7 +24,11 @@ export const AnswerButton: FC<IAnswerButtonProps> = ({
   buttonText = "Default",
 }) => {
   return (
-    <Button isDisabled={isDisabled} onClick={onClick}>
+    <Button
+      className={"answer-button"}
+      isDisabled={isDisabled}
+      onClick={onClick}
+    >
       {buttonText}
     </Button>
   );

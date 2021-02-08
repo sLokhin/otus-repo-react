@@ -22,10 +22,7 @@ interface IMainScreenState {
   showHint: boolean;
 }
 
-export class MainScreen extends React.Component<
-  {},
-  IMainScreenState
-> {
+export class MainScreen extends React.Component<{}, IMainScreenState> {
   _isMounted: boolean;
   _defaultLoadingMessage: string;
   _timeoutID?: NodeJS.Timeout;
@@ -44,6 +41,7 @@ export class MainScreen extends React.Component<
     this.increment = this.increment.bind(this);
     this.getNewQuestion = this.getNewQuestion.bind(this);
     this.clearTimeout = this.clearTimeout.bind(this);
+    this.testClickFunction = this.testClickFunction.bind(this);
   }
 
   private increment() {
@@ -83,14 +81,26 @@ export class MainScreen extends React.Component<
     }
   }
 
+  private testClickFunction() {
+    console.log("Button Clicked !!!");
+  }
+
   componentDidMount() {
     this._isMounted = true;
     this.getNewQuestion();
+    const buttons = document.getElementsByClassName("answer-button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].addEventListener("click", this.testClickFunction);
+    }
   }
 
   componentWillUnmount() {
     this._isMounted = false;
     this.clearTimeout();
+    const buttons = document.getElementsByClassName("answer-button");
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].removeEventListener("click", this.testClickFunction);
+    }
   }
 
   componentDidUpdate({}, prevState: IMainScreenState) {

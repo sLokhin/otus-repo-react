@@ -15,13 +15,19 @@ interface IErrorBoundaryState {
   errorInfo: React.ErrorInfo | null;
 }
 
-export class ErrorBoundary extends React.Component<Record<string, unknown>, IErrorBoundaryState> {
+export class ErrorBoundary extends React.Component<
+  Record<string, unknown>,
+  IErrorBoundaryState
+> {
   constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { error: null, errorInfo: null };
   }
 
-  componentDidCatch(error: Error | null, errorInfo: React.ErrorInfo | null): void {
+  componentDidCatch(
+    error: Error | null,
+    errorInfo: React.ErrorInfo | null
+  ): void {
     this.setState({
       error: error,
       errorInfo: errorInfo,

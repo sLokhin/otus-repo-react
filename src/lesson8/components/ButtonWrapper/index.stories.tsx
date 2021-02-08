@@ -13,7 +13,7 @@ export default {
   decorators: [withKnobs],
 };
 
-export const buttonWrapperActive = () => {
+export const buttonWrapperActive = (): React.ReactNode => {
   return (
     <ButtonWrapper
       onClick={action("ButtonWrapper clicked")}
@@ -22,7 +22,7 @@ export const buttonWrapperActive = () => {
   );
 };
 
-export const buttonWrapperDisabled = () => {
+export const buttonWrapperDisabled = (): React.ReactNode => {
   return (
     <ButtonWrapper
       onClick={action("ButtonWrapper clicked")}

@@ -22,7 +22,10 @@ interface IMainScreenState {
   showHint: boolean;
 }
 
-export class MainScreen extends React.Component<{}, IMainScreenState> {
+export class MainScreen extends React.Component<
+  Record<string, unknown>,
+  IMainScreenState
+> {
   _isMounted: boolean;
   _defaultLoadingMessage: string;
   _timeoutID?: NodeJS.Timeout;
@@ -44,7 +47,7 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     this.testClickFunction = this.testClickFunction.bind(this);
   }
 
-  private increment() {
+  private increment(): void {
     this.clearTimeout();
     this.setState((state) => ({
       questionDoneCounter: state.questionDoneCounter + 1,
@@ -55,7 +58,7 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     }));
   }
 
-  private getNewQuestion() {
+  private getNewQuestion(): void {
     this.clearTimeout();
     getJSON().then((json) => {
       if (this._isMounted) {
@@ -74,18 +77,18 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     });
   }
 
-  private clearTimeout() {
+  private clearTimeout(): void {
     if (this._timeoutID) {
       clearTimeout(this._timeoutID);
       this._timeoutID = undefined;
     }
   }
 
-  private testClickFunction() {
+  private testClickFunction(): void {
     console.log("Button Clicked !!!");
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this._isMounted = true;
     this.getNewQuestion();
     const buttons = document.getElementsByClassName("answer-button");
@@ -94,7 +97,7 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     this._isMounted = false;
     this.clearTimeout();
     const buttons = document.getElementsByClassName("answer-button");
@@ -103,13 +106,16 @@ export class MainScreen extends React.Component<{}, IMainScreenState> {
     }
   }
 
-  componentDidUpdate({}, prevState: IMainScreenState) {
+  componentDidUpdate(
+    prevProps: Record<string, unknown>,
+    prevState: IMainScreenState
+  ): void {
     if (prevState.questionDoneCounter !== this.state.questionDoneCounter) {
       this.getNewQuestion();
     }
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.questionDoneCounter === 5) {
       throw new Error("I'm sorry... too many question for today");
     }

@@ -13,10 +13,10 @@ export default {
   decorators: [withKnobs],
 };
 
-export const hintDefault = () => {
+export const hintDefault = (): React.ReactNode => {
   return <Hint demoStyles={true} />;
 };
 
-export const hintWithCustomText = () => {
+export const hintWithCustomText = (): React.ReactNode => {
   return <Hint demoStyles={true} message={text("hint text", "custom text")} />;
 };

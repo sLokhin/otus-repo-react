@@ -25,7 +25,7 @@ const Div = styled.div`
   text-align: ${"center"};
 `;
 
-const Span = styled.span<ISpanProps>((props) => ({
+const Span = styled.span((props: ISpanProps) => ({
   margin: props.isAskingSpan === true ? "7px 0 0 0" : "0",
   fontWeight: props.isHeaderSpan === true ? "bold" : "normal",
 }));

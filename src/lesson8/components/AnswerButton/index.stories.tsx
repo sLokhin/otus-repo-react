@@ -13,7 +13,7 @@ export default {
   decorators: [withKnobs],
 };
 
-export const answerButtonActive = () => {
+export const answerButtonActive = (): React.ReactNode => {
   return (
     <AnswerButton
       onClick={action("AnswerButton clicked")}
@@ -22,7 +22,7 @@ export const answerButtonActive = () => {
   );
 };
 
-export const answerButtonDisabled = () => {
+export const answerButtonDisabled = (): React.ReactNode => {
   return (
     <AnswerButton
       onClick={action("AnswerButton clicked")}

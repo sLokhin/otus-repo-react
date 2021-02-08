@@ -13,6 +13,6 @@ export default {
   decorators: [withKnobs],
 };
 
-export const mainScreenDefault = () => {
+export const mainScreenDefault = (): React.ReactNode => {
   return <MainScreen />;
 };

@@ -13,7 +13,7 @@ export default {
   decorators: [withKnobs],
 };
 
-export const questionWindowDefault = () => {
+export const questionWindowDefault = (): React.ReactNode => {
   return (
     <QuestionWindow
       email={text("email", "default@mail.com")}

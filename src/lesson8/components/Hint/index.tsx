@@ -6,7 +6,11 @@ interface IHintProps {
   message?: string;
 }
 
-const Div = styled.div((props) => ({
+interface IDivProps {
+  className?: string;
+}
+
+const Div = styled.div((props: IDivProps) => ({
   position: "absolute",
   display: "inline-block",
   top:

@@ -11,24 +11,24 @@ const ErrorContainer = styled.div`
 `;
 
 interface IErrorBoundaryState {
-  error: any;
-  errorInfo: any;
+  error: Error | null;
+  errorInfo: React.ErrorInfo | null;
 }
 
-export class ErrorBoundary extends React.Component<{}, IErrorBoundaryState> {
-  constructor(props: any) {
+export class ErrorBoundary extends React.Component<Record<string, unknown>, IErrorBoundaryState> {
+  constructor(props: Record<string, unknown>) {
     super(props);
     this.state = { error: null, errorInfo: null };
   }
 
-  componentDidCatch(error: any, errorInfo: any) {
+  componentDidCatch(error: Error | null, errorInfo: React.ErrorInfo | null): void {
     this.setState({
       error: error,
       errorInfo: errorInfo,
     });
   }
 
-  render() {
+  render(): React.ReactNode {
     if (this.state.errorInfo) {
       return (
         <ErrorContainer className={"error-container"}>

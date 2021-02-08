@@ -22,17 +22,15 @@ interface IMainScreenState {
   showHint: boolean;
 }
 
-interface IMainScreenProps {}
-
 export class MainScreen extends React.Component<
-  IMainScreenProps,
+  {},
   IMainScreenState
 > {
   _isMounted: boolean;
   _defaultLoadingMessage: string;
   _timeoutID?: NodeJS.Timeout;
 
-  constructor(props: IMainScreenProps) {
+  constructor(props: Record<string, unknown>) {
     super(props);
     this._isMounted = false;
     this._defaultLoadingMessage = "Loading...";

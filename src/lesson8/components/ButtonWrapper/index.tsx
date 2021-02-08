@@ -8,7 +8,7 @@ interface IButtonWrapperProps {
 }
 
 const Div = styled.div`
-  textalign: ${"center"};
+  text-align: center;
 `;
 
 export class ButtonWrapper extends React.Component<IButtonWrapperProps> {

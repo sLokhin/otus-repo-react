@@ -2,12 +2,12 @@ import React, { FC } from "react";
 import styled from "@emotion/styled";
 
 const ErrorContainer = styled.div`
-  position: ${"relative"};
-  width: ${"350px"};
-  margin: ${"auto"};
-  padding: ${"0px 10px 10px 10px"};
-  text-align: ${"center"};
-  border: ${"2px solid red"};
+  position: relative;
+  width: 350px;
+  margin: auto;
+  padding: 0px 10px 10px 10px;
+  text-align: center;
+  border: 2px solid red;
 `;
 
 interface IErrorBoundaryState {

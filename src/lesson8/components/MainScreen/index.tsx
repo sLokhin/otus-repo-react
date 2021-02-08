@@ -6,12 +6,12 @@ import { Hint } from "../Hint";
 import { getJSON } from "../../Utils/utils";
 
 const H1 = styled.h1`
-  display: ${"block"};
+  display: block;
 `;
 
 const Container = styled.div`
-  position: ${"relative"};
-  text-align: ${"center"};
+  position: relative;
+  text-align: center;
 `;
 
 interface IMainScreenState {

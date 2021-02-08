@@ -17,7 +17,7 @@ export class ButtonWrapper extends React.Component<IButtonWrapperProps> {
     return flag;
   }
 
-  render() {
+  render(): React.ReactNode {
     return (
       <Div>
         <AnswerButton

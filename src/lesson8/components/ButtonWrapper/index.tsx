@@ -11,13 +11,8 @@ const Div = styled.div`
   textalign: ${"center"};
 `;
 
-export class ButtonWrapper extends React.Component<IButtonWrapperProps, {}> {
-  constructor(props: IButtonWrapperProps) {
-    super(props);
-    this.state = {};
-  }
-
-  shouldComponentUpdate(nextProps: IButtonWrapperProps, {}) {
+export class ButtonWrapper extends React.Component<IButtonWrapperProps> {
+  shouldComponentUpdate(nextProps: IButtonWrapperProps): boolean {
     const flag = this.props.isDisabled !== nextProps.isDisabled;
     return flag;
   }

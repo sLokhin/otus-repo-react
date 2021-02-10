@@ -12,7 +12,7 @@ interface IPixelFieldState {
 export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
   state = {
     pixelClickedStatesMatrix: this.props.pixelMatrix.map((row) =>
-      row.map((pixel) => false)
+      row.map(() => false)
     ),
   };
 
@@ -37,7 +37,7 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
     });
   }
 
-  onClick = (coordX: number, coordY: number, newFlag: boolean) => {
+  onClick = (coordX: number, coordY: number, newFlag: boolean): void => {
     const { pixelClickedStatesMatrix } = this.state;
     const newClickedStatesMatrix = this.getNewClickedStatesMatrix(
       coordX,
@@ -51,7 +51,7 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
     this.setState({ pixelClickedStatesMatrix: newClickedStatesMatrix });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { pixelMatrix } = this.props;
     return (
       <div

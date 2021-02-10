@@ -1,12 +1,18 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { MainScreen } from "./lesson8/components/MainScreen";
-import { ErrorBoundary } from "./lesson8/components/ErrorBoundary";
+import { PixelField } from "./Components/PixelField/PixelField";
+import { NameForm } from "./Components/NameForm/NameForm";
 
 render(
-  <ErrorBoundary>
-    <MainScreen />
-  </ErrorBoundary>,
+  <React.Fragment>
+    <NameForm></NameForm>
+    <PixelField
+      pixelMatrix={[
+        ["1", "1", "1"],
+        ["0", "1", "0"],
+      ]}
+    />
+  </React.Fragment>,
   document.getElementById("root")
 );

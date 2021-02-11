@@ -1,58 +1,33 @@
 import React from "react";
-import styled from "@emotion/styled";
 import {
-  Divider,
+  Grid,
+  Paper,
+  Avatar,
   Button,
-  Typography,
   TextField,
   ThemeProvider,
   createMuiTheme,
 } from "@material-ui/core";
 
-const NameFormWrapper = styled.form`
-  width: 300px;
-  background-color: gainsboro;
-  border-radius: 10px;
-  padding: 0px 0px 0px 0px;
-  margin: auto;
-  text-align: center;
-  border: 2px solid black;
-`;
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const theme = createMuiTheme({
   overrides: {
-    MuiTypography: {
-      h5: {
-        display: "inline-block",
-        margin: "20px 0px 20px 0px",
-      },
-    },
-    MuiTextField: {
-      root: {
-        display: "flex",
-        width: "250px",
-        margin: "20px auto 20px auto",
-      },
-    },
-    MuiInputBase: {
-      root: {
-        backgroundColor: "white",
-      },
-    },
-    MuiOutlinedInput: {
-      input: {
-        padding: "12px 14px",
-      },
-    },
     MuiButton: {
       root: {
-        height: 40,
-        padding: "0 25px",
-        margin: "0px 0px 20px 0px",
+        margin: "20px 0px 0px 0px",
       },
     },
   },
 });
+
+const paperStyle = {
+  padding: 20,
+  width: "280px",
+  margin: "20px auto",
+};
+
+const iconStyle = { backgroundColor: "#1bbd7e" };
 
 interface INameFormProps {
   onSubmit: (value: string) => void;
@@ -65,11 +40,7 @@ interface INameFormState {
 export class NameForm extends React.Component<INameFormProps, INameFormState> {
   static defaultProps: INameFormProps = {
     onSubmit: (value: string): void => {
-      if (value.length > 0) {
-        console.log("The name was written and accepted:  ", value);
-      } else {
-        console.log("INVALID NAME");
-      }
+      console.log("The name was written and accepted:  ", value);
     },
   };
 
@@ -91,20 +62,34 @@ export class NameForm extends React.Component<INameFormProps, INameFormState> {
   render(): React.ReactNode {
     return (
       <ThemeProvider theme={theme}>
-        <NameFormWrapper onSubmit={this.handleFormSubmit}>
-          <Typography variant="h5">Enter your name</Typography>
-          <Divider />
-          <TextField
-            placeholder={"Player1"}
-            inputProps={{ maxLength: 12 }}
-            variant="outlined"
-            helperText="*Required"
-            onChange={this.handleInputChange}
-          ></TextField>
-          <Button variant="contained" type="submit" color="primary">
-            Submit
-          </Button>
-        </NameFormWrapper>
+        <form onSubmit={this.handleFormSubmit}>
+          <Grid>
+            <Paper elevation={10} style={paperStyle}>
+              <Grid container direction={"column"} alignItems={"center"}>
+                <Avatar style={iconStyle}>
+                  <LockOutlinedIcon />
+                </Avatar>
+                <h2>Enter your name</h2>
+              </Grid>
+              <TextField
+                label={"Player name"}
+                placeholder={"Player1"}
+                inputProps={{ maxLength: 12 }}
+                fullWidth
+                required
+                onChange={this.handleInputChange}
+              ></TextField>
+              <Button
+                variant={"contained"}
+                type={"submit"}
+                color={"primary"}
+                fullWidth
+              >
+                Sign in
+              </Button>
+            </Paper>
+          </Grid>
+        </form>
       </ThemeProvider>
     );
   }

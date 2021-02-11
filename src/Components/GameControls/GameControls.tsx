@@ -1,5 +1,6 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, withStyles } from "@material-ui/core";
+import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
 import styled from "@emotion/styled";
 
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -14,28 +15,41 @@ const ControlsWrapper = styled.div`
   width: 400px;
 `;
 
-const buttonStyle = {
-  margin: "0px 10px 0px 10px",
-};
+const BlueButton = withStyles(() => ({
+  root: {
+    backgroundColor: blue[500],
+    "&:hover": {
+      backgroundColor: blue[700],
+    },
+  },
+}))(Button);
 
-interface IGameControlsProps {
-  changeGameState: () => void;
-}
+const LightBlueButton = withStyles(() => ({
+  root: {
+    backgroundColor: lightBlue[500],
+    "&:hover": {
+      backgroundColor: lightBlue[700],
+    },
+  },
+}))(Button);
+
+const LightGreenButton = withStyles(() => ({
+  root: {
+    backgroundColor: lightGreen[500],
+    "&:hover": {
+      backgroundColor: lightGreen[700],
+    },
+  },
+}))(Button);
 
 interface IGameControlsState {
   pause: boolean;
 }
 
 export class GameControls extends React.Component<
-  IGameControlsProps,
+  Record<string, unknown>,
   IGameControlsState
 > {
-  static defaultProps: IGameControlsProps = {
-    changeGameState: (): void => {
-      console.log("Game state changed");
-    },
-  };
-
   state = {
     pause: true,
   } as IGameControlsState;
@@ -44,50 +58,50 @@ export class GameControls extends React.Component<
     this.setState({
       pause: false,
     });
+    console.log("startGame");
   };
 
   pauseGame = (): void => {
     this.setState({
       pause: true,
     });
+    console.log("pauseGame");
   };
 
   resetGame = (): void => {
     this.setState({
       pause: true,
     });
+    console.log("resetGame");
   };
 
   render(): React.ReactNode {
     return (
       <ControlsWrapper>
-        <Button
+        <BlueButton
           variant={"contained"}
           color={"primary"}
           startIcon={<PlayArrowIcon />}
-          style={buttonStyle}
           onClick={this.resetGame}
         >
           Play
-        </Button>
-        <Button
+        </BlueButton>
+        <LightBlueButton
           variant={"contained"}
           color={"primary"}
           startIcon={<PauseIcon />}
-          style={buttonStyle}
           onClick={this.pauseGame}
         >
           Pause
-        </Button>
-        <Button
+        </LightBlueButton>
+        <LightGreenButton
           variant={"contained"}
           color={"primary"}
           startIcon={<RotateLeftIcon />}
-          style={buttonStyle}
           onClick={this.resetGame}
         >
           Reset
-        </Button>
+        </LightGreenButton>
       </ControlsWrapper>
     );
   }

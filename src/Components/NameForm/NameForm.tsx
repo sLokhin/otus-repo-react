@@ -5,27 +5,18 @@ import {
   Avatar,
   Button,
   TextField,
-  ThemeProvider,
   Typography,
-  createMuiTheme,
 } from "@material-ui/core";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
-const theme = createMuiTheme({
-  overrides: {
-    MuiTypography: {
-      h5: {
-        margin: "15px 0px 0px 0px",
-      },
-    },
-    MuiButton: {
-      root: {
-        margin: "20px 0px 0px 0px",
-      },
-    },
-  },
-});
+const h5Style = {
+  margin: "15px 0px 0px 0px",
+};
+
+const buttonStyle = {
+  margin: "20px 0px 0px 0px",
+};
 
 const paperStyle = {
   padding: 20,
@@ -67,36 +58,37 @@ export class NameForm extends React.Component<INameFormProps, INameFormState> {
 
   render(): React.ReactNode {
     return (
-      <ThemeProvider theme={theme}>
-        <form onSubmit={this.handleFormSubmit}>
-          <Grid>
-            <Paper elevation={10} style={paperStyle}>
-              <Grid container direction={"column"} alignItems={"center"}>
-                <Avatar style={iconStyle}>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography variant="h5">Enter your name</Typography>
-              </Grid>
-              <TextField
-                label={"Player name"}
-                placeholder={"Player1"}
-                inputProps={{ maxLength: 12 }}
-                fullWidth
-                required
-                onChange={this.handleInputChange}
-              ></TextField>
-              <Button
-                variant={"contained"}
-                type={"submit"}
-                color={"primary"}
-                fullWidth
-              >
-                Sign in
-              </Button>
-            </Paper>
-          </Grid>
-        </form>
-      </ThemeProvider>
+      <form onSubmit={this.handleFormSubmit}>
+        <Grid>
+          <Paper elevation={10} style={paperStyle}>
+            <Grid container direction={"column"} alignItems={"center"}>
+              <Avatar style={iconStyle}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography variant="h5" style={h5Style}>
+                Enter your name
+              </Typography>
+            </Grid>
+            <TextField
+              label={"Player name"}
+              placeholder={"Player1"}
+              inputProps={{ maxLength: 12 }}
+              fullWidth
+              required
+              onChange={this.handleInputChange}
+            ></TextField>
+            <Button
+              variant={"contained"}
+              type={"submit"}
+              color={"primary"}
+              style={buttonStyle}
+              fullWidth
+            >
+              Sign in
+            </Button>
+          </Paper>
+        </Grid>
+      </form>
     );
   }
 }

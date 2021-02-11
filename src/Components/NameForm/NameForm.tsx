@@ -6,6 +6,7 @@ import {
   Button,
   TextField,
   ThemeProvider,
+  Typography,
   createMuiTheme,
 } from "@material-ui/core";
 
@@ -13,6 +14,11 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const theme = createMuiTheme({
   overrides: {
+    MuiTypography: {
+      h5: {
+        margin: "15px 0px 0px 0px",
+      },
+    },
     MuiButton: {
       root: {
         margin: "20px 0px 0px 0px",
@@ -69,7 +75,7 @@ export class NameForm extends React.Component<INameFormProps, INameFormState> {
                 <Avatar style={iconStyle}>
                   <LockOutlinedIcon />
                 </Avatar>
-                <h2>Enter your name</h2>
+                <Typography variant="h5">Enter your name</Typography>
               </Grid>
               <TextField
                 label={"Player name"}

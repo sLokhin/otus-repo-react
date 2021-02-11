@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import {
   Divider,
@@ -9,7 +9,7 @@ import {
   createMuiTheme,
 } from "@material-ui/core";
 
-const NameFormWrapper = styled.div`
+const NameFormWrapper = styled.form`
   width: 300px;
   background-color: gainsboro;
   border-radius: 10px;
@@ -55,40 +55,57 @@ const theme = createMuiTheme({
 });
 
 interface INameFormProps {
-  onSubmit?: (value?: string) => void;
+  onSubmit: (value: string) => void;
 }
 
-const defaultProps: INameFormProps = {
-  onSubmit: (): void => {
-    console.log("The name was written and accepted");
-  },
-};
+interface INameFormState {
+  name: string;
+}
 
-export const NameForm: FC<INameFormProps> = (props = defaultProps) => {
-  const onSubmitForm = (e: React.FormEvent): void => {
+export class NameForm extends React.Component<INameFormProps, INameFormState> {
+  static defaultProps: INameFormProps = {
+    onSubmit: (value: string): void => {
+      if (value.length > 0) {
+        console.log("The name was written and accepted:  ", value);
+      } else {
+        console.log("INVALID NAME");
+      }
+    },
+  };
+
+  state = {
+    name: "",
+  };
+
+  handleInputChange = (e: React.ChangeEvent): void => {
+    this.setState({
+      name: (e.target as HTMLInputElement).value,
+    });
+  };
+
+  handleFormSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
+    this.props.onSubmit(this.state.name);
   };
 
-  const changeValue = (e: React.ChangeEvent): void => {
-    console.log("change value");
-  };
-  return (
-    <ThemeProvider theme={theme}>
-      <NameFormWrapper>
-        <Typography variant="h5">Enter your name</Typography>
-        <Divider />
-        <TextField
-          placeholder={"Player1"}
-          inputProps={{ maxlength: 10 }}
-          variant="outlined"
-          onChange={changeValue}
-        ></TextField>
-        <Button variant="contained" color="primary">
-          Submit
-        </Button>
-      </NameFormWrapper>
-    </ThemeProvider>
-  );
-};
-
-NameForm.defaultProps = defaultProps;
+  render(): React.ReactNode {
+    return (
+      <ThemeProvider theme={theme}>
+        <NameFormWrapper onSubmit={this.handleFormSubmit}>
+          <Typography variant="h5">Enter your name</Typography>
+          <Divider />
+          <TextField
+            placeholder={"Player1"}
+            inputProps={{ maxLength: 12 }}
+            variant="outlined"
+            helperText="*Required"
+            onChange={this.handleInputChange}
+          ></TextField>
+          <Button variant="contained" type="submit" color="primary">
+            Submit
+          </Button>
+        </NameFormWrapper>
+      </ThemeProvider>
+    );
+  }
+}

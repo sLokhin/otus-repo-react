@@ -43,11 +43,12 @@ const LightGreenButton = withStyles(() => ({
 }))(Button);
 
 interface IGameControlsProps {
-  setControlsState: (options: { pause: boolean }) => void;
+  setControlsState: (options: { pause: boolean; reset: boolean }) => void;
 }
 
 interface IGameControlsState {
   pause: boolean;
+  reset: boolean;
 }
 
 export class GameControls extends React.Component<
@@ -56,16 +57,22 @@ export class GameControls extends React.Component<
 > {
   static defaultProps: IGameControlsProps = {
     setControlsState: (options): void => {
-      console.log("setControlsState", `pause - ${options.pause}`);
+      console.log(
+        "setControlsState",
+        `pause - ${options.pause} --- reset - ${options.reset}`
+      );
     },
   };
+
   state = {
     pause: true,
+    reset: false,
   } as IGameControlsState;
 
   startGame = (): void => {
     const options = {
       pause: false,
+      reset: false,
     };
     this.setState(options);
     this.props.setControlsState(options);
@@ -75,6 +82,7 @@ export class GameControls extends React.Component<
   pauseGame = (): void => {
     const options = {
       pause: true,
+      reset: false,
     };
     this.setState(options);
     this.props.setControlsState(options);
@@ -84,6 +92,7 @@ export class GameControls extends React.Component<
   resetGame = (): void => {
     const options = {
       pause: true,
+      reset: true,
     };
     this.setState(options);
     this.props.setControlsState(options);
@@ -92,7 +101,7 @@ export class GameControls extends React.Component<
 
   render(): React.ReactNode {
     return (
-      <ControlsWrapper>
+      <ControlsWrapper className={"controls-wrapper"}>
         <BlueButton
           classes={{ root: "control-button-play" }}
           variant={"contained"}

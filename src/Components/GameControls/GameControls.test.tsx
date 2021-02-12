@@ -18,14 +18,23 @@ describe("GameControls test", () => {
     controls.find("button.control-button-play").simulate("click");
     expect(setControlsState).toHaveBeenCalled();
     expect(setControlsState).toHaveBeenCalledTimes(1);
-    expect(setControlsState.mock.calls[0][0]).toMatchObject({ pause: false });
+    expect(setControlsState.mock.calls[0][0]).toMatchObject({
+      pause: false,
+      reset: false,
+    });
 
     controls.find("button.control-button-pause").simulate("click");
     expect(setControlsState).toHaveBeenCalledTimes(2);
-    expect(setControlsState.mock.calls[1][0]).toMatchObject({ pause: true });
+    expect(setControlsState.mock.calls[1][0]).toMatchObject({
+      pause: true,
+      reset: false,
+    });
 
     controls.find("button.control-button-reset").simulate("click");
     expect(setControlsState).toHaveBeenCalledTimes(3);
-    expect(setControlsState.mock.calls[2][0]).toMatchObject({ pause: true });
+    expect(setControlsState.mock.calls[2][0]).toMatchObject({
+      pause: true,
+      reset: true,
+    });
   });
 });

@@ -42,36 +42,51 @@ const LightGreenButton = withStyles(() => ({
   },
 }))(Button);
 
+interface IGameControlsProps {
+  setControlsState: (options: { pause: boolean }) => void;
+}
+
 interface IGameControlsState {
   pause: boolean;
 }
 
 export class GameControls extends React.Component<
-  Record<string, unknown>,
+  IGameControlsProps,
   IGameControlsState
 > {
+  static defaultProps: IGameControlsProps = {
+    setControlsState: (options): void => {
+      console.log("setControlsState", `pause - ${options.pause}`);
+    },
+  };
   state = {
     pause: true,
   } as IGameControlsState;
 
   startGame = (): void => {
-    this.setState({
+    const options = {
       pause: false,
-    });
+    };
+    this.setState(options);
+    this.props.setControlsState(options);
     console.log("startGame");
   };
 
   pauseGame = (): void => {
-    this.setState({
+    const options = {
       pause: true,
-    });
+    };
+    this.setState(options);
+    this.props.setControlsState(options);
     console.log("pauseGame");
   };
 
   resetGame = (): void => {
-    this.setState({
+    const options = {
       pause: true,
-    });
+    };
+    this.setState(options);
+    this.props.setControlsState(options);
     console.log("resetGame");
   };
 
@@ -79,14 +94,16 @@ export class GameControls extends React.Component<
     return (
       <ControlsWrapper>
         <BlueButton
+          classes={{ root: "control-button-play" }}
           variant={"contained"}
           color={"primary"}
           startIcon={<PlayArrowIcon />}
-          onClick={this.resetGame}
+          onClick={this.startGame}
         >
           Play
         </BlueButton>
         <LightBlueButton
+          classes={{ root: "control-button-pause" }}
           variant={"contained"}
           color={"primary"}
           startIcon={<PauseIcon />}
@@ -95,6 +112,7 @@ export class GameControls extends React.Component<
           Pause
         </LightBlueButton>
         <LightGreenButton
+          classes={{ root: "control-button-reset" }}
           variant={"contained"}
           color={"primary"}
           startIcon={<RotateLeftIcon />}

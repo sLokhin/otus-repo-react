@@ -82,6 +82,7 @@ export class FillSlider extends React.Component<
           ValueLabelComponent={ValueLabelComponent}
           onChange={this.changePercent}
           defaultValue={this.props.defaultPercent}
+          name={"fill-percent-input"}
         />
       </SliderWrapper>
     );

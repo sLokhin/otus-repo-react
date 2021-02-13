@@ -6,6 +6,6 @@ export default {
   decorators: [withKnobs],
 };
 
-export const nameFormDefault = (): React.ReactNode => {
+export const gameControlsDefault = (): React.ReactNode => {
   return <GameControls />;
 };

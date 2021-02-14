@@ -22,8 +22,8 @@ const LabelWrapper = styled.div`
 `;
 
 interface IFillSliderProps {
-  setFilledPercent: (options: { percent: number }) => void;
-  defaultPercent: number;
+  setFilledPercent?: (options: { percent: number }) => void;
+  defaultPercent?: number;
 }
 
 interface IFillSliderState {
@@ -35,6 +35,10 @@ interface ITooltipProps {
   open: boolean;
   value: number;
 }
+
+type AllPropsRequired<T> = {
+  [Property in keyof T]-?: T[Property];
+};
 
 function ValueLabelComponent(props: ITooltipProps) {
   const { children, open, value } = props;
@@ -49,15 +53,19 @@ export class FillSlider extends React.Component<
   IFillSliderProps,
   IFillSliderState
 > {
-  static defaultProps: IFillSliderProps = {
-    setFilledPercent: (options): void => {
-      console.log("setFilledPercent", `percent - ${options.percent}`);
-    },
-    defaultPercent: 30,
+  private args: AllPropsRequired<IFillSliderProps> = {
+    ...this.props,
+    setFilledPercent:
+      this.props.setFilledPercent !== undefined
+        ? this.props.setFilledPercent
+        : (options): void => {
+            console.log("setFilledPercent", `percent - ${options.percent}`);
+          },
+    defaultPercent: this.props.defaultPercent ? this.props.defaultPercent : 30,
   };
 
   state = {
-    percent: this.props.defaultPercent,
+    percent: this.args.defaultPercent,
   } as IFillSliderState;
 
   changePercent = (
@@ -68,7 +76,7 @@ export class FillSlider extends React.Component<
       percent: Array.isArray(newValue) ? newValue[0] : newValue,
     };
     this.setState(options);
-    this.props.setFilledPercent(options);
+    this.args.setFilledPercent(options);
     console.log("changePercent", newValue);
   };
 
@@ -81,7 +89,7 @@ export class FillSlider extends React.Component<
         <Slider
           ValueLabelComponent={ValueLabelComponent}
           onChange={this.changePercent}
-          defaultValue={this.props.defaultPercent}
+          defaultValue={this.args.defaultPercent}
           name={"fill-percent-input"}
         />
       </SliderWrapper>

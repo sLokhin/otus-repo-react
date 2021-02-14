@@ -27,18 +27,26 @@ const paperStyle = {
 const iconStyle = { backgroundColor: "#1bbd7e" };
 
 interface INameFormProps {
-  onSubmit: (value: string) => void;
+  onSubmit?: (value: string) => void;
 }
 
 interface INameFormState {
   name: string;
 }
 
+type AllPropsRequired<T> = {
+  [Property in keyof T]-?: T[Property];
+};
+
 export class NameForm extends React.Component<INameFormProps, INameFormState> {
-  static defaultProps: INameFormProps = {
-    onSubmit: (value: string): void => {
-      console.log("The name was written and accepted:  ", value);
-    },
+  private args: AllPropsRequired<INameFormProps> = {
+    ...this.props,
+    onSubmit:
+      this.props.onSubmit !== undefined
+        ? this.props.onSubmit
+        : (value: string): void => {
+            console.log("The name was written and accepted:  ", value);
+          },
   };
 
   state = {
@@ -53,7 +61,7 @@ export class NameForm extends React.Component<INameFormProps, INameFormState> {
 
   handleFormSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    this.props.onSubmit(this.state.name);
+    this.args.onSubmit(this.state.name);
   };
 
   render(): React.ReactNode {

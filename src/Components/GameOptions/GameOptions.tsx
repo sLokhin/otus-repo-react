@@ -69,7 +69,7 @@ type possibleSize = "small" | "medium" | "large";
 type possibleSpeed = "slow" | "medium" | "fast";
 
 interface IGameOptionsProps {
-  setOptionsState: (options: { size: string; speed: string }) => void;
+  setOptionsState?: (options: { size: string; speed: string }) => void;
 }
 
 interface IGameOptionsState {
@@ -77,17 +77,25 @@ interface IGameOptionsState {
   speed: possibleSpeed;
 }
 
+type AllPropsRequired<T> = {
+  [Property in keyof T]-?: T[Property];
+};
+
 export class GameOptions extends React.Component<
   IGameOptionsProps,
   IGameOptionsState
 > {
-  static defaultProps: IGameOptionsProps = {
-    setOptionsState: (options): void => {
-      console.log(
-        "setOptionsState",
-        `size - ${options.size} --- speed - ${options.speed}`
-      );
-    },
+  private args: AllPropsRequired<IGameOptionsProps> = {
+    ...this.props,
+    setOptionsState:
+      this.props.setOptionsState !== undefined
+        ? this.props.setOptionsState
+        : (options): void => {
+            console.log(
+              "setOptionsState",
+              `size - ${options.size} --- speed - ${options.speed}`
+            );
+          },
   };
 
   state = {
@@ -101,7 +109,7 @@ export class GameOptions extends React.Component<
       speed: this.state.speed,
     };
     this.setState(options);
-    this.props.setOptionsState(options);
+    this.args.setOptionsState(options);
     console.log("setFieldSize");
   };
 
@@ -111,7 +119,7 @@ export class GameOptions extends React.Component<
       speed: speed,
     };
     this.setState(options);
-    this.props.setOptionsState(options);
+    this.args.setOptionsState(options);
     console.log("setSpeed");
   };
 

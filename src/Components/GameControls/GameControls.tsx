@@ -43,7 +43,7 @@ const LightGreenButton = withStyles(() => ({
 }))(Button);
 
 interface IGameControlsProps {
-  setControlsState: (options: { pause: boolean; reset: boolean }) => void;
+  setControlsState?: (options: { pause: boolean; reset: boolean }) => void;
 }
 
 interface IGameControlsState {
@@ -51,17 +51,25 @@ interface IGameControlsState {
   reset: boolean;
 }
 
+type AllPropsRequired<T> = {
+  [Property in keyof T]-?: T[Property];
+};
+
 export class GameControls extends React.Component<
   IGameControlsProps,
   IGameControlsState
 > {
-  static defaultProps: IGameControlsProps = {
-    setControlsState: (options): void => {
-      console.log(
-        "setControlsState",
-        `pause - ${options.pause} --- reset - ${options.reset}`
-      );
-    },
+  private args: AllPropsRequired<IGameControlsProps> = {
+    ...this.props,
+    setControlsState:
+      this.props.setControlsState !== undefined
+        ? this.props.setControlsState
+        : (options): void => {
+            console.log(
+              "setControlsState",
+              `pause - ${options.pause} --- reset - ${options.reset}`
+            );
+          },
   };
 
   state = {
@@ -75,7 +83,7 @@ export class GameControls extends React.Component<
       reset: false,
     };
     this.setState(options);
-    this.props.setControlsState(options);
+    this.args.setControlsState(options);
     console.log("startGame");
   };
 
@@ -85,7 +93,7 @@ export class GameControls extends React.Component<
       reset: false,
     };
     this.setState(options);
-    this.props.setControlsState(options);
+    this.args.setControlsState(options);
     console.log("pauseGame");
   };
 
@@ -95,7 +103,7 @@ export class GameControls extends React.Component<
       reset: true,
     };
     this.setState(options);
-    this.props.setControlsState(options);
+    this.args.setControlsState(options);
     console.log("resetGame");
   };
 

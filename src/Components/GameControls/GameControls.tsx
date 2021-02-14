@@ -42,11 +42,11 @@ const LightGreenButton = withStyles(() => ({
   },
 }))(Button);
 
-interface IGameControlsProps {
+interface GameControlsProps {
   setControlsState?: (options: { pause: boolean; reset: boolean }) => void;
 }
 
-interface IGameControlsState {
+interface GameControlsState {
   pause: boolean;
   reset: boolean;
 }
@@ -56,10 +56,10 @@ type AllPropsRequired<T> = {
 };
 
 export class GameControls extends React.Component<
-  IGameControlsProps,
-  IGameControlsState
+  GameControlsProps,
+  GameControlsState
 > {
-  private args: AllPropsRequired<IGameControlsProps> = {
+  private args: AllPropsRequired<GameControlsProps> = {
     ...this.props,
     setControlsState:
       this.props.setControlsState !== undefined
@@ -75,7 +75,7 @@ export class GameControls extends React.Component<
   state = {
     pause: true,
     reset: false,
-  } as IGameControlsState;
+  } as GameControlsState;
 
   startGame = (): void => {
     const options = {

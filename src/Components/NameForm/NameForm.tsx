@@ -26,11 +26,11 @@ const paperStyle = {
 
 const iconStyle = { backgroundColor: "#1bbd7e" };
 
-interface INameFormProps {
+interface NameFormProps {
   onSubmit?: (value: string) => void;
 }
 
-interface INameFormState {
+interface NameFormState {
   name: string;
 }
 
@@ -38,8 +38,8 @@ type AllPropsRequired<T> = {
   [Property in keyof T]-?: T[Property];
 };
 
-export class NameForm extends React.Component<INameFormProps, INameFormState> {
-  private args: AllPropsRequired<INameFormProps> = {
+export class NameForm extends React.Component<NameFormProps, NameFormState> {
+  private args: AllPropsRequired<NameFormProps> = {
     ...this.props,
     onSubmit:
       this.props.onSubmit !== undefined

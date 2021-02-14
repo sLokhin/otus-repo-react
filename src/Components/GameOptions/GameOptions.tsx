@@ -68,11 +68,11 @@ const LightGreenButton = withStyles(() => ({
 type possibleSize = "small" | "medium" | "large";
 type possibleSpeed = "slow" | "medium" | "fast";
 
-interface IGameOptionsProps {
+interface GameOptionsProps {
   setOptionsState?: (options: { size: string; speed: string }) => void;
 }
 
-interface IGameOptionsState {
+interface GameOptionsState {
   size: possibleSize;
   speed: possibleSpeed;
 }
@@ -82,10 +82,10 @@ type AllPropsRequired<T> = {
 };
 
 export class GameOptions extends React.Component<
-  IGameOptionsProps,
-  IGameOptionsState
+  GameOptionsProps,
+  GameOptionsState
 > {
-  private args: AllPropsRequired<IGameOptionsProps> = {
+  private args: AllPropsRequired<GameOptionsProps> = {
     ...this.props,
     setOptionsState:
       this.props.setOptionsState !== undefined
@@ -101,7 +101,7 @@ export class GameOptions extends React.Component<
   state = {
     size: "medium",
     speed: "medium",
-  } as IGameOptionsState;
+  } as GameOptionsState;
 
   setFieldSize = (size: possibleSize): void => {
     const options = {

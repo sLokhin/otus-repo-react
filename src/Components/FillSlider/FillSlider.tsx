@@ -21,16 +21,16 @@ const LabelWrapper = styled.div`
   color: #2f42d0;
 `;
 
-interface IFillSliderProps {
+interface FillSliderProps {
   setFilledPercent?: (options: { percent: number }) => void;
   defaultPercent?: number;
 }
 
-interface IFillSliderState {
+interface FillSliderState {
   percent: number;
 }
 
-interface ITooltipProps {
+interface TooltipProps {
   children: React.ReactElement;
   open: boolean;
   value: number;
@@ -40,7 +40,7 @@ type AllPropsRequired<T> = {
   [Property in keyof T]-?: T[Property];
 };
 
-function ValueLabelComponent(props: ITooltipProps) {
+function ValueLabelComponent(props: TooltipProps) {
   const { children, open, value } = props;
   return (
     <Tooltip open={open} enterTouchDelay={0} placement="bottom" title={value}>
@@ -50,10 +50,10 @@ function ValueLabelComponent(props: ITooltipProps) {
 }
 
 export class FillSlider extends React.Component<
-  IFillSliderProps,
-  IFillSliderState
+  FillSliderProps,
+  FillSliderState
 > {
-  private args: AllPropsRequired<IFillSliderProps> = {
+  private args: AllPropsRequired<FillSliderProps> = {
     ...this.props,
     setFilledPercent:
       this.props.setFilledPercent !== undefined
@@ -66,7 +66,7 @@ export class FillSlider extends React.Component<
 
   state = {
     percent: this.args.defaultPercent,
-  } as IFillSliderState;
+  } as FillSliderState;
 
   changePercent = (
     event: React.ChangeEvent<Record<string, unknown>>,

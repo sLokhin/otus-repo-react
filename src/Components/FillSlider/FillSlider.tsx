@@ -65,7 +65,7 @@ export class FillSlider extends React.Component<
     newValue: number | number[]
   ): void => {
     const options = {
-      percent: newValue as number,
+      percent: Array.isArray(newValue) ? newValue[0] : newValue,
     };
     this.setState(options);
     this.props.setFilledPercent(options);

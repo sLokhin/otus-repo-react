@@ -1,12 +1,24 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { MainScreen } from "./lesson8/components/MainScreen";
-import { ErrorBoundary } from "./lesson8/components/ErrorBoundary";
+import { PixelField } from "./Components/PixelField/PixelField";
+import { NameForm } from "./Components/NameForm/NameForm";
+import { GameControls } from "./Components/GameControls/GameControls";
+import { GameOptions } from "./Components/GameOptions/GameOptions";
+import { FillSlider } from "./Components/FillSlider/FillSlider";
 
 render(
-  <ErrorBoundary>
-    <MainScreen />
-  </ErrorBoundary>,
+  <React.Fragment>
+    <NameForm></NameForm>
+    <GameControls></GameControls>
+    <GameOptions></GameOptions>
+    <FillSlider></FillSlider>
+    <PixelField
+      pixelMatrix={[
+        ["1", "1", "1"],
+        ["0", "1", "0"],
+      ]}
+    />
+  </React.Fragment>,
   document.getElementById("root")
 );

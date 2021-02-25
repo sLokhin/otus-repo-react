@@ -16,26 +16,24 @@ interface IPixelState {
 const PixelDiv = styled.div(() => ({
   display: "inline-block",
   margin: "2px",
-}))
+}));
 
 export class Pixel extends Component<IPixelProps, IPixelState> {
   state = {
     isClicked: false,
   };
 
-  onClickHandler() {
+  onClickHandler(): void {
     const { x = 0, y = 0, onClick = () => null } = this.props;
     this.setState({ isClicked: true });
     onClick(x, y, true);
   }
 
-  render() {
+  render(): React.ReactNode {
     const { isClicked } = this.state;
     const { filled = "0", x = 0, y = 0 } = this.props;
     return (
-      <PixelDiv
-        className="pixel-wrapper"
-      >
+      <PixelDiv className="pixel-wrapper">
         <PixelButton onClick={() => this.onClickHandler()} filled={filled}>
           {isClicked ? `Coords: ${x}-${y}` : "Not clicked yet"}
         </PixelButton>

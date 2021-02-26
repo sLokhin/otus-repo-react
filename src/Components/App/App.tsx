@@ -1,4 +1,4 @@
-import React, { Component, FC } from "react";
+import React, { Component } from "react";
 import styled from "@emotion/styled";
 
 import { GameControls } from "../GameControls/GameControls";
@@ -23,29 +23,72 @@ const GameMenuWrapper = styled.div`
   align-items: center;
 `;
 
-type AppProps = {};
+// interface AppProps {}
 
-export const App: FC<AppProps> = (props: AppProps) => {
-  return (
-    <Grid>
-      <Paper elevation={10} style={paperStyle}>
-        <Grid container direction={"column"} alignItems={"center"}>
-          <GameMenuWrapper className={"game-menu-wrapper"}>
-            <GameControls></GameControls>
-            <GameOptions></GameOptions>
-            <FillSlider></FillSlider>
-          </GameMenuWrapper>
-          <PixelField
-            pixelMatrix={[
-              [false, false, false, false, false],
-              [false, false, false, false, false],
-              [false, false, false, false, false],
-              [false, false, false, false, false],
-              [false, false, false, false, false],
-            ]}
-          />
-        </Grid>
-      </Paper>
-    </Grid>
-  );
+interface AppState {
+  pixelStatesMatrix: boolean[][];
+}
+
+const getInitialPixelMass = (n: number): boolean[][] => {
+  return new Array(n).fill(undefined).map(() => new Array(n).fill(false));
 };
+
+export class App extends Component<Record<string, unknown>, AppState> {
+  state = {
+    pixelStatesMatrix: getInitialPixelMass(10),
+  };
+
+  getNewPixelStatesMatrix(
+    coordX: number,
+    coordY: number,
+    newFlag: boolean,
+    currentPixelMatrix: boolean[][]
+  ): boolean[][] {
+    return currentPixelMatrix.map((rowMass, xIdx) => {
+      if (coordX === xIdx) {
+        return rowMass.map((currentPixelState, yIdx) => {
+          if (coordY === yIdx) {
+            return newFlag === currentPixelState ? currentPixelState : newFlag;
+          }
+          return currentPixelState;
+        });
+      }
+      return rowMass;
+    });
+  }
+
+  onPixelClick = (coordX: number, coordY: number, newFlag: boolean): void => {
+    const { pixelStatesMatrix } = this.state;
+    const newPixelStatesMatrix = this.getNewPixelStatesMatrix(
+      coordX,
+      coordY,
+      newFlag,
+      pixelStatesMatrix
+    );
+
+    console.log("NEW CLICK STATE MATRIX FROM APP ", newPixelStatesMatrix);
+
+    this.setState({ pixelStatesMatrix: newPixelStatesMatrix });
+  };
+
+  render(): React.ReactNode {
+    const { pixelStatesMatrix } = this.state;
+    return (
+      <Grid>
+        <Paper elevation={10} style={paperStyle}>
+          <Grid container direction={"column"} alignItems={"center"}>
+            <GameMenuWrapper className={"game-menu-wrapper"}>
+              <GameControls></GameControls>
+              <GameOptions></GameOptions>
+              <FillSlider></FillSlider>
+            </GameMenuWrapper>
+            <PixelField
+              pixelStatesMatrix={pixelStatesMatrix}
+              onPixelClick={this.onPixelClick}
+            />
+          </Grid>
+        </Paper>
+      </Grid>
+    );
+  }
+}

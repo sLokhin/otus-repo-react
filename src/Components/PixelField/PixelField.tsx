@@ -2,63 +2,22 @@ import React, { Component } from "react";
 import { Pixel } from "../Pixel/Pixel";
 
 interface PixelFieldProps {
-  pixelMatrix: boolean[][];
+  pixelStatesMatrix: boolean[][];
+  onPixelClick: (coordX: number, coordY: number, newFlag: boolean) => void;
 }
 
-interface PixelFieldState {
-  pixelClickedStatesMatrix: boolean[][];
-}
-
-export class PixelField extends Component<PixelFieldProps, PixelFieldState> {
-  state = {
-    pixelClickedStatesMatrix: this.props.pixelMatrix.map((row) =>
-      row.map((isFilled) => isFilled)
-    ),
-  };
-
-  getNewClickedStatesMatrix(
-    coordX: number,
-    coordY: number,
-    newFlag: boolean,
-    currentClickedMatrix: boolean[][]
-  ): boolean[][] {
-    return currentClickedMatrix.map((rowMass, xIdx) => {
-      if (coordX === xIdx) {
-        return rowMass.map((currentClickedState, yIdx) => {
-          if (coordY === yIdx) {
-            return newFlag === currentClickedState
-              ? currentClickedState
-              : newFlag;
-          }
-          return currentClickedState;
-        });
-      }
-      return rowMass;
-    });
-  }
-
-  onClick = (coordX: number, coordY: number, newFlag: boolean): void => {
-    const { pixelClickedStatesMatrix } = this.state;
-    const newClickedStatesMatrix = this.getNewClickedStatesMatrix(
-      coordX,
-      coordY,
-      newFlag,
-      pixelClickedStatesMatrix
-    );
-
-    console.log("NEW CLICK STATE MATRIX  ", newClickedStatesMatrix);
-
-    this.setState({ pixelClickedStatesMatrix: newClickedStatesMatrix });
-  };
-
+export class PixelField extends Component<
+  PixelFieldProps,
+  Record<string, unknown>
+> {
   render(): React.ReactNode {
-    const { pixelClickedStatesMatrix } = this.state;
+    const { onPixelClick, pixelStatesMatrix } = this.props;
     return (
       <div
         className="pixel-field"
         style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
       >
-        {pixelClickedStatesMatrix.reduce(
+        {pixelStatesMatrix.reduce(
           (
             result: Array<React.ReactNode[] | React.ReactNode>,
             row: boolean[],
@@ -73,7 +32,7 @@ export class PixelField extends Component<PixelFieldProps, PixelFieldState> {
                       filled={filled}
                       x={x}
                       y={y}
-                      onClick={this.onClick}
+                      onClick={onPixelClick}
                     />
                   );
                 }

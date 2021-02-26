@@ -1,21 +1,27 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
-import { withKnobs, text, number } from "@storybook/addon-knobs";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { PixelButton } from "./PixelButton";
 export default {
   title: "Lesson 5 / PixelButton",
   decorators: [withKnobs],
 };
 
-export const defaulPixelButton = () => {
-  return <PixelButton onClick={action("Cell clicked jsx")} key="jsx" />;
+export const defaulPixelButton = (): React.ReactNode => {
+  return (
+    <PixelButton
+      filled={false}
+      onClick={action("Cell clicked jsx")}
+      key="jsx"
+    />
+  );
 };
 
-export const filledPixelButton = () => {
+export const filledPixelButton = (): React.ReactNode => {
   return (
     <PixelButton
       onClick={action("Cell clicked jsx")}
-      filled={text("filled with", "1")}
+      filled={boolean("filled with", true)}
       key="jsx"
     />
   );

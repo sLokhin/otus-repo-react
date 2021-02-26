@@ -15,8 +15,8 @@ render(
     <FillSlider></FillSlider>
     <PixelField
       pixelMatrix={[
-        ["1", "1", "1"],
-        ["0", "1", "0"],
+        [true, true, true],
+        [false, true, false],
       ]}
     />
   </React.Fragment>,

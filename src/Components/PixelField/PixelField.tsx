@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Pixel } from "../Pixel/Pixel";
 
 interface IPixelFieldProps {
-  pixelMatrix: string[][];
+  pixelMatrix: boolean[][];
 }
 
 interface IPixelFieldState {
@@ -12,7 +12,7 @@ interface IPixelFieldState {
 export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
   state = {
     pixelClickedStatesMatrix: this.props.pixelMatrix.map((row) =>
-      row.map(() => false)
+      row.map((isFilled) => isFilled)
     ),
   };
 
@@ -52,29 +52,38 @@ export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
   };
 
   render(): React.ReactNode {
-    const { pixelMatrix } = this.props;
+    const { pixelClickedStatesMatrix } = this.state;
     return (
       <div
         className="pixel-field"
         style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
       >
-        {pixelMatrix.reduce((result: any, row: string[], x: number): any => {
-          result.push(
-            row.map((filled: string, y) => {
-              return (
-                <Pixel
-                  key={`${x}-${y}`}
-                  filled={filled}
-                  x={x}
-                  y={y}
-                  onClick={this.onClick}
-                />
-              );
-            }),
-            <br key={x} />
-          );
-          return result;
-        }, [])}
+        {pixelClickedStatesMatrix.reduce(
+          (
+            result: Array<React.ReactNode[] | React.ReactNode>,
+            row: boolean[],
+            x: number
+          ): Array<React.ReactNode[] | React.ReactNode> => {
+            result.push(
+              row.map(
+                (filled: boolean, y: number): React.ReactNode => {
+                  return (
+                    <Pixel
+                      key={`${x}-${y}`}
+                      filled={filled}
+                      x={x}
+                      y={y}
+                      onClick={this.onClick}
+                    />
+                  );
+                }
+              ),
+              <br key={x} />
+            );
+            return result;
+          },
+          [] as Array<React.ReactNode[] | React.ReactNode>
+        )}
       </div>
     );
   }

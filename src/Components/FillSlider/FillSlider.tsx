@@ -8,12 +8,12 @@ const SliderWrapper = styled.div`
   justify-content: space-around;
   align-items: center;
   margin: 20px auto 0px;
-  width: 400px;
+  width: 100%;
 `;
 
 const LabelWrapper = styled.div`
   width: 100%;
-  font-size: 24px;
+  font-size: 20px;
   text-align: left;
   margin-bottom: 10px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;

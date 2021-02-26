@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import { Pixel } from "../Pixel/Pixel";
 
-interface IPixelFieldProps {
+interface PixelFieldProps {
   pixelMatrix: boolean[][];
 }
 
-interface IPixelFieldState {
+interface PixelFieldState {
   pixelClickedStatesMatrix: boolean[][];
 }
 
-export class PixelField extends Component<IPixelFieldProps, IPixelFieldState> {
+export class PixelField extends Component<PixelFieldProps, PixelFieldState> {
   state = {
     pixelClickedStatesMatrix: this.props.pixelMatrix.map((row) =>
       row.map((isFilled) => isFilled)

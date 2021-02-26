@@ -6,9 +6,10 @@ import styled from "@emotion/styled";
 const OptionsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   margin: 20px auto 0px;
   justify-content: space-around;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 const OptionsRow = styled.div`
@@ -22,10 +23,10 @@ const OptionsRow = styled.div`
 `;
 
 const LabelWrapper = styled.div`
-  width: 170px;
+  width: 130px;
   margin-right: 15px;
-  font-size: 24px;
-  text-align: right;
+  font-size: 20px;
+  text-align: left;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: bold;
   color: #2f42d0;

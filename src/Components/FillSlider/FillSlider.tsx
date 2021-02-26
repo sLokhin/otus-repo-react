@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { Slider, Tooltip } from "@material-ui/core";
 import styled from "@emotion/styled";
 
@@ -22,12 +22,8 @@ const LabelWrapper = styled.div`
 `;
 
 interface FillSliderProps {
-  setFilledPercent?: (options: { percent: number }) => void;
-  defaultPercent?: number;
-}
-
-interface FillSliderState {
-  percent: number;
+  setFilledPercent: (percent: number) => void;
+  defaultPercent: number;
 }
 
 interface TooltipProps {
@@ -35,10 +31,6 @@ interface TooltipProps {
   open: boolean;
   value: number;
 }
-
-type AllPropsRequired<T> = {
-  [Property in keyof T]-?: T[Property];
-};
 
 function ValueLabelComponent(props: TooltipProps) {
   const { children, open, value } = props;
@@ -49,50 +41,27 @@ function ValueLabelComponent(props: TooltipProps) {
   );
 }
 
-export class FillSlider extends React.Component<
-  FillSliderProps,
-  FillSliderState
-> {
-  private args: AllPropsRequired<FillSliderProps> = {
-    ...this.props,
-    setFilledPercent:
-      this.props.setFilledPercent !== undefined
-        ? this.props.setFilledPercent
-        : (options): void => {
-            console.log("setFilledPercent", `percent - ${options.percent}`);
-          },
-    defaultPercent: this.props.defaultPercent ? this.props.defaultPercent : 30,
-  };
-
-  state = {
-    percent: this.args.defaultPercent,
-  } as FillSliderState;
-
-  changePercent = (
+export const FillSlider: FC<FillSliderProps> = (props: FillSliderProps) => {
+  const { defaultPercent, setFilledPercent } = props;
+  const changePercent = (
     event: React.ChangeEvent<Record<string, unknown>>,
     newValue: number | number[]
   ): void => {
-    const options = {
-      percent: Array.isArray(newValue) ? newValue[0] : newValue,
-    };
-    this.setState(options);
-    this.args.setFilledPercent(options);
-    console.log("changePercent", newValue);
+    const percent = Array.isArray(newValue) ? newValue[0] : newValue;
+    setFilledPercent(percent);
   };
 
-  render(): React.ReactNode {
-    return (
-      <SliderWrapper className={"slider-wrapper"}>
-        <LabelWrapper className={"slider-label"}>
-          Field filled percent:
-        </LabelWrapper>
-        <Slider
-          ValueLabelComponent={ValueLabelComponent}
-          onChange={this.changePercent}
-          defaultValue={this.args.defaultPercent}
-          name={"fill-percent-input"}
-        />
-      </SliderWrapper>
-    );
-  }
-}
+  return (
+    <SliderWrapper className={"slider-wrapper"}>
+      <LabelWrapper className={"slider-label"}>
+        Field filled percent:
+      </LabelWrapper>
+      <Slider
+        ValueLabelComponent={ValueLabelComponent}
+        onChange={changePercent}
+        defaultValue={defaultPercent}
+        name={"fill-percent-input"}
+      />
+    </SliderWrapper>
+  );
+};

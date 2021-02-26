@@ -23,10 +23,9 @@ const GameMenuWrapper = styled.div`
   align-items: center;
 `;
 
-// interface AppProps {}
-
 interface AppState {
   pixelStatesMatrix: boolean[][];
+  fillPercent: number;
 }
 
 const getInitialPixelMass = (n: number): boolean[][] => {
@@ -36,6 +35,7 @@ const getInitialPixelMass = (n: number): boolean[][] => {
 export class App extends Component<Record<string, unknown>, AppState> {
   state = {
     pixelStatesMatrix: getInitialPixelMass(10),
+    fillPercent: 20,
   };
 
   getNewPixelStatesMatrix(
@@ -71,6 +71,11 @@ export class App extends Component<Record<string, unknown>, AppState> {
     this.setState({ pixelStatesMatrix: newPixelStatesMatrix });
   };
 
+  setFilledPercent = (percent: number): void => {
+    console.log("SET FILL PERCENt FROM APP", percent);
+    this.setState({ fillPercent: percent });
+  };
+
   render(): React.ReactNode {
     const { pixelStatesMatrix } = this.state;
     return (
@@ -80,7 +85,10 @@ export class App extends Component<Record<string, unknown>, AppState> {
             <GameMenuWrapper className={"game-menu-wrapper"}>
               <GameControls></GameControls>
               <GameOptions></GameOptions>
-              <FillSlider></FillSlider>
+              <FillSlider
+                defaultPercent={20}
+                setFilledPercent={this.setFilledPercent}
+              ></FillSlider>
             </GameMenuWrapper>
             <PixelField
               pixelStatesMatrix={pixelStatesMatrix}

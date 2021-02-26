@@ -9,7 +9,6 @@ const Button = styled.button<ButtonProps>((props: ButtonProps) => ({
 
 const PixelDiv = styled.div`
   display: inline-block;
-  margin: 2px;
 `;
 
 type PixelProps = {

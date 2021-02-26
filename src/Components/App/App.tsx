@@ -32,10 +32,32 @@ const getInitialPixelMass = (n: number): boolean[][] => {
   return new Array(n).fill(undefined).map(() => new Array(n).fill(false));
 };
 
+const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
+  const pixelMatrix: boolean[][] = getInitialPixelMass(n);
+  let a = Math.round(n * n * (percent / 100));
+  let b = n * n;
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      if (Math.random() < a / b) {
+        pixelMatrix[i][j] = true;
+        a--;
+      }
+      b--;
+    }
+  }
+  return pixelMatrix;
+};
+
+const defaultFieldSize = 10;
+const defaultSliderPercent = 20;
+
 export class App extends Component<Record<string, unknown>, AppState> {
   state = {
-    pixelStatesMatrix: getInitialPixelMass(10),
-    fillPercent: 20,
+    pixelStatesMatrix: getRandomPixelMass(
+      defaultFieldSize,
+      defaultSliderPercent
+    ),
+    fillPercent: defaultSliderPercent,
   };
 
   getNewPixelStatesMatrix(
@@ -73,7 +95,11 @@ export class App extends Component<Record<string, unknown>, AppState> {
 
   setFilledPercent = (percent: number): void => {
     console.log("SET FILL PERCENt FROM APP", percent);
-    this.setState({ fillPercent: percent });
+    const newPixelStatesMatrix = getRandomPixelMass(defaultFieldSize, percent);
+    this.setState({
+      pixelStatesMatrix: newPixelStatesMatrix,
+      fillPercent: percent,
+    });
   };
 
   render(): React.ReactNode {
@@ -86,7 +112,7 @@ export class App extends Component<Record<string, unknown>, AppState> {
               <GameControls></GameControls>
               <GameOptions></GameOptions>
               <FillSlider
-                defaultPercent={20}
+                defaultPercent={defaultSliderPercent}
                 setFilledPercent={this.setFilledPercent}
               ></FillSlider>
             </GameMenuWrapper>

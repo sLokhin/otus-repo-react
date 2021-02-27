@@ -1,5 +1,10 @@
 import React, { FC } from "react";
 import { Pixel } from "../Pixel/Pixel";
+import styled from "@emotion/styled";
+
+const PixelRow = styled.div`
+  display: flex;
+`;
 
 interface PixelFieldProps {
   pixelStatesMatrix: boolean[][];
@@ -13,14 +18,10 @@ export const PixelField: FC<PixelFieldProps> = (props: PixelFieldProps) => {
       className="pixel-field"
       style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
     >
-      {pixelStatesMatrix.reduce(
-        (
-          result: Array<React.ReactNode[] | React.ReactNode>,
-          row: boolean[],
-          x: number
-        ): Array<React.ReactNode[] | React.ReactNode> => {
-          result.push(
-            row.map(
+      {pixelStatesMatrix.map((row: boolean[], x: number) => {
+        return (
+          <PixelRow className="pixel-row" key={`row-${x}`}>
+            {row.map(
               (filled: boolean, y: number): React.ReactNode => {
                 return (
                   <Pixel
@@ -32,13 +33,10 @@ export const PixelField: FC<PixelFieldProps> = (props: PixelFieldProps) => {
                   />
                 );
               }
-            ),
-            <br key={x} />
-          );
-          return result;
-        },
-        [] as Array<React.ReactNode[] | React.ReactNode>
-      )}
+            )}
+          </PixelRow>
+        );
+      })}
     </div>
   );
 };

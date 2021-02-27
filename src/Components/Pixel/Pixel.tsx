@@ -4,12 +4,9 @@ import styled from "@emotion/styled";
 const Button = styled.button<ButtonProps>((props: ButtonProps) => ({
   width: "20px",
   height: "20px",
-  backgroundColor: props.filled ? "grey" : "gainsboro",
+  borderWidth: "1px",
+  backgroundColor: props.filled ? "#28ed34" : "#ffffff",
 }));
-
-const PixelDiv = styled.div`
-  display: inline-block;
-`;
 
 type PixelProps = {
   filled: boolean;
@@ -27,12 +24,6 @@ export const Pixel: FC<PixelProps> = (props: PixelProps) => {
   };
 
   return (
-    <PixelDiv className="pixel-wrapper">
-      <Button
-        className="pixel"
-        onClick={onClickHandler}
-        filled={filled}
-      ></Button>
-    </PixelDiv>
+    <Button className="pixel" onClick={onClickHandler} filled={filled}></Button>
   );
 };

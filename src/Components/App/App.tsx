@@ -8,8 +8,6 @@ import { PixelField } from "../PixelField/PixelField";
 
 import { Grid, Paper } from "@material-ui/core";
 
-const paperStyle = {};
-
 const GameMenuWrapper = styled.div`
   position: relative;
   left: 0px;
@@ -26,6 +24,8 @@ const GameMenuWrapper = styled.div`
 interface AppState {
   pixelStatesMatrix: boolean[][];
   fillPercent: number;
+  pause: boolean;
+  reset: boolean;
 }
 
 const getInitialPixelMass = (n: number): boolean[][] => {
@@ -58,6 +58,8 @@ export class App extends Component<Record<string, unknown>, AppState> {
       defaultSliderPercent
     ),
     fillPercent: defaultSliderPercent,
+    pause: true,
+    reset: false,
   };
 
   getNewPixelStatesMatrix(
@@ -95,21 +97,31 @@ export class App extends Component<Record<string, unknown>, AppState> {
 
   setFilledPercent = (percent: number): void => {
     console.log("SET FILL PERCENt FROM APP", percent);
+    const { fillPercent } = this.state;
     const newPixelStatesMatrix = getRandomPixelMass(defaultFieldSize, percent);
-    this.setState({
-      pixelStatesMatrix: newPixelStatesMatrix,
-      fillPercent: percent,
-    });
+    if (percent !== fillPercent) {
+      this.setState({
+        pixelStatesMatrix: newPixelStatesMatrix,
+        fillPercent: percent,
+      });
+    }
+  };
+
+  setControlsState = (options: { pause: boolean; reset: boolean }): void => {
+    this.setState(options);
+    console.log("setControlsState from App");
   };
 
   render(): React.ReactNode {
     const { pixelStatesMatrix } = this.state;
     return (
       <Grid>
-        <Paper elevation={10} style={paperStyle}>
+        <Paper elevation={10}>
           <Grid container direction={"column"} alignItems={"center"}>
             <GameMenuWrapper className={"game-menu-wrapper"}>
-              <GameControls></GameControls>
+              <GameControls
+                setControlsState={this.setControlsState}
+              ></GameControls>
               <GameOptions></GameOptions>
               <FillSlider
                 defaultPercent={defaultSliderPercent}

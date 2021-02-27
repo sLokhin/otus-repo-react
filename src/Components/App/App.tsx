@@ -25,7 +25,6 @@ interface AppState {
   pixelStatesMatrix: boolean[][];
   fillPercent: number;
   pause: boolean;
-  reset: boolean;
 }
 
 const getInitialPixelMass = (n: number): boolean[][] => {
@@ -107,13 +106,37 @@ export class App extends Component<Record<string, unknown>, AppState> {
     }
   };
 
+  resetFieldAndSlider = (): Pick<
+    AppState,
+    "fillPercent" | "pixelStatesMatrix"
+  > => {
+    console.log("resetFieldAndSlider from App");
+    return {
+      fillPercent: defaultSliderPercent,
+      pixelStatesMatrix: getRandomPixelMass(
+        defaultFieldSize,
+        defaultSliderPercent
+      ),
+    };
+  };
+
   setControlsState = (options: { pause: boolean; reset: boolean }): void => {
-    this.setState(options);
+    const { pause, reset } = options;
+    let fieldsFromReset = {};
+    if (reset) {
+      fieldsFromReset = this.resetFieldAndSlider();
+    }
+
+    const newState = {
+      pause,
+      ...fieldsFromReset,
+    };
+    this.setState(newState);
     console.log("setControlsState from App");
   };
 
   render(): React.ReactNode {
-    const { pixelStatesMatrix } = this.state;
+    const { pixelStatesMatrix, fillPercent } = this.state;
     return (
       <Grid>
         <Paper elevation={10}>
@@ -124,6 +147,7 @@ export class App extends Component<Record<string, unknown>, AppState> {
               ></GameControls>
               <GameOptions></GameOptions>
               <FillSlider
+                currentPercent={fillPercent}
                 defaultPercent={defaultSliderPercent}
                 setFilledPercent={this.setFilledPercent}
               ></FillSlider>

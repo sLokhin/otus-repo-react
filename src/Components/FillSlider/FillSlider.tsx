@@ -22,8 +22,9 @@ const LabelWrapper = styled.div`
 `;
 
 interface FillSliderProps {
-  setFilledPercent: (percent: number) => void;
+  currentPercent: number;
   defaultPercent: number;
+  setFilledPercent: (percent: number) => void;
 }
 
 interface TooltipProps {
@@ -42,7 +43,7 @@ function ValueLabelComponent(props: TooltipProps) {
 }
 
 export const FillSlider: FC<FillSliderProps> = (props: FillSliderProps) => {
-  const { defaultPercent, setFilledPercent } = props;
+  const { currentPercent, defaultPercent, setFilledPercent } = props;
   const changePercent = (
     event: React.ChangeEvent<Record<string, unknown>>,
     newValue: number | number[]
@@ -59,6 +60,7 @@ export const FillSlider: FC<FillSliderProps> = (props: FillSliderProps) => {
       <Slider
         ValueLabelComponent={ValueLabelComponent}
         onChange={changePercent}
+        value={currentPercent}
         defaultValue={defaultPercent}
         name={"fill-percent-input"}
       />

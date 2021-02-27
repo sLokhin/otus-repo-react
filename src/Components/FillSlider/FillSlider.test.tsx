@@ -7,12 +7,16 @@ describe("FillSlider test", () => {
   it("drag FillSlider", () => {
     const setFilledPercent = jest.fn();
     const fillSlider = mount(
-      <FillSlider setFilledPercent={setFilledPercent} />
+      <FillSlider
+        currentPercent={99}
+        defaultPercent={20}
+        setFilledPercent={setFilledPercent}
+      />
     );
 
     expect(
       fillSlider.find("input[name='fill-percent-input']").at(0).prop("value")
-    ).toEqual("30");
+    ).toEqual("99");
 
     expect(fillSlider.find(Slider).length).toBe(1);
 
@@ -22,8 +26,6 @@ describe("FillSlider test", () => {
 
     expect(setFilledPercent).toHaveBeenCalled();
     expect(setFilledPercent).toHaveBeenCalledTimes(1);
-    expect(setFilledPercent.mock.calls[0][0]).toMatchObject({
-      percent: 75,
-    });
+    expect(setFilledPercent.mock.calls[0][0]).toEqual(75);
   });
 });

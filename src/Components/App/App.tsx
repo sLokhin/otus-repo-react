@@ -38,8 +38,8 @@ const getInitialPixelMass = (n: number): boolean[][] => {
 
 const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
   const pixelMatrix: boolean[][] = getInitialPixelMass(n);
-  let a = Math.round(n * n * (percent / 100));
-  let b = n * n;
+  let a = Math.round(Math.pow(n, 2) * (percent / 100));
+  let b = Math.pow(n, 2);
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < n; j++) {
       if (Math.random() < a / b) {

@@ -2,7 +2,7 @@ import React from "react";
 import { mount } from "enzyme";
 import { Pixel } from "./Pixel";
 
-describe("Single Pixel: JSX version", () => {
+describe("Pixel test", () => {
   it("passed onClick inside Pixel", () => {
     const onClick = jest.fn();
     const pixel = mount(<Pixel filled={false} x={0} y={0} onClick={onClick} />);

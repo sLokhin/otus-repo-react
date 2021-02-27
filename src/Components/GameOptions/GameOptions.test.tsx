@@ -4,7 +4,14 @@ import { GameOptions } from "./GameOptions";
 
 describe("GameOptions test", () => {
   it("render GameOptions", () => {
-    const controls = mount(<GameOptions />);
+    const setOptionsSize = jest.fn();
+    const setOptionsSpeed = jest.fn();
+    const controls = mount(
+      <GameOptions
+        setOptionsSize={setOptionsSize}
+        setOptionsSpeed={setOptionsSpeed}
+      ></GameOptions>
+    );
     expect(controls.find("button").length).toBe(6);
     expect(controls.find("button.options-button-size-small").length).toBe(1);
     expect(controls.find("button.options-button-size-medium").length).toBe(1);
@@ -14,48 +21,48 @@ describe("GameOptions test", () => {
     expect(controls.find("button.options-button-speed-fast").length).toBe(1);
   });
   it("click GameOptions", () => {
-    const setOptionsState = jest.fn();
-    const controls = mount(<GameOptions setOptionsState={setOptionsState} />);
+    const setOptionsSize = jest.fn();
+    const setOptionsSpeed = jest.fn();
+    const controls = mount(
+      <GameOptions
+        setOptionsSize={setOptionsSize}
+        setOptionsSpeed={setOptionsSpeed}
+      ></GameOptions>
+    );
     controls.find("button.options-button-size-small").simulate("click");
-    expect(setOptionsState).toHaveBeenCalled();
-    expect(setOptionsState).toHaveBeenCalledTimes(1);
-    expect(setOptionsState.mock.calls[0][0]).toMatchObject({
+    expect(setOptionsSize).toHaveBeenCalled();
+    expect(setOptionsSize).toHaveBeenCalledTimes(1);
+    expect(setOptionsSize.mock.calls[0][0]).toMatchObject({
       size: "small",
-      speed: "medium",
     });
 
     controls.find("button.options-button-size-medium").simulate("click");
-    expect(setOptionsState).toHaveBeenCalledTimes(2);
-    expect(setOptionsState.mock.calls[1][0]).toMatchObject({
+    expect(setOptionsSize).toHaveBeenCalledTimes(2);
+    expect(setOptionsSize.mock.calls[1][0]).toMatchObject({
       size: "medium",
-      speed: "medium",
     });
 
     controls.find("button.options-button-size-large").simulate("click");
-    expect(setOptionsState).toHaveBeenCalledTimes(3);
-    expect(setOptionsState.mock.calls[2][0]).toMatchObject({
+    expect(setOptionsSize).toHaveBeenCalledTimes(3);
+    expect(setOptionsSize.mock.calls[2][0]).toMatchObject({
       size: "large",
-      speed: "medium",
     });
 
     controls.find("button.options-button-speed-slow").simulate("click");
-    expect(setOptionsState).toHaveBeenCalledTimes(4);
-    expect(setOptionsState.mock.calls[3][0]).toMatchObject({
-      size: "large",
+    expect(setOptionsSpeed).toHaveBeenCalledTimes(1);
+    expect(setOptionsSpeed.mock.calls[0][0]).toMatchObject({
       speed: "slow",
     });
 
     controls.find("button.options-button-speed-medium").simulate("click");
-    expect(setOptionsState).toHaveBeenCalledTimes(5);
-    expect(setOptionsState.mock.calls[4][0]).toMatchObject({
-      size: "large",
+    expect(setOptionsSpeed).toHaveBeenCalledTimes(2);
+    expect(setOptionsSpeed.mock.calls[1][0]).toMatchObject({
       speed: "medium",
     });
 
     controls.find("button.options-button-speed-fast").simulate("click");
-    expect(setOptionsState).toHaveBeenCalledTimes(6);
-    expect(setOptionsState.mock.calls[5][0]).toMatchObject({
-      size: "large",
+    expect(setOptionsSpeed).toHaveBeenCalledTimes(3);
+    expect(setOptionsSpeed.mock.calls[2][0]).toMatchObject({
       speed: "fast",
     });
   });

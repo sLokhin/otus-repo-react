@@ -21,10 +21,15 @@ const GameMenuWrapper = styled.div`
   align-items: center;
 `;
 
+export type possibleSize = "small" | "medium" | "large";
+export type possibleSpeed = "slow" | "medium" | "fast";
+
 interface AppState {
   pixelStatesMatrix: boolean[][];
   fillPercent: number;
   pause: boolean;
+  size: possibleSize;
+  speed: possibleSpeed;
 }
 
 const getInitialPixelMass = (n: number): boolean[][] => {
@@ -58,7 +63,8 @@ export class App extends Component<Record<string, unknown>, AppState> {
     ),
     fillPercent: defaultSliderPercent,
     pause: true,
-    reset: false,
+    size: "medium" as possibleSize,
+    speed: "medium" as possibleSpeed,
   };
 
   getNewPixelStatesMatrix(
@@ -135,6 +141,24 @@ export class App extends Component<Record<string, unknown>, AppState> {
     console.log("setControlsState from App");
   };
 
+  setOptionsSize = (options: { size: possibleSize }): void => {
+    const { size } = options;
+    const newState = {
+      size,
+    };
+    this.setState(newState);
+    console.log("setOptionsSize from App");
+  };
+
+  setOptionsSpeed = (options: { speed: possibleSpeed }): void => {
+    const { speed } = options;
+    const newState = {
+      speed,
+    };
+    this.setState(newState);
+    console.log("setOptionsSpeed from App");
+  };
+
   render(): React.ReactNode {
     const { pixelStatesMatrix, fillPercent } = this.state;
     return (
@@ -145,7 +169,10 @@ export class App extends Component<Record<string, unknown>, AppState> {
               <GameControls
                 setControlsState={this.setControlsState}
               ></GameControls>
-              <GameOptions></GameOptions>
+              <GameOptions
+                setOptionsSize={this.setOptionsSize}
+                setOptionsSpeed={this.setOptionsSpeed}
+              ></GameOptions>
               <FillSlider
                 currentPercent={fillPercent}
                 defaultPercent={defaultSliderPercent}

@@ -2,7 +2,7 @@ import React from "react";
 import { withKnobs, number, boolean } from "@storybook/addon-knobs";
 import { Pixel } from "./Pixel";
 export default {
-  title: "Lesson 5 / Pixel",
+  title: "Game of life / Pixel",
   decorators: [withKnobs],
 };
 

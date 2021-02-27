@@ -101,7 +101,7 @@ export class App extends Component<Record<string, unknown>, AppState> {
   };
 
   setFilledPercent = (percent: number): void => {
-    console.log("SET FILL PERCENt FROM APP", percent);
+    console.log("SET FILL PERCENT FROM APP", percent);
     const { fillPercent } = this.state;
     const newPixelStatesMatrix = getRandomPixelMass(defaultFieldSize, percent);
     if (percent !== fillPercent) {

@@ -21,6 +21,9 @@ const GameMenuWrapper = styled.div`
   align-items: center;
 `;
 
+export const DEFAULT_FIELD_SIZE = 10;
+export const DEFAULT_SLIDER_PERCENT = 20;
+
 export type possibleSize = "small" | "medium" | "large";
 export type possibleSpeed = "slow" | "medium" | "fast";
 
@@ -52,16 +55,13 @@ const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
   return pixelMatrix;
 };
 
-const defaultFieldSize = 10;
-const defaultSliderPercent = 20;
-
 export class App extends Component<Record<string, unknown>, AppState> {
   state = {
     pixelStatesMatrix: getRandomPixelMass(
-      defaultFieldSize,
-      defaultSliderPercent
+      DEFAULT_FIELD_SIZE,
+      DEFAULT_SLIDER_PERCENT
     ),
-    fillPercent: defaultSliderPercent,
+    fillPercent: DEFAULT_SLIDER_PERCENT,
     pause: true,
     size: "medium" as possibleSize,
     speed: "medium" as possibleSpeed,
@@ -103,7 +103,10 @@ export class App extends Component<Record<string, unknown>, AppState> {
   setFilledPercent = (percent: number): void => {
     console.log("SET FILL PERCENT FROM APP", percent);
     const { fillPercent } = this.state;
-    const newPixelStatesMatrix = getRandomPixelMass(defaultFieldSize, percent);
+    const newPixelStatesMatrix = getRandomPixelMass(
+      DEFAULT_FIELD_SIZE,
+      percent
+    );
     if (percent !== fillPercent) {
       this.setState({
         pixelStatesMatrix: newPixelStatesMatrix,
@@ -118,10 +121,10 @@ export class App extends Component<Record<string, unknown>, AppState> {
   > => {
     console.log("resetFieldAndSlider from App");
     return {
-      fillPercent: defaultSliderPercent,
+      fillPercent: DEFAULT_SLIDER_PERCENT,
       pixelStatesMatrix: getRandomPixelMass(
-        defaultFieldSize,
-        defaultSliderPercent
+        DEFAULT_FIELD_SIZE,
+        DEFAULT_SLIDER_PERCENT
       ),
     };
   };
@@ -175,7 +178,7 @@ export class App extends Component<Record<string, unknown>, AppState> {
               ></GameOptions>
               <FillSlider
                 currentPercent={fillPercent}
-                defaultPercent={defaultSliderPercent}
+                defaultPercent={DEFAULT_SLIDER_PERCENT}
                 setFilledPercent={this.setFilledPercent}
               ></FillSlider>
             </GameMenuWrapper>

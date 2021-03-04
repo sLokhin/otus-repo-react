@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import { App } from "./App";
+import { App, DEFAULT_SLIDER_PERCENT, DEFAULT_FIELD_SIZE } from "./App";
 import { PixelField } from "../PixelField/PixelField";
 import { Slider } from "@material-ui/core";
 
@@ -9,10 +9,8 @@ describe("App test", () => {
     const app = mount(<App />);
     const pixelField = app.find(PixelField);
 
-    const defaultFieldSize = 10;
-    const defaultSliderPercent = 20;
     const expectedFilledPixelsAmount = Math.round(
-      Math.pow(defaultFieldSize, 2) * (defaultSliderPercent / 100)
+      Math.pow(DEFAULT_FIELD_SIZE, 2) * (DEFAULT_SLIDER_PERCENT / 100)
     );
 
     let filledPixelsAmount = 0;

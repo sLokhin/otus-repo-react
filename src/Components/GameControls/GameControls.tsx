@@ -42,6 +42,10 @@ const LightGreenButton = withStyles(() => ({
   },
 }))(Button);
 
+const buttonPlayClasses = { root: "control-button-play" };
+const buttonPauseClasses = { root: "control-button-pause" };
+const buttonResetClasses = { root: "control-button-reset" };
+
 interface GameControlsProps {
   setControlsState: (options: { pause: boolean; reset: boolean }) => void;
 }
@@ -80,7 +84,7 @@ export const GameControls: FC<GameControlsProps> = (
   return (
     <ControlsWrapper className={"controls-wrapper"}>
       <BlueButton
-        classes={{ root: "control-button-play" }}
+        classes={buttonPlayClasses}
         variant={"contained"}
         color={"primary"}
         startIcon={<PlayArrowIcon />}
@@ -89,7 +93,7 @@ export const GameControls: FC<GameControlsProps> = (
         Play
       </BlueButton>
       <LightBlueButton
-        classes={{ root: "control-button-pause" }}
+        classes={buttonPauseClasses}
         variant={"contained"}
         color={"primary"}
         startIcon={<PauseIcon />}
@@ -98,7 +102,7 @@ export const GameControls: FC<GameControlsProps> = (
         Pause
       </LightBlueButton>
       <LightGreenButton
-        classes={{ root: "control-button-reset" }}
+        classes={buttonResetClasses}
         variant={"contained"}
         color={"primary"}
         startIcon={<RotateLeftIcon />}

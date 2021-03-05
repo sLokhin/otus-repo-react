@@ -24,15 +24,24 @@ const GameMenuWrapper = styled.div`
 export const DEFAULT_FIELD_SIZE = 10;
 export const DEFAULT_SLIDER_PERCENT = 20;
 
-export type possibleSize = "small" | "medium" | "large";
-export type possibleSpeed = "slow" | "medium" | "fast";
+enum possibleSize {
+  small,
+  medium,
+  large,
+}
+
+enum possibleSpeed {
+  slow,
+  medium,
+  fast,
+}
 
 interface AppState {
   pixelStatesMatrix: boolean[][];
   fillPercent: number;
   pause: boolean;
-  size: possibleSize;
-  speed: possibleSpeed;
+  size: string;
+  speed: string;
 }
 
 const getInitialPixelMass = (n: number): boolean[][] => {
@@ -63,8 +72,8 @@ export class App extends Component<Record<string, unknown>, AppState> {
     ),
     fillPercent: DEFAULT_SLIDER_PERCENT,
     pause: true,
-    size: "medium" as possibleSize,
-    speed: "medium" as possibleSpeed,
+    size: possibleSize[1],
+    speed: possibleSpeed[1],
   };
 
   getNewPixelStatesMatrix(
@@ -144,7 +153,7 @@ export class App extends Component<Record<string, unknown>, AppState> {
     console.log("setControlsState from App");
   };
 
-  setOptionsSize = (options: { size: possibleSize }): void => {
+  setOptionsSize = (options: { size: string }): void => {
     const { size } = options;
     const newState = {
       size,
@@ -153,7 +162,7 @@ export class App extends Component<Record<string, unknown>, AppState> {
     console.log("setOptionsSize from App");
   };
 
-  setOptionsSpeed = (options: { speed: possibleSpeed }): void => {
+  setOptionsSpeed = (options: { speed: string }): void => {
     const { speed } = options;
     const newState = {
       speed,

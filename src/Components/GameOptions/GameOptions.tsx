@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { Button, withStyles } from "@material-ui/core";
 import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
 import styled from "@emotion/styled";
-import { possibleSize, possibleSpeed } from "../App/App";
 
 const OptionsWrapper = styled.div`
   display: flex;
@@ -68,13 +67,13 @@ const LightGreenButton = withStyles(() => ({
 }))(Button);
 
 interface GameOptionsProps {
-  setOptionsSize: (options: { size: possibleSize }) => void;
-  setOptionsSpeed: (options: { speed: possibleSpeed }) => void;
+  setOptionsSize: (options: { size: string }) => void;
+  setOptionsSpeed: (options: { speed: string }) => void;
 }
 
 export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   const { setOptionsSize, setOptionsSpeed } = props;
-  const setFieldSize = (size: possibleSize): void => {
+  const setFieldSize = (size: string): void => {
     const options = {
       size: size,
     };
@@ -82,7 +81,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
     console.log("setFieldSize");
   };
 
-  const setSpeed = (speed: possibleSpeed): void => {
+  const setSpeed = (speed: string): void => {
     const options = {
       speed: speed,
     };

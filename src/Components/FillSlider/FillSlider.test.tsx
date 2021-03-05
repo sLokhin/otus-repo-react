@@ -3,12 +3,14 @@ import { mount } from "enzyme";
 import { FillSlider } from "./FillSlider";
 import { Slider } from "@material-ui/core";
 
+const currentPercentTestValue = 99;
+
 describe("FillSlider test", () => {
   it("drag FillSlider", () => {
     const setFilledPercent = jest.fn();
     const fillSlider = mount(
       <FillSlider
-        currentPercent={99}
+        currentPercent={currentPercentTestValue}
         defaultPercent={20}
         setFilledPercent={setFilledPercent}
       />
@@ -16,7 +18,7 @@ describe("FillSlider test", () => {
 
     expect(
       fillSlider.find("input[name='fill-percent-input']").at(0).prop("value")
-    ).toEqual("99");
+    ).toEqual(String(currentPercentTestValue));
 
     expect(fillSlider.find(Slider).length).toBe(1);
 

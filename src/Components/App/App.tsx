@@ -104,13 +104,10 @@ export class App extends Component<Record<string, unknown>, AppState> {
       pixelStatesMatrix
     );
 
-    console.log("NEW CLICK STATE MATRIX FROM APP ", newPixelStatesMatrix);
-
     this.setState({ pixelStatesMatrix: newPixelStatesMatrix });
   };
 
   setFilledPercent = (percent: number): void => {
-    console.log("SET FILL PERCENT FROM APP", percent);
     const { fillPercent } = this.state;
     const newPixelStatesMatrix = getRandomPixelMass(
       DEFAULT_FIELD_SIZE,
@@ -128,7 +125,6 @@ export class App extends Component<Record<string, unknown>, AppState> {
     AppState,
     "fillPercent" | "pixelStatesMatrix"
   > => {
-    console.log("resetFieldAndSlider from App");
     return {
       fillPercent: DEFAULT_SLIDER_PERCENT,
       pixelStatesMatrix: getRandomPixelMass(
@@ -150,17 +146,14 @@ export class App extends Component<Record<string, unknown>, AppState> {
       ...fieldsFromReset,
     };
     this.setState(newState);
-    console.log("setControlsState from App");
   };
 
   setOptionsSize = (size: string): void => {
     this.setState({ size });
-    console.log("setOptionsSize from App");
   };
 
   setOptionsSpeed = (speed: string): void => {
     this.setState({ speed });
-    console.log("setOptionsSpeed from App");
   };
 
   render(): React.ReactNode {

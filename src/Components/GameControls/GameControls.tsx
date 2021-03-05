@@ -60,7 +60,6 @@ export const GameControls: FC<GameControlsProps> = (
       reset: false,
     };
     setControlsState(options);
-    console.log("startGame");
   };
 
   const pauseGame = (): void => {
@@ -69,7 +68,6 @@ export const GameControls: FC<GameControlsProps> = (
       reset: false,
     };
     setControlsState(options);
-    console.log("pauseGame");
   };
 
   const resetGame = (): void => {
@@ -78,7 +76,6 @@ export const GameControls: FC<GameControlsProps> = (
       reset: true,
     };
     setControlsState(options);
-    console.log("resetGame");
   };
 
   return (

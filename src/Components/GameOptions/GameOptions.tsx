@@ -75,12 +75,10 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   const { setOptionsSize, setOptionsSpeed } = props;
   const setFieldSize = (size: string): void => {
     setOptionsSize(size);
-    console.log("setFieldSize");
   };
 
   const setSpeed = (speed: string): void => {
     setOptionsSpeed(speed);
-    console.log("setSpeed");
   };
 
   return (

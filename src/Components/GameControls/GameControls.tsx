@@ -50,33 +50,25 @@ interface GameControlsProps {
   setControlsState: (options: { pause: boolean; reset: boolean }) => void;
 }
 
+const STATE_START = {
+  pause: false,
+  reset: false,
+};
+
+const STATE_PAUSE = {
+  pause: true,
+  reset: false,
+};
+
+const STATE_RESET = {
+  pause: true,
+  reset: true,
+};
+
 export const GameControls: FC<GameControlsProps> = (
   props: GameControlsProps
 ) => {
   const { setControlsState } = props;
-  const startGame = (): void => {
-    const options = {
-      pause: false,
-      reset: false,
-    };
-    setControlsState(options);
-  };
-
-  const pauseGame = (): void => {
-    const options = {
-      pause: true,
-      reset: false,
-    };
-    setControlsState(options);
-  };
-
-  const resetGame = (): void => {
-    const options = {
-      pause: true,
-      reset: true,
-    };
-    setControlsState(options);
-  };
 
   return (
     <ControlsWrapper className={"controls-wrapper"}>
@@ -85,7 +77,7 @@ export const GameControls: FC<GameControlsProps> = (
         variant={"contained"}
         color={"primary"}
         startIcon={<PlayArrowIcon />}
-        onClick={startGame}
+        onClick={() => setControlsState(STATE_START)}
       >
         Play
       </BlueButton>
@@ -94,7 +86,7 @@ export const GameControls: FC<GameControlsProps> = (
         variant={"contained"}
         color={"primary"}
         startIcon={<PauseIcon />}
-        onClick={pauseGame}
+        onClick={() => setControlsState(STATE_PAUSE)}
       >
         Pause
       </LightBlueButton>
@@ -103,7 +95,7 @@ export const GameControls: FC<GameControlsProps> = (
         variant={"contained"}
         color={"primary"}
         startIcon={<RotateLeftIcon />}
-        onClick={resetGame}
+        onClick={() => setControlsState(STATE_RESET)}
       >
         Reset
       </LightGreenButton>

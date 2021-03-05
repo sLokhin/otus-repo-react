@@ -32,38 +32,26 @@ describe("GameOptions test", () => {
     controls.find("button.options-button-size-small").simulate("click");
     expect(setOptionsSize).toHaveBeenCalled();
     expect(setOptionsSize).toHaveBeenCalledTimes(1);
-    expect(setOptionsSize.mock.calls[0][0]).toMatchObject({
-      size: "small",
-    });
+    expect(setOptionsSize.mock.calls[0][0]).toEqual("small");
 
     controls.find("button.options-button-size-medium").simulate("click");
     expect(setOptionsSize).toHaveBeenCalledTimes(2);
-    expect(setOptionsSize.mock.calls[1][0]).toMatchObject({
-      size: "medium",
-    });
+    expect(setOptionsSize.mock.calls[1][0]).toEqual("medium");
 
     controls.find("button.options-button-size-large").simulate("click");
     expect(setOptionsSize).toHaveBeenCalledTimes(3);
-    expect(setOptionsSize.mock.calls[2][0]).toMatchObject({
-      size: "large",
-    });
+    expect(setOptionsSize.mock.calls[2][0]).toEqual("large");
 
     controls.find("button.options-button-speed-slow").simulate("click");
     expect(setOptionsSpeed).toHaveBeenCalledTimes(1);
-    expect(setOptionsSpeed.mock.calls[0][0]).toMatchObject({
-      speed: "slow",
-    });
+    expect(setOptionsSpeed.mock.calls[0][0]).toEqual("slow");
 
     controls.find("button.options-button-speed-medium").simulate("click");
     expect(setOptionsSpeed).toHaveBeenCalledTimes(2);
-    expect(setOptionsSpeed.mock.calls[1][0]).toMatchObject({
-      speed: "medium",
-    });
+    expect(setOptionsSpeed.mock.calls[1][0]).toEqual("medium");
 
     controls.find("button.options-button-speed-fast").simulate("click");
     expect(setOptionsSpeed).toHaveBeenCalledTimes(3);
-    expect(setOptionsSpeed.mock.calls[2][0]).toMatchObject({
-      speed: "fast",
-    });
+    expect(setOptionsSpeed.mock.calls[2][0]).toEqual("fast");
   });
 });

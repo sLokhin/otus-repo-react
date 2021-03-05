@@ -153,21 +153,13 @@ export class App extends Component<Record<string, unknown>, AppState> {
     console.log("setControlsState from App");
   };
 
-  setOptionsSize = (options: { size: string }): void => {
-    const { size } = options;
-    const newState = {
-      size,
-    };
-    this.setState(newState);
+  setOptionsSize = (size: string): void => {
+    this.setState({ size });
     console.log("setOptionsSize from App");
   };
 
-  setOptionsSpeed = (options: { speed: string }): void => {
-    const { speed } = options;
-    const newState = {
-      speed,
-    };
-    this.setState(newState);
+  setOptionsSpeed = (speed: string): void => {
+    this.setState({ speed });
     console.log("setOptionsSpeed from App");
   };
 

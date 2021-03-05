@@ -67,25 +67,19 @@ const LightGreenButton = withStyles(() => ({
 }))(Button);
 
 interface GameOptionsProps {
-  setOptionsSize: (options: { size: string }) => void;
-  setOptionsSpeed: (options: { speed: string }) => void;
+  setOptionsSize: (size: string) => void;
+  setOptionsSpeed: (speed: string) => void;
 }
 
 export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   const { setOptionsSize, setOptionsSpeed } = props;
   const setFieldSize = (size: string): void => {
-    const options = {
-      size: size,
-    };
-    setOptionsSize(options);
+    setOptionsSize(size);
     console.log("setFieldSize");
   };
 
   const setSpeed = (speed: string): void => {
-    const options = {
-      speed: speed,
-    };
-    setOptionsSpeed(options);
+    setOptionsSpeed(speed);
     console.log("setSpeed");
   };
 

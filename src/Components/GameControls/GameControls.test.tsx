@@ -4,7 +4,10 @@ import { GameControls } from "./GameControls";
 
 describe("GameControls test", () => {
   it("render GameControls", () => {
-    const controls = mount(<GameControls />);
+    const setControlsState = jest.fn();
+    const controls = mount(
+      <GameControls setControlsState={setControlsState} />
+    );
     expect(controls.find("button").length).toBe(3);
     expect(controls.find("button.control-button-play").length).toBe(1);
     expect(controls.find("button.control-button-pause").length).toBe(1);

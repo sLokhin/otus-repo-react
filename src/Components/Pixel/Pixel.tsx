@@ -1,43 +1,29 @@
-import React, { Component } from "react";
-import { PixelButton } from "./components/PixelButton/PixelButton";
+import React, { FC } from "react";
 import styled from "@emotion/styled";
 
-interface IPixelProps {
-  filled?: string;
-  x?: number;
-  y?: number;
-  onClick?: (coordX: number, coordY: number, newFlag: boolean) => void;
-}
-
-interface IPixelState {
-  isClicked: boolean;
-}
-
-const PixelDiv = styled.div(() => ({
-  display: "inline-block",
-  margin: "2px",
+const Button = styled.button<ButtonProps>((props: ButtonProps) => ({
+  width: "20px",
+  height: "20px",
+  borderWidth: "1px",
+  backgroundColor: props.filled ? "#28ed34" : "#ffffff",
 }));
 
-export class Pixel extends Component<IPixelProps, IPixelState> {
-  state = {
-    isClicked: false,
+type PixelProps = {
+  filled: boolean;
+  x: number;
+  y: number;
+  onClick?: (coordX: number, coordY: number, newFlag: boolean) => void;
+};
+
+type ButtonProps = Pick<PixelProps, "filled" | "onClick">;
+
+export const Pixel: FC<PixelProps> = (props: PixelProps) => {
+  const { filled, x, y, onClick = () => null } = props;
+  const onClickHandler = (): void => {
+    onClick(x, y, !filled);
   };
 
-  onClickHandler(): void {
-    const { x = 0, y = 0, onClick = () => null } = this.props;
-    this.setState({ isClicked: true });
-    onClick(x, y, true);
-  }
-
-  render(): React.ReactNode {
-    const { isClicked } = this.state;
-    const { filled = "0", x = 0, y = 0 } = this.props;
-    return (
-      <PixelDiv className="pixel-wrapper">
-        <PixelButton onClick={() => this.onClickHandler()} filled={filled}>
-          {isClicked ? `Coords: ${x}-${y}` : "Not clicked yet"}
-        </PixelButton>
-      </PixelDiv>
-    );
-  }
-}
+  return (
+    <Button className="pixel" onClick={onClickHandler} filled={filled}></Button>
+  );
+};

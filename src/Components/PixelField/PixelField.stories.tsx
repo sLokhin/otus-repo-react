@@ -1,33 +1,38 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
-import { withKnobs, text, number, object } from "@storybook/addon-knobs";
+import { withKnobs, object } from "@storybook/addon-knobs";
 import { PixelField } from "./PixelField";
 export default {
-  title: "Lesson 5 / PixelField",
+  title: "Game of life / PixelField",
   decorators: [withKnobs],
 };
 
-export const emptyPixelField = () => {
+const onPixelClick = (): void => {
+  console.log("PixelField story --- onPixelClick");
+};
+
+export const emptyPixelField = (): React.ReactNode => {
   return (
     <PixelField
-      pixelMatrix={object("pixelMatrix", [
-        ["0", "0", "0"],
-        ["0", "0", "0"],
-        ["0", "0", "0"],
+      pixelStatesMatrix={object("pixelMatrix", [
+        [false, false, false],
+        [false, false, false],
+        [false, false, false],
       ])}
+      onPixelClick={onPixelClick}
       key="jsx"
     />
   );
 };
 
-export const commonPixelField = () => {
+export const commonPixelField = (): React.ReactNode => {
   return (
     <PixelField
-      pixelMatrix={object("pixelMatrix", [
-        ["0", "0", "1"],
-        ["0", "1", "0"],
-        ["1", "0", "1"],
+      pixelStatesMatrix={object("pixelMatrix", [
+        [false, false, true],
+        [false, true, false],
+        [true, false, true],
       ])}
+      onPixelClick={onPixelClick}
       key="jsx"
     />
   );

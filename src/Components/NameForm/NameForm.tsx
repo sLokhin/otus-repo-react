@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC, useState, useContext } from "react";
 import {
   Grid,
   Paper,
@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-
+import { AppContext } from "../App/App";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const h5Style = {
@@ -27,76 +27,60 @@ const paperStyle = {
 const iconStyle = { backgroundColor: "#1bbd7e" };
 
 interface NameFormProps {
-  onSubmit?: (value: string) => void;
+  onSubmit?: (name: string) => void;
 }
 
-interface NameFormState {
-  name: string;
-}
+export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
+  const [state, dispatch] = useContext(AppContext);
+  const [nameFromState, setName] = useState("");
 
-type AllPropsRequired<T> = {
-  [Property in keyof T]-?: T[Property];
-};
+  const {
+    onSubmit = (name: string): void => {
+      dispatch({ type: "LOGIN", name: name });
+      console.log("The name was written and accepted:  ", name);
+    },
+  } = props;
 
-export class NameForm extends React.Component<NameFormProps, NameFormState> {
-  private args: AllPropsRequired<NameFormProps> = {
-    ...this.props,
-    onSubmit:
-      this.props.onSubmit !== undefined
-        ? this.props.onSubmit
-        : (value: string): void => {
-            console.log("The name was written and accepted:  ", value);
-          },
+  const handleInputChange = (e: React.ChangeEvent): void => {
+    setName((e.target as HTMLInputElement).value);
   };
 
-  state = {
-    name: "",
-  };
-
-  handleInputChange = (e: React.ChangeEvent): void => {
-    this.setState({
-      name: (e.target as HTMLInputElement).value,
-    });
-  };
-
-  handleFormSubmit = (e: React.FormEvent): void => {
+  const handleFormSubmit = (e: React.FormEvent): void => {
     e.preventDefault();
-    this.args.onSubmit(this.state.name);
+    onSubmit(nameFromState);
   };
 
-  render(): React.ReactNode {
-    return (
-      <form onSubmit={this.handleFormSubmit}>
-        <Grid>
-          <Paper elevation={10} style={paperStyle}>
-            <Grid container direction={"column"} alignItems={"center"}>
-              <Avatar style={iconStyle}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography variant="h5" style={h5Style}>
-                Enter your name
-              </Typography>
-            </Grid>
-            <TextField
-              label={"Player name"}
-              placeholder={"Player1"}
-              inputProps={{ maxLength: 12 }}
-              fullWidth
-              required
-              onChange={this.handleInputChange}
-            ></TextField>
-            <Button
-              variant={"contained"}
-              type={"submit"}
-              color={"primary"}
-              style={buttonStyle}
-              fullWidth
-            >
-              Sign in
-            </Button>
-          </Paper>
-        </Grid>
-      </form>
-    );
-  }
-}
+  return (
+    <form onSubmit={handleFormSubmit}>
+      <Grid>
+        <Paper elevation={10} style={paperStyle}>
+          <Grid container direction={"column"} alignItems={"center"}>
+            <Avatar style={iconStyle}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography variant="h5" style={h5Style}>
+              Enter your name
+            </Typography>
+          </Grid>
+          <TextField
+            label={"Player name"}
+            placeholder={"Player1"}
+            inputProps={{ maxLength: 12 }}
+            fullWidth
+            required
+            onChange={handleInputChange}
+          ></TextField>
+          <Button
+            variant={"contained"}
+            type={"submit"}
+            color={"primary"}
+            style={buttonStyle}
+            fullWidth
+          >
+            Sign in
+          </Button>
+        </Paper>
+      </Grid>
+    </form>
+  );
+};

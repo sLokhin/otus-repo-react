@@ -51,8 +51,8 @@ export const GameHeader: FC<GameHeaderProps> = (props: GameHeaderProps) => {
   return (
     <GameHeaderWrapper>
       <RightSide>
-        <LabelWrapper>{name}</LabelWrapper>
-        <IconWrapper onClick={onLogout}>
+        <LabelWrapper className={"label-wrapper"}>{name}</LabelWrapper>
+        <IconWrapper className={"icon-wrapper"} onClick={onLogout}>
           <ExitToAppIcon style={{ color: "white" }} />
         </IconWrapper>
       </RightSide>

@@ -1,11 +1,18 @@
 import React from "react";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
+import { AppContext } from "../App/App";
 
 describe("NameForm test", () => {
   it("submit NameForm", () => {
     const onSubmit = jest.fn();
-    const form = mount(<NameForm onSubmit={onSubmit} />);
+    const form = mount(<NameForm onSubmit={onSubmit} />, {
+      wrappingComponent: AppContext.Provider,
+      wrappingComponentProps: {
+        value: [{}, () => null],
+      },
+    });
+
     form.find("input").simulate("change", {
       target: { value: "New Player" },
     });

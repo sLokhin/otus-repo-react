@@ -37,7 +37,6 @@ export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const {
     onSubmit = (name: string): void => {
       dispatch({ type: "LOGIN", name: name });
-      console.log("The name was written and accepted:  ", name);
     },
   } = props;
 

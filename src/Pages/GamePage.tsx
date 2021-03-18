@@ -1,5 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Game } from "../Components/Game/Game";
+import { GameHeader } from "../Components/GameHeader/GameHeader";
+import { AppContext } from "../Components/App/App";
 import styled from "@emotion/styled";
 
 const GameLayout = styled.div`
@@ -12,8 +14,13 @@ const GameLayout = styled.div`
 `;
 
 export const GamePage: FC = () => {
+  const [state, dispatch] = useContext(AppContext);
+  const onLogout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
   return (
     <GameLayout>
+      <GameHeader onLogout={onLogout} />
       <Game />
     </GameLayout>
   );

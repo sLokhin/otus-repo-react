@@ -3,6 +3,7 @@ import { Game } from "../Components/Game/Game";
 import { GameHeader } from "../Components/GameHeader/GameHeader";
 import { AppContext } from "../Components/App/App";
 import styled from "@emotion/styled";
+import { logout } from "../API/auth";
 
 const GameLayout = styled.div`
   display: flex;
@@ -15,7 +16,8 @@ const GameLayout = styled.div`
 
 export const GamePage: FC = () => {
   const [state, dispatch] = useContext(AppContext);
-  const onLogout = () => {
+  const onLogout = async () => {
+    await logout();
     dispatch({ type: "LOGOUT" });
   };
   return (

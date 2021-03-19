@@ -1,27 +1,39 @@
 import React, { FC, createContext, useReducer } from "react";
-
-import { GamePage } from "../../Pages/GamePage";
-import { LoginPage } from "../../Pages/LoginPage";
+import { Routes } from "../../Routing/Routes";
 
 type AppState = {
   name: string;
   isAuth: boolean;
+  isLoading: boolean;
 };
 
 const initialState: AppState = {
   name: "",
   isAuth: false,
+  isLoading: true,
 };
 
 const reducer = (state: AppState, action): AppState => {
   switch (action.type) {
+    case "LOADING_START":
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case "LOADING_END":
+      return {
+        ...state,
+        isLoading: false,
+      };
     case "LOGIN":
       return {
+        ...state,
         name: action.name,
         isAuth: true,
       };
     case "LOGOUT":
       return {
+        ...state,
         name: "",
         isAuth: false,
       };
@@ -33,11 +45,9 @@ const reducer = (state: AppState, action): AppState => {
 export const AppContext = createContext();
 export const App: FC = () => {
   const reducerResult = useReducer(reducer, initialState);
-  const [state, dispatch] = reducerResult;
-  const { isAuth } = state;
   return (
     <AppContext.Provider value={reducerResult}>
-      {isAuth ? <GamePage /> : <LoginPage />}
+      <Routes />
     </AppContext.Provider>
   );
 };

@@ -5,6 +5,7 @@ import { GamePage } from "../Pages/GamePage";
 import { MainRoute } from "./MainRoute";
 import { LoginRoute } from "./LoginRoute";
 import { AppContext } from "../Components/App/App";
+import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
 import * as actionTypes from "../API/actionTypes";
 
@@ -30,7 +31,7 @@ export const Routes: FC = () => {
   return (
     <Fragment>
       {isLoading ? (
-        <div>{"... IS LOADING ..."}</div>
+        <Loader />
       ) : (
         <BrowserRouter>
           <Switch>

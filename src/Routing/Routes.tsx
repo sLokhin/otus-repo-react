@@ -6,6 +6,7 @@ import { MainRoute } from "./MainRoute";
 import { LoginRoute } from "./LoginRoute";
 import { AppContext } from "../Components/App/App";
 import { getPlayerName, isLoggedIn } from "../API/auth";
+import * as actionTypes from "../API/actionTypes";
 
 export const Routes: FC = () => {
   const [state, dispatch] = useContext(AppContext);
@@ -13,18 +14,15 @@ export const Routes: FC = () => {
   console.log("STATE  ", state);
 
   useEffect(() => {
-    console.log("USE EFFECT");
     (async () => {
-      console.log("USE EFFECT EXECUTE");
-      dispatch({ type: "LOADING_START" });
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
       if (isLogged) {
-        dispatch({ type: "LOGIN", payload: { name } });
+        dispatch({ type: actionTypes.LOGIN, payload: { name } });
       } else {
-        dispatch({ type: "LOGOUT" });
+        dispatch({ type: actionTypes.LOGOUT });
       }
-      dispatch({ type: "LOADING_END" });
+      dispatch({ type: actionTypes.LOADING_END });
     })();
   }, []);
 

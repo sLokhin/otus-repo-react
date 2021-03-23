@@ -9,6 +9,7 @@ interface LoginRouteProps {
 }
 
 export const LoginRoute: FC<LoginRouteProps> = (props: LoginRouteProps) => {
+  console.log("GET NAME FROM LOGIN ROUTE", localStorage.getItem("login"));
   const { isAuth, path, exact, children } = props;
   return (
     <Route

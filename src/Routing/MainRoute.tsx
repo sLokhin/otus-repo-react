@@ -9,6 +9,7 @@ interface MainRouteProps {
 }
 
 export const MainRoute: FC<MainRouteProps> = (props: MainRouteProps) => {
+  console.log("GET NAME FROM MAIN ROUTE", localStorage.getItem("login"));
   const { isAuth, path, exact, children } = props;
   console.log("AUTH ROUTER...  ", isAuth);
   return (

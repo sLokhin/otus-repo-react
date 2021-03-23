@@ -1,5 +1,6 @@
 import React, { FC, createContext, useReducer } from "react";
 import { Routes } from "../../Routing/Routes";
+import * as actionTypes from "../../API/actionTypes";
 
 type AppState = {
   name: string;
@@ -15,27 +16,29 @@ const initialState: AppState = {
 
 const reducer = (state: AppState, action): AppState => {
   switch (action.type) {
-    case "LOADING_START":
+    case actionTypes.LOADING_START:
       return {
         ...state,
         isLoading: true,
       };
-    case "LOADING_END":
+    case actionTypes.LOADING_END:
       return {
         ...state,
         isLoading: false,
       };
-    case "LOGIN":
+    case actionTypes.LOGIN:
       return {
         ...state,
         name: action.payload.name,
         isAuth: true,
+        isLoading: false,
       };
-    case "LOGOUT":
+    case actionTypes.LOGOUT:
       return {
         ...state,
         name: "",
         isAuth: false,
+        isLoading: false,
       };
     default:
       return state;

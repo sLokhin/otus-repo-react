@@ -8,6 +8,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { AppContext } from "../App/App";
+import { login } from "../../API/auth";
+import * as actionTypes from "../../API/actionTypes";
+
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const h5Style = {
@@ -35,8 +38,10 @@ export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const [nameFromState, setName] = useState("");
 
   const {
-    onSubmit = (name: string): void => {
-      dispatch({ type: "LOGIN", payload: { name } });
+    onSubmit = async (name: string): Promise<void> => {
+      dispatch({ type: actionTypes.LOADING_START });
+      await login(name);
+      dispatch({ type: actionTypes.LOGIN, payload: { name } });
     },
   } = props;
 

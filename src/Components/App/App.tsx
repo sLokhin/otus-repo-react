@@ -28,7 +28,7 @@ const reducer = (state: AppState, action): AppState => {
     case "LOGIN":
       return {
         ...state,
-        name: action.name,
+        name: action.payload.name,
         isAuth: true,
       };
     case "LOGOUT":

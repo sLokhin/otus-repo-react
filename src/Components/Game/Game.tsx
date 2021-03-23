@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 
 import { GameControls } from "../GameControls/GameControls";
@@ -64,24 +64,27 @@ const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
   return pixelMatrix;
 };
 
-export class Game extends Component<Record<string, unknown>, GameState> {
-  state = {
-    pixelStatesMatrix: getRandomPixelMass(
-      DEFAULT_FIELD_SIZE,
-      DEFAULT_SLIDER_PERCENT
-    ),
-    fillPercent: DEFAULT_SLIDER_PERCENT,
-    pause: true,
-    size: possibleSize[1],
-    speed: possibleSpeed[1],
-  };
+const initialState: GameState = {
+  pixelStatesMatrix: getRandomPixelMass(
+    DEFAULT_FIELD_SIZE,
+    DEFAULT_SLIDER_PERCENT
+  ),
+  fillPercent: DEFAULT_SLIDER_PERCENT,
+  pause: true,
+  size: possibleSize[1],
+  speed: possibleSpeed[1],
+};
 
-  getNewPixelStatesMatrix(
+export const Game: FC = () => {
+  const [state, setState] = useState(initialState);
+  const { pixelStatesMatrix, fillPercent } = state;
+
+  const getNewPixelStatesMatrix = (
     coordX: number,
     coordY: number,
     newFlag: boolean,
     currentPixelMatrix: boolean[][]
-  ): boolean[][] {
+  ): boolean[][] => {
     return currentPixelMatrix.map((rowMass, xIdx) => {
       if (coordX === xIdx) {
         return rowMass.map((currentPixelState, yIdx) => {
@@ -93,35 +96,40 @@ export class Game extends Component<Record<string, unknown>, GameState> {
       }
       return rowMass;
     });
-  }
+  };
 
-  onPixelClick = (coordX: number, coordY: number, newFlag: boolean): void => {
-    const { pixelStatesMatrix } = this.state;
-    const newPixelStatesMatrix = this.getNewPixelStatesMatrix(
+  const onPixelClick = (
+    coordX: number,
+    coordY: number,
+    newFlag: boolean
+  ): void => {
+    const { pixelStatesMatrix } = state;
+    const newPixelStatesMatrix = getNewPixelStatesMatrix(
       coordX,
       coordY,
       newFlag,
       pixelStatesMatrix
     );
 
-    this.setState({ pixelStatesMatrix: newPixelStatesMatrix });
+    setState({ ...state, pixelStatesMatrix: newPixelStatesMatrix });
   };
 
-  setFilledPercent = (percent: number): void => {
-    const { fillPercent } = this.state;
+  const setFilledPercent = (percent: number): void => {
+    const { fillPercent } = state;
     const newPixelStatesMatrix = getRandomPixelMass(
       DEFAULT_FIELD_SIZE,
       percent
     );
     if (percent !== fillPercent) {
-      this.setState({
+      setState({
+        ...state,
         pixelStatesMatrix: newPixelStatesMatrix,
         fillPercent: percent,
       });
     }
   };
 
-  resetFieldAndSlider = (): Pick<
+  const resetFieldAndSlider = (): Pick<
     GameState,
     "fillPercent" | "pixelStatesMatrix"
   > => {
@@ -134,55 +142,54 @@ export class Game extends Component<Record<string, unknown>, GameState> {
     };
   };
 
-  setControlsState = (options: { pause: boolean; reset: boolean }): void => {
+  const setControlsState = (options: {
+    pause: boolean;
+    reset: boolean;
+  }): void => {
     const { pause, reset } = options;
     let fieldsFromReset = {};
     if (reset) {
-      fieldsFromReset = this.resetFieldAndSlider();
+      fieldsFromReset = resetFieldAndSlider();
     }
 
     const newState = {
+      ...state,
       pause,
       ...fieldsFromReset,
     };
-    this.setState(newState);
+    setState(newState);
   };
 
-  setOptionsSize = (size: string): void => {
-    this.setState({ size });
+  const setOptionsSize = (size: string): void => {
+    setState({ ...state, size });
   };
 
-  setOptionsSpeed = (speed: string): void => {
-    this.setState({ speed });
+  const setOptionsSpeed = (speed: string): void => {
+    setState({ ...state, speed });
   };
 
-  render(): React.ReactNode {
-    const { pixelStatesMatrix, fillPercent } = this.state;
-    return (
-      <Grid>
-        <Paper elevation={10}>
-          <Grid container direction={"column"} alignItems={"center"}>
-            <GameMenuWrapper className={"game-menu-wrapper"}>
-              <GameControls
-                setControlsState={this.setControlsState}
-              ></GameControls>
-              <GameOptions
-                setOptionsSize={this.setOptionsSize}
-                setOptionsSpeed={this.setOptionsSpeed}
-              ></GameOptions>
-              <FillSlider
-                currentPercent={fillPercent}
-                defaultPercent={DEFAULT_SLIDER_PERCENT}
-                setFilledPercent={this.setFilledPercent}
-              ></FillSlider>
-            </GameMenuWrapper>
-            <PixelField
-              pixelStatesMatrix={pixelStatesMatrix}
-              onPixelClick={this.onPixelClick}
-            />
-          </Grid>
-        </Paper>
-      </Grid>
-    );
-  }
-}
+  return (
+    <Grid>
+      <Paper elevation={10}>
+        <Grid container direction={"column"} alignItems={"center"}>
+          <GameMenuWrapper className={"game-menu-wrapper"}>
+            <GameControls setControlsState={setControlsState}></GameControls>
+            <GameOptions
+              setOptionsSize={setOptionsSize}
+              setOptionsSpeed={setOptionsSpeed}
+            ></GameOptions>
+            <FillSlider
+              currentPercent={fillPercent}
+              defaultPercent={DEFAULT_SLIDER_PERCENT}
+              setFilledPercent={setFilledPercent}
+            ></FillSlider>
+          </GameMenuWrapper>
+          <PixelField
+            pixelStatesMatrix={pixelStatesMatrix}
+            onPixelClick={onPixelClick}
+          />
+        </Grid>
+      </Paper>
+    </Grid>
+  );
+};

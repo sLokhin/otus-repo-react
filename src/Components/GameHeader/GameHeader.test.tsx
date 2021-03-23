@@ -1,6 +1,6 @@
 import React from "react";
 import { mount } from "enzyme";
-import { GameHeader } from "./GameHeader";
+import { GameHeader, IconWrapper, LabelWrapper } from "./GameHeader";
 import { AppContext } from "../App/App";
 
 describe("GameHeader test", () => {
@@ -13,8 +13,8 @@ describe("GameHeader test", () => {
       },
     });
 
-    const labelWrapper = gameHeader.find(".label-wrapper").first();
-    const iconWrapper = gameHeader.find(".icon-wrapper").first();
+    const labelWrapper = gameHeader.find(LabelWrapper).first();
+    const iconWrapper = gameHeader.find(IconWrapper).first();
 
     iconWrapper.simulate("click");
     expect(labelWrapper.text()).toEqual("Player Name from Test");

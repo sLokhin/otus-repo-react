@@ -53,10 +53,8 @@ export const FillSlider: FC<FillSliderProps> = (props: FillSliderProps) => {
   };
 
   return (
-    <SliderWrapper className={"slider-wrapper"}>
-      <LabelWrapper className={"slider-label"}>
-        Field filled percent:
-      </LabelWrapper>
+    <SliderWrapper>
+      <LabelWrapper>Field filled percent:</LabelWrapper>
       <Slider
         ValueLabelComponent={ValueLabelComponent}
         onChange={changePercent}

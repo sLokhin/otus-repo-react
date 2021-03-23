@@ -23,7 +23,7 @@ const RightSide = styled.div`
   align-items: center;
 `;
 
-const IconWrapper = styled.div`
+export const IconWrapper = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-end;
@@ -32,7 +32,7 @@ const IconWrapper = styled.div`
   }
 `;
 
-const LabelWrapper = styled.div`
+export const LabelWrapper = styled.div`
   margin-right: 15px;
   font-size: 20px;
   text-align: left;
@@ -51,8 +51,8 @@ export const GameHeader: FC<GameHeaderProps> = (props: GameHeaderProps) => {
   return (
     <GameHeaderWrapper>
       <RightSide>
-        <LabelWrapper className={"label-wrapper"}>{name}</LabelWrapper>
-        <IconWrapper className={"icon-wrapper"} onClick={onLogout}>
+        <LabelWrapper>{name}</LabelWrapper>
+        <IconWrapper onClick={onLogout}>
           <ExitToAppIcon style={{ color: "white" }} />
         </IconWrapper>
       </RightSide>

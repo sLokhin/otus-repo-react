@@ -172,7 +172,7 @@ export const Game: FC = () => {
     <Grid>
       <Paper elevation={10}>
         <Grid container direction={"column"} alignItems={"center"}>
-          <GameMenuWrapper className={"game-menu-wrapper"}>
+          <GameMenuWrapper>
             <GameControls setControlsState={setControlsState}></GameControls>
             <GameOptions
               setOptionsSize={setOptionsSize}

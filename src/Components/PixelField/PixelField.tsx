@@ -14,13 +14,10 @@ interface PixelFieldProps {
 export const PixelField: FC<PixelFieldProps> = (props: PixelFieldProps) => {
   const { pixelStatesMatrix, onPixelClick } = props;
   return (
-    <div
-      className="pixel-field"
-      style={{ display: "inline-block", border: "2px solid #1a1a1a" }}
-    >
+    <div style={{ display: "inline-block", border: "2px solid #1a1a1a" }}>
       {pixelStatesMatrix.map((row: boolean[], x: number) => {
         return (
-          <PixelRow className="pixel-row" key={`row-${x}`}>
+          <PixelRow key={`row-${x}`}>
             {row.map(
               (filled: boolean, y: number): React.ReactNode => {
                 return (

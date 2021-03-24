@@ -8,7 +8,7 @@ type AppState = {
   isLoading: boolean;
 };
 
-const initialState: AppState = {
+export const initialState: AppState = {
   name: "",
   isAuth: false,
   isLoading: true,

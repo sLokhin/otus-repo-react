@@ -10,12 +10,33 @@ import { LoginPage } from "../../Pages/LoginPage";
 import { GamePage } from "../../Pages/GamePage";
 
 import { delay } from "../../Utils/delay";
+import * as authFunctions from "../../API/auth";
 
 describe("App routing test", () => {
   it("initial route", async () => {
-    const mockDelay = jest.fn(
-      (): Promise<null> => new Promise((r) => setTimeout(r, 0))
-    );
+    const delayFromTest = jest.fn(() => new Promise((r) => setTimeout(r, 50)));
+
+    jest.mock("../../Utils/delay", () => ({
+      delay: jest.fn(() => {
+        console.log("NEW MOCKED DELAY");
+        return new Promise((r) => setTimeout(r, 0));
+      }),
+    }));
+
+    jest.mock("../../API/auth", () => ({
+      login: jest.fn(() => {
+        console.log("NEW MOCKED login");
+      }),
+      logout: jest.fn(() => {
+        console.log("NEW MOCKED logout");
+      }),
+      isLoggedIn: jest.fn(() => {
+        console.log("NEW MOCKED isLoggedIn");
+      }),
+      getPlayerName: jest.fn(() => {
+        console.log("NEW MOCKED getPlayerName");
+      }),
+    }));
 
     let wrapper;
     act(() => {
@@ -32,7 +53,7 @@ describe("App routing test", () => {
       );
     });
 
-    await delay(2000);
+    await delayFromTest();
     console.log(wrapper!.html());
     expect(wrapper!.find(LoginPage)).toHaveLength(1);
   });

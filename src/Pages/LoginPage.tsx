@@ -1,5 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { NameForm } from "../Components/NameForm/NameForm";
+import { useHistory } from "react-router-dom";
 import styled from "@emotion/styled";
 
 const LoginLayout = styled.div`
@@ -13,6 +14,15 @@ const LoginLayout = styled.div`
 `;
 
 export const LoginPage: FC = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    (() => {
+      history.push("/login");
+      console.log("HISTORY FROM LoginPage...", history);
+    })();
+  }, []);
+
   return (
     <LoginLayout>
       <NameForm />

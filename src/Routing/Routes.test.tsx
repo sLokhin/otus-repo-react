@@ -4,7 +4,6 @@ import { AppContext, initialState } from "../Components/App/App";
 import { Routes } from "./Routes";
 
 import { MemoryRouter } from "react-router";
-import { useHistory } from "react-router-dom";
 
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";

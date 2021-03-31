@@ -11,7 +11,6 @@ import * as actionTypes from "../API/actionTypes";
 export const Routes: FC = () => {
   const [state, dispatch] = useContext(AppContext);
   const { isAuth, isLoading } = state;
-  console.log("STATE  ", state);
   useEffect(() => {
     (async () => {
       const isLogged = await isLoggedIn();
@@ -25,7 +24,6 @@ export const Routes: FC = () => {
     })();
   }, []);
 
-  console.log("RENDERING...  ", isAuth, isLoading, state.name);
   return isLoading ? (
     <Loader />
   ) : (

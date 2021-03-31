@@ -25,7 +25,6 @@ export const GamePage: FC = () => {
   useEffect(() => {
     (() => {
       history.push("/");
-      console.log("HISTORY FROM GamePage...", history);
     })();
   }, []);
 

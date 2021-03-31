@@ -6,8 +6,8 @@ export default {
   decorators: [withKnobs],
 };
 
-const onLogout = (): void => {
-  console.log("GameHeader story --- onLogout");
+const onLogout = (): null => {
+  return null;
 };
 
 export const gameHeaderDefault = (): React.ReactNode => {

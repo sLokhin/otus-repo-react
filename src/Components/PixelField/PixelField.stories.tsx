@@ -6,8 +6,8 @@ export default {
   decorators: [withKnobs],
 };
 
-const onPixelClick = (): void => {
-  console.log("PixelField story --- onPixelClick");
+const onPixelClick = (): null => {
+  return null;
 };
 
 export const emptyPixelField = (): React.ReactNode => {

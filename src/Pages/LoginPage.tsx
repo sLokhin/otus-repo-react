@@ -19,7 +19,6 @@ export const LoginPage: FC = () => {
   useEffect(() => {
     (() => {
       history.push("/login");
-      console.log("HISTORY FROM LoginPage...", history);
     })();
   }, []);
 

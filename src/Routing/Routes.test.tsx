@@ -10,33 +10,30 @@ import { GamePage } from "../Pages/GamePage";
 
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
-  // https://jestjs.io/ru/docs/bypassing-module-mocks
   ...(jest.requireActual("react-router-dom") as any),
   useHistory: () => mockHistory,
 }));
 
 jest.mock("../Utils/delay", () => ({
   delay: jest.fn(() => {
-    console.log("NEW MOCKED delay");
     return Promise.resolve();
   }),
 }));
 
-// https://stackoverflow.com/questions/59164027/testing-a-component-that-uses-useeffect-using-enzyme-shallow-and-not-mount
 jest.spyOn(React, "useEffect").mockImplementation((f) => f());
 
 jest.mock("../API/auth", () => ({
   login: jest.fn(() => {
-    console.log("NEW MOCKED login");
+    return null;
   }),
   logout: jest.fn(() => {
-    console.log("NEW MOCKED logout");
+    return null;
   }),
   isLoggedIn: jest.fn(() => {
-    console.log("NEW MOCKED isLoggedIn");
+    return null;
   }),
   getPlayerName: jest.fn(() => {
-    console.log("NEW MOCKED getPlayerName");
+    return null;
   }),
 }));
 

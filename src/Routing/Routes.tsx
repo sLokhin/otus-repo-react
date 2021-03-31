@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useContext, useEffect } from "react";
+import React, { FC, useContext, useEffect } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
@@ -13,8 +13,7 @@ export const Routes: FC = () => {
   const [state, dispatch] = useContext(AppContext);
   const { isAuth, isLoading } = state;
   console.log("STATE  ", state);
-
-  useEffect(() => {
+  React.useEffect(() => {
     (async () => {
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
@@ -28,25 +27,19 @@ export const Routes: FC = () => {
   }, []);
 
   console.log("RENDERING...  ", isAuth, isLoading, state.name);
-  return (
-    <Fragment>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <BrowserRouter>
-          <Switch>
-            <MainRoute isAuth={isAuth} path="/" exact>
-              <GamePage />
-            </MainRoute>
-            <LoginRoute isAuth={isAuth} path="/login" exact>
-              <LoginPage />
-            </LoginRoute>
-            <Route path="*">
-              <Redirect to="/"></Redirect>
-            </Route>
-          </Switch>
-        </BrowserRouter>
-      )}
-    </Fragment>
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <Switch>
+      <MainRoute isAuth={isAuth} path="/" exact>
+        <GamePage />
+      </MainRoute>
+      <LoginRoute isAuth={isAuth} path="/login" exact>
+        <LoginPage />
+      </LoginRoute>
+      <Route path="*">
+        <Redirect to="/"></Redirect>
+      </Route>
+    </Switch>
   );
 };

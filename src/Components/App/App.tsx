@@ -1,6 +1,7 @@
 import React, { FC, createContext, useReducer } from "react";
 import { Routes } from "../../Routing/Routes";
 import * as actionTypes from "../../API/actionTypes";
+import { BrowserRouter } from "react-router-dom";
 
 type AppState = {
   name: string;
@@ -50,7 +51,9 @@ export const App: FC = () => {
   const reducerResult = useReducer(reducer, initialState);
   return (
     <AppContext.Provider value={reducerResult}>
-      <Routes />
+      <BrowserRouter>
+        <Routes />
+      </BrowserRouter>
     </AppContext.Provider>
   );
 };

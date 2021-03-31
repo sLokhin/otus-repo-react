@@ -7,6 +7,7 @@ import { MemoryRouter } from "react-router";
 
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
+
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
   // https://jestjs.io/ru/docs/bypassing-module-mocks

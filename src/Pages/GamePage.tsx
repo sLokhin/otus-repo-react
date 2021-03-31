@@ -19,6 +19,7 @@ const GameLayout = styled.div`
 
 export const GamePage: FC = () => {
   const [state, dispatch] = useContext(AppContext);
+  const { name } = state;
   const history = useHistory();
 
   useEffect(() => {
@@ -35,7 +36,7 @@ export const GamePage: FC = () => {
   };
   return (
     <GameLayout>
-      <GameHeader onLogout={onLogout} />
+      <GameHeader name={name} onLogout={onLogout} />
       <Game />
     </GameLayout>
   );

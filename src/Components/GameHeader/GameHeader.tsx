@@ -1,5 +1,4 @@
-import React, { FC, useContext } from "react";
-import { AppContext } from "../App/App";
+import React, { FC } from "react";
 
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import styled from "@emotion/styled";
@@ -41,13 +40,12 @@ export const LabelWrapper = styled.div`
 `;
 
 interface GameHeaderProps {
+  name: string;
   onLogout: () => void;
 }
 
 export const GameHeader: FC<GameHeaderProps> = (props: GameHeaderProps) => {
-  const [state] = useContext(AppContext);
-  const { name } = state;
-  const { onLogout } = props;
+  const { name, onLogout } = props;
   return (
     <GameHeaderWrapper>
       <RightSide>

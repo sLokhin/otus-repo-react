@@ -1,9 +1,8 @@
 import React, { FC, useContext, useEffect } from "react";
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
-import { MainRoute } from "./MainRoute";
-import { LoginRoute } from "./LoginRoute";
+import { AuthRoute } from "./AuthRoute";
 import { AppContext } from "../Components/App/App";
 import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
@@ -13,7 +12,7 @@ export const Routes: FC = () => {
   const [state, dispatch] = useContext(AppContext);
   const { isAuth, isLoading } = state;
   console.log("STATE  ", state);
-  React.useEffect(() => {
+  useEffect(() => {
     (async () => {
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
@@ -31,12 +30,12 @@ export const Routes: FC = () => {
     <Loader />
   ) : (
     <Switch>
-      <MainRoute isAuth={isAuth} path="/" exact>
+      <AuthRoute criterion={isAuth} path="/" alterPath="/login" exact>
         <GamePage />
-      </MainRoute>
-      <LoginRoute isAuth={isAuth} path="/login" exact>
+      </AuthRoute>
+      <AuthRoute criterion={!isAuth} path="/login" alterPath="/" exact>
         <LoginPage />
-      </LoginRoute>
+      </AuthRoute>
       <Route path="*">
         <Redirect to="/"></Redirect>
       </Route>

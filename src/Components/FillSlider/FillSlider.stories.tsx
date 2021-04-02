@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withKnobs } from "@storybook/addon-knobs";
 import { FillSlider } from "./FillSlider";
-import { DEFAULT_SLIDER_PERCENT } from "../App/App";
+import { DEFAULT_SLIDER_PERCENT } from "../Game/Game";
 export default {
   title: "Game of life / FillSlider",
   decorators: [withKnobs],

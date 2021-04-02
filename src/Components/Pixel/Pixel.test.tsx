@@ -1,12 +1,12 @@
 import React from "react";
 import { mount } from "enzyme";
-import { Pixel } from "./Pixel";
+import { Pixel, Button } from "./Pixel";
 
 describe("Pixel test", () => {
   it("passed onClick inside Pixel", () => {
     const onClick = jest.fn();
     const pixel = mount(<Pixel filled={false} x={0} y={0} onClick={onClick} />);
-    pixel.find(".pixel").at(0).simulate("click");
+    pixel.find(Button).at(0).simulate("click");
     expect(onClick).toHaveBeenCalled();
   });
 
@@ -15,7 +15,7 @@ describe("Pixel test", () => {
     const x = 9;
     const y = 8;
     const pixel = mount(<Pixel filled={false} x={x} y={y} onClick={onClick} />);
-    pixel.find(".pixel").at(0).simulate("click");
+    pixel.find(Button).at(0).simulate("click");
     expect(onClick).toHaveBeenCalledWith(x, y, true);
   });
 });

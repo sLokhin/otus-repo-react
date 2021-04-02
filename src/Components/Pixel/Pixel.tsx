@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import styled from "@emotion/styled";
 
-const Button = styled.button<ButtonProps>((props: ButtonProps) => ({
+export const Button = styled.button<ButtonProps>((props: ButtonProps) => ({
   width: "20px",
   height: "20px",
   borderWidth: "1px",
@@ -23,7 +23,5 @@ export const Pixel: FC<PixelProps> = (props: PixelProps) => {
     onClick(x, y, !filled);
   };
 
-  return (
-    <Button className="pixel" onClick={onClickHandler} filled={filled}></Button>
-  );
+  return <Button onClick={onClickHandler} filled={filled}></Button>;
 };

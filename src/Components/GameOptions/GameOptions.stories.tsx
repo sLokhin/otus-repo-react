@@ -6,12 +6,12 @@ export default {
   decorators: [withKnobs],
 };
 
-const setOptionsSize = (): void => {
-  console.log("GameOptions story --- setOptionsSize");
+const setOptionsSize = (): null => {
+  return null;
 };
 
-const setOptionsSpeed = (): void => {
-  console.log("GameOptions story --- setOptionsSpeed");
+const setOptionsSpeed = (): null => {
+  return null;
 };
 
 export const gameOptionsDefault = (): React.ReactNode => {

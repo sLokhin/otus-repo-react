@@ -6,8 +6,8 @@ export default {
   decorators: [withKnobs],
 };
 
-const setControlsState = (): void => {
-  console.log("GameControls story --- setControlsState");
+const setControlsState = (): null => {
+  return null;
 };
 
 export const gameControlsDefault = (): React.ReactNode => {

@@ -71,7 +71,7 @@ export const GameControls: FC<GameControlsProps> = (
   const { setControlsState } = props;
 
   return (
-    <ControlsWrapper className={"controls-wrapper"}>
+    <ControlsWrapper>
       <BlueButton
         classes={buttonPlayClasses}
         variant={"contained"}

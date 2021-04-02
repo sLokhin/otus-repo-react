@@ -82,10 +82,10 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   };
 
   return (
-    <OptionsWrapper className={"options-wrapper"}>
-      <OptionsRow className={"options-row"}>
-        <LabelWrapper className={"options-label"}>Field size:</LabelWrapper>
-        <ButtonWrapper className={"options-button-wrapper"}>
+    <OptionsWrapper>
+      <OptionsRow>
+        <LabelWrapper>Field size:</LabelWrapper>
+        <ButtonWrapper>
           <BlueButton
             classes={{ root: "options-button-size-small" }}
             variant={"contained"}
@@ -112,9 +112,9 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
           </LightGreenButton>
         </ButtonWrapper>
       </OptionsRow>
-      <OptionsRow className={"options-row"}>
-        <LabelWrapper className={"options-label"}>Game speed:</LabelWrapper>
-        <ButtonWrapper className={"options-button-wrapper"}>
+      <OptionsRow>
+        <LabelWrapper>Game speed:</LabelWrapper>
+        <ButtonWrapper>
           <BlueButton
             classes={{ root: "options-button-speed-slow" }}
             variant={"contained"}

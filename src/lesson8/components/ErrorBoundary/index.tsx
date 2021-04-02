@@ -37,7 +37,7 @@ export class ErrorBoundary extends React.Component<
   render(): React.ReactNode {
     if (this.state.errorInfo) {
       return (
-        <ErrorContainer className={"error-container"}>
+        <ErrorContainer>
           <h2>Enough questions for today!</h2>
           <details style={{ whiteSpace: "pre-wrap" }}>
             {this.state.error && this.state.error.toString()}

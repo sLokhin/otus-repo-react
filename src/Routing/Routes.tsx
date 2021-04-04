@@ -2,6 +2,7 @@ import React, { FC, useContext, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
+import { ReduxPage } from "../Pages/ReduxPage";
 import { AuthRoute } from "./AuthRoute";
 import { AppContext } from "../Components/App/App";
 import { Loader } from "../Components/Loader/Loader";
@@ -34,6 +35,7 @@ export const Routes: FC = () => {
       <AuthRoute criterion={!isAuth} path="/login" alterPath="/" exact>
         <LoginPage />
       </AuthRoute>
+      <Route path="/redux" component={ReduxPage} exact />
       <Route path="*">
         <Redirect to="/"></Redirect>
       </Route>

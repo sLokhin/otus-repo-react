@@ -1,8 +1,13 @@
-import { Action } from "redux";
 import { getRandomPixelMass } from "../Components/Game/Game";
+import * as actionTypes from "./types";
 
 const DEFAULT_FIELD_SIZE = 10;
 const DEFAULT_SLIDER_PERCENT = 20;
+
+interface Action<T = any> {
+  type: T;
+  payload?: any;
+}
 
 enum possibleSize {
   small,
@@ -45,5 +50,32 @@ export function reducer(
   state: GameOfLifeState = defaultState,
   action: Action
 ): GameOfLifeState {
-  return state;
+  switch (action.type) {
+    case actionTypes.LOADING_START:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case actionTypes.LOADING_END:
+      return {
+        ...state,
+        isLoading: false,
+      };
+    case actionTypes.LOGIN:
+      return {
+        ...state,
+        playerName: action.payload.name,
+        isAuth: true,
+        isLoading: false,
+      };
+    case actionTypes.LOGOUT:
+      return {
+        ...state,
+        playerName: "",
+        isAuth: false,
+        isLoading: false,
+      };
+    default:
+      return state;
+  }
 }

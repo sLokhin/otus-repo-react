@@ -32,7 +32,7 @@ export interface GameOfLifeState {
   speed: string;
 }
 
-const defaultState: GameOfLifeState = {
+export const defaultState: GameOfLifeState = {
   name: "",
   isAuth: false,
   isLoading: true,

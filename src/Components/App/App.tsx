@@ -1,7 +1,10 @@
 import React, { FC, createContext, useReducer } from "react";
+import { Provider } from "react-redux";
 import { Routes } from "../../Routing/Routes";
 import * as actionTypes from "../../API/actionTypes";
 import { BrowserRouter } from "react-router-dom";
+
+import { store } from "../../Redux/store";
 
 type AppState = {
   name: string;
@@ -50,10 +53,12 @@ export const AppContext = createContext();
 export const App: FC = () => {
   const reducerResult = useReducer(reducer, initialState);
   return (
-    <AppContext.Provider value={reducerResult}>
-      <BrowserRouter>
-        <Routes />
-      </BrowserRouter>
-    </AppContext.Provider>
+    <Provider store={store}>
+      <AppContext.Provider value={reducerResult}>
+        <BrowserRouter>
+          <Routes />
+        </BrowserRouter>
+      </AppContext.Provider>
+    </Provider>
   );
 };

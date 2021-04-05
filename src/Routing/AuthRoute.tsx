@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Route, Redirect } from "react-router-dom";
 
 interface AuthRouteProps {
-  criterion: boolean;
+  condition: boolean;
   path: string;
   alterPath: string;
   exact: boolean;
@@ -10,12 +10,12 @@ interface AuthRouteProps {
 }
 
 export const AuthRoute: FC<AuthRouteProps> = (props: AuthRouteProps) => {
-  const { criterion, path, alterPath, exact, children } = props;
+  const { condition, path, alterPath, exact, children } = props;
   return (
     <Route
       path={path}
       exact={exact}
-      render={() => (criterion ? children : <Redirect to={alterPath} />)}
+      render={() => (condition ? children : <Redirect to={alterPath} />)}
     ></Route>
   );
 };

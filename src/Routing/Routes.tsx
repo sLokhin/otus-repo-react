@@ -1,27 +1,41 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
-import { ReduxPage } from "../Pages/ReduxPage";
 import { AuthRoute } from "./AuthRoute";
-import { AppContext } from "../Components/App/App";
 import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
-import * as actionTypes from "../API/actionTypes";
+
+import { store } from "../Redux/store";
+import { GameOfLifeState } from "../Redux/reducer";
+import * as actionTypes from "../Redux/types";
 
 export const Routes: FC = () => {
-  const [state, dispatch] = useContext(AppContext);
-  const { isAuth, isLoading } = state;
+  const { isAuth, isLoading } = useSelector((state: GameOfLifeState) => {
+    return {
+      isAuth: state.isAuth,
+      isLoading: state.isLoading,
+    };
+  });
+
   useEffect(() => {
     (async () => {
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
       if (isLogged) {
-        dispatch({ type: actionTypes.LOGIN, payload: { name } });
+        store.dispatch({
+          type: actionTypes.LOGIN,
+          payload: { name },
+        });
       } else {
-        dispatch({ type: actionTypes.LOGOUT });
+        store.dispatch({
+          type: actionTypes.LOGOUT,
+        });
       }
-      dispatch({ type: actionTypes.LOADING_END });
+      store.dispatch({
+        type: actionTypes.LOADING_END,
+      });
     })();
   }, []);
 
@@ -29,13 +43,12 @@ export const Routes: FC = () => {
     <Loader />
   ) : (
     <Switch>
-      <AuthRoute criterion={isAuth} path="/" alterPath="/login" exact>
+      <AuthRoute condition={isAuth} path="/" alterPath="/login" exact>
         <GamePage />
       </AuthRoute>
-      <AuthRoute criterion={!isAuth} path="/login" alterPath="/" exact>
+      <AuthRoute condition={!isAuth} path="/login" alterPath="/" exact>
         <LoginPage />
       </AuthRoute>
-      <Route path="/redux" component={ReduxPage} exact />
       <Route path="*">
         <Redirect to="/"></Redirect>
       </Route>

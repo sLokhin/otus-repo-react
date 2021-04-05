@@ -1,10 +1,13 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Game } from "../Components/Game/Game";
 import { GameHeader } from "../Components/GameHeader/GameHeader";
-import { AppContext } from "../Components/App/App";
 import { logout } from "../API/auth";
 import { useHistory } from "react-router-dom";
-import * as actionTypes from "../API/actionTypes";
+
+import { store } from "../Redux/store";
+import { GameOfLifeState } from "../Redux/reducer";
+import * as actionTypes from "../Redux/types";
 
 import styled from "@emotion/styled";
 
@@ -18,8 +21,12 @@ const GameLayout = styled.div`
 `;
 
 export const GamePage: FC = () => {
-  const [state, dispatch] = useContext(AppContext);
-  const { name } = state;
+  const { name } = useSelector((state: GameOfLifeState) => {
+    return {
+      name: state.name,
+    };
+  });
+
   const history = useHistory();
 
   useEffect(() => {
@@ -29,9 +36,9 @@ export const GamePage: FC = () => {
   }, []);
 
   const onLogout = async () => {
-    dispatch({ type: actionTypes.LOADING_START });
+    store.dispatch({ type: actionTypes.LOADING_START });
     await logout();
-    dispatch({ type: actionTypes.LOGOUT });
+    store.dispatch({ type: actionTypes.LOGOUT });
   };
   return (
     <GameLayout>

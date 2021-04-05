@@ -21,8 +21,8 @@ enum possibleSpeed {
   fast,
 }
 
-interface GameOfLifeState {
-  playerName: string;
+export interface GameOfLifeState {
+  name: string;
   isAuth: boolean;
   isLoading: boolean;
   pixelStatesMatrix: boolean[][];
@@ -33,7 +33,7 @@ interface GameOfLifeState {
 }
 
 const defaultState: GameOfLifeState = {
-  playerName: "",
+  name: "",
   isAuth: false,
   isLoading: true,
   pixelStatesMatrix: getRandomPixelMass(
@@ -64,14 +64,14 @@ export function reducer(
     case actionTypes.LOGIN:
       return {
         ...state,
-        playerName: action.payload.name,
+        name: action.payload.name,
         isAuth: true,
         isLoading: false,
       };
     case actionTypes.LOGOUT:
       return {
         ...state,
-        playerName: "",
+        name: "",
         isAuth: false,
         isLoading: false,
       };

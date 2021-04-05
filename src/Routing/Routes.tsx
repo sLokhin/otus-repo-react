@@ -1,17 +1,17 @@
 import React, { FC, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
 import { AuthRoute } from "./AuthRoute";
 import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
 
-import { store } from "../Redux/store";
 import { GameOfLifeState } from "../Redux/reducer";
-import * as actionTypes from "../Redux/types";
+import * as actionTypes from "../Components/NameForm/types";
 
 export const Routes: FC = () => {
+  const dispatch = useDispatch();
   const { isAuth, isLoading } = useSelector((state: GameOfLifeState) => {
     return state.loginState;
   });
@@ -21,16 +21,16 @@ export const Routes: FC = () => {
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
       if (isLogged) {
-        store.dispatch({
+        dispatch({
           type: actionTypes.LOGIN,
           payload: { name },
         });
       } else {
-        store.dispatch({
+        dispatch({
           type: actionTypes.LOGOUT,
         });
       }
-      store.dispatch({
+      dispatch({
         type: actionTypes.LOADING_END,
       });
     })();

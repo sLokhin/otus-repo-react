@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { loginReducer } from "./loginReducer";
-import { gameReducer } from "./gameReducer";
+import { reducer as gameReducer } from "../Components/Game/reducer";
+import { reducer as loginReducer } from "../Components/NameForm/reducer";
 
 export const reducer = combineReducers({
   loginState: loginReducer,

@@ -1,6 +1,6 @@
-import { getRandomPixelMass } from "../../Components/Game/Game";
+import { getRandomPixelMass } from "./Game";
 import { Action } from "redux";
-import * as actionTypes from "../types";
+import * as actionTypes from "./types";
 
 const DEFAULT_FIELD_SIZE = 10;
 const DEFAULT_SLIDER_PERCENT = 20;
@@ -36,7 +36,7 @@ export const defaultState: GameState = {
   speed: possibleSpeed[1],
 };
 
-export function gameReducer(
+export function reducer(
   state: GameState = defaultState,
   action: Action & { payload?: any }
 ): GameState {

@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Grid,
   Paper,
@@ -8,9 +9,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { login } from "../../API/auth";
-
-import { store } from "../../Redux/store";
-import * as actionTypes from "../../Redux/types";
+import * as actionTypes from "./types";
 
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
@@ -36,12 +35,12 @@ interface NameFormProps {
 
 export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const [nameFromState, setName] = useState("");
-
+  const dispatch = useDispatch();
   const {
     onSubmit = async (name: string): Promise<void> => {
-      store.dispatch({ type: actionTypes.LOADING_START });
+      dispatch({ type: actionTypes.LOADING_START });
       await login(name);
-      store.dispatch({ type: actionTypes.LOGIN, payload: { name } });
+      dispatch({ type: actionTypes.LOGIN, payload: { name } });
     },
   } = props;
 

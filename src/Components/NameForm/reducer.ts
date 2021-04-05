@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import * as actionTypes from "../types";
+import * as actionTypes from "./types";
 
 export interface LoginState {
   name: string;
@@ -13,7 +13,7 @@ export const defaultState: LoginState = {
   isLoading: true,
 };
 
-export function loginReducer(
+export function reducer(
   state: LoginState = defaultState,
   action: Action & { payload?: any }
 ): LoginState {

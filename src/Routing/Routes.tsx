@@ -13,10 +13,7 @@ import * as actionTypes from "../Redux/types";
 
 export const Routes: FC = () => {
   const { isAuth, isLoading } = useSelector((state: GameOfLifeState) => {
-    return {
-      isAuth: state.isAuth,
-      isLoading: state.isLoading,
-    };
+    return state.loginState;
   });
 
   useEffect(() => {

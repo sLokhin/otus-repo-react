@@ -22,9 +22,7 @@ const GameLayout = styled.div`
 
 export const GamePage: FC = () => {
   const { name } = useSelector((state: GameOfLifeState) => {
-    return {
-      name: state.name,
-    };
+    return state.loginState;
   });
 
   const history = useHistory();

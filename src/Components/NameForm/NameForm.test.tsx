@@ -1,12 +1,28 @@
 import React from "react";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
+
+import { defaultState as loginDefaultState } from "./reducer";
+import { defaultState as gameDefaultState } from "../Game/reducer";
+
+const mockStore = configureMockStore([thunk]);
 
 describe("NameForm test", () => {
   it("submit NameForm", () => {
     const testName = "New Player";
     const onSubmit = jest.fn();
-    const form = mount(<NameForm onSubmit={onSubmit} />);
+    const form = mount(<NameForm onSubmit={onSubmit} />, {
+      wrappingComponent: Provider,
+      wrappingComponentProps: {
+        store: mockStore({
+          loginState: { ...loginDefaultState, isLoading: false },
+          gameState: { ...gameDefaultState },
+        }),
+      },
+    });
 
     form.find("input").simulate("change", {
       target: { value: testName },

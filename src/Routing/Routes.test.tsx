@@ -10,8 +10,8 @@ import { MemoryRouter } from "react-router";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
 
-import { defaultState as loginDefaultState } from "../Redux/reducer/loginReducer";
-import { defaultState as gameDefaultState } from "../Redux/reducer/gameReducer";
+import { defaultState as loginDefaultState } from "../Components/NameForm/reducer";
+import { defaultState as gameDefaultState } from "../Components/Game/reducer";
 
 const mockStore = configureMockStore([thunk]);
 const mockHistory = { push: jest.fn() };

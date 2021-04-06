@@ -1,13 +1,15 @@
 import { delay } from "../Utils/delay";
 
-export const login = async (name: string): Promise<void> => {
+export const login = async (name: string): Promise<string> => {
   await delay(1000);
-  await localStorage.setItem("login", name);
+  localStorage.setItem("login", name);
+  return Promise.resolve(name);
 };
 
 export const logout = async (): Promise<void> => {
   await delay(1000);
-  await localStorage.removeItem("login");
+  localStorage.removeItem("login");
+  return Promise.resolve();
 };
 
 export const isLoggedIn = async (): Promise<boolean> => {

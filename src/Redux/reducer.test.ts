@@ -4,6 +4,26 @@ import * as loginTypes from "../Components/NameForm/types";
 import * as gameTypes from "../Components/Game/types";
 import { defaultState as defaultLoginState } from "../Components/NameForm/reducer";
 
+jest.mock("../API/auth", () => ({
+  ...(jest.requireActual("../API/auth") as any),
+  login: jest
+    .fn()
+    .mockImplementationOnce(() => {
+      return Promise.reject();
+    })
+    .mockImplementation((name) => {
+      return Promise.resolve(name);
+    }),
+  logout: jest
+    .fn()
+    .mockImplementationOnce(() => {
+      return Promise.reject();
+    })
+    .mockImplementation(() => {
+      return Promise.resolve();
+    }),
+}));
+
 describe("Redux reducer test", () => {
   it("correct initial login state", () => {
     const store = configureStore();
@@ -58,9 +78,23 @@ describe("Redux reducer test", () => {
     expect(subscriber2).toHaveBeenCalledTimes(2);
   });
 
-  it("test loginProcess", async () => {
+  it("test loginProcess failure", async () => {
     const dispatch = jest.fn();
-    const testName = "NewPlayer1";
+    const testName = "NewPlayerFaulure";
+    const thunk = loginProcess(testName);
+    await thunk(dispatch);
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: loginTypes.LOADING_START,
+    });
+    expect(dispatch.mock.calls[1][0]).toEqual({
+      type: loginTypes.LOGIN_FAILURE,
+    });
+  });
+
+  it("test loginProcess success", async () => {
+    const dispatch = jest.fn();
+    const testName = "NewPlayerSuccess";
     const thunk = loginProcess(testName);
     await thunk(dispatch);
     expect(dispatch).toHaveBeenCalledTimes(2);
@@ -75,7 +109,20 @@ describe("Redux reducer test", () => {
     });
   });
 
-  it("test logoutProcess", async () => {
+  it("test logoutProcess failure", async () => {
+    const dispatch = jest.fn();
+    const thunk = logoutProcess();
+    await thunk(dispatch);
+    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch.mock.calls[0][0]).toEqual({
+      type: loginTypes.LOADING_START,
+    });
+    expect(dispatch.mock.calls[1][0]).toEqual({
+      type: loginTypes.LOGOUT_FAILURE,
+    });
+  });
+
+  it("test logoutProcess success", async () => {
     const dispatch = jest.fn();
     const thunk = logoutProcess();
     await thunk(dispatch);

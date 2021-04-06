@@ -21,16 +21,29 @@ type payloadType = {
 export const loginProcess = (name: string) => {
   return async (dispatch: Dispatch): Promise<void> => {
     dispatch({ type: actionTypes.LOADING_START });
-    await login(name);
-    dispatch({ type: actionTypes.LOGIN, payload: { name } });
+    await login(name)
+      .then((nameFromPromise) => {
+        dispatch({
+          type: actionTypes.LOGIN,
+          payload: { name: nameFromPromise },
+        });
+      })
+      .catch(() => {
+        dispatch({ type: actionTypes.LOGIN_FAILURE });
+      });
   };
 };
 
 export const logoutProcess = () => {
   return async (dispatch: Dispatch): Promise<void> => {
     dispatch({ type: actionTypes.LOADING_START });
-    await logout();
-    dispatch({ type: actionTypes.LOGOUT });
+    await logout()
+      .then(() => {
+        dispatch({ type: actionTypes.LOGOUT });
+      })
+      .catch(() => {
+        dispatch({ type: actionTypes.LOGOUT_FAILURE });
+      });
   };
 };
 
@@ -56,12 +69,20 @@ export function reducer(
         isAuth: true,
         isLoading: false,
       };
+    case actionTypes.LOGIN_FAILURE:
+      return {
+        ...state,
+      };
     case actionTypes.LOGOUT:
       return {
         ...state,
         name: "",
         isAuth: false,
         isLoading: false,
+      };
+    case actionTypes.LOGOUT_FAILURE:
+      return {
+        ...state,
       };
     default:
       return state;

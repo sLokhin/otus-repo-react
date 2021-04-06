@@ -38,7 +38,7 @@ export const defaultState: GameState = {
 
 export function reducer(
   state: GameState = defaultState,
-  action: Action & { payload?: any }
+  action: Action
 ): GameState {
   switch (action.type) {
     case actionTypes.TEST_ACTION:

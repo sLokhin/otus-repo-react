@@ -1,4 +1,4 @@
-import { Action } from "redux";
+import { Action, Dispatch } from "redux";
 import * as actionTypes from "./types";
 import { login, logout } from "../../API/auth";
 
@@ -14,8 +14,12 @@ export const defaultState: LoginState = {
   isLoading: true,
 };
 
+type payloadType = {
+  name: string;
+};
+
 export const loginProcess = (name: string) => {
-  return async (dispatch: any): Promise<void> => {
+  return async (dispatch: Dispatch): Promise<void> => {
     dispatch({ type: actionTypes.LOADING_START });
     await login(name);
     dispatch({ type: actionTypes.LOGIN, payload: { name } });
@@ -23,7 +27,7 @@ export const loginProcess = (name: string) => {
 };
 
 export const logoutProcess = () => {
-  return async (dispatch: any): Promise<void> => {
+  return async (dispatch: Dispatch): Promise<void> => {
     dispatch({ type: actionTypes.LOADING_START });
     await logout();
     dispatch({ type: actionTypes.LOGOUT });
@@ -32,7 +36,7 @@ export const logoutProcess = () => {
 
 export function reducer(
   state: LoginState = defaultState,
-  action: Action & { payload?: any }
+  action: Action & { payload?: payloadType }
 ): LoginState {
   switch (action.type) {
     case actionTypes.LOADING_START:
@@ -48,7 +52,7 @@ export function reducer(
     case actionTypes.LOGIN:
       return {
         ...state,
-        name: action.payload.name,
+        name: action.payload?.name || "Some random name",
         isAuth: true,
         isLoading: false,
       };

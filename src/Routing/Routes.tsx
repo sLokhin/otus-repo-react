@@ -8,12 +8,17 @@ import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
 
 import { GameOfLifeState } from "../Redux/reducer";
-import * as actionTypes from "../Components/NameForm/types";
+import { actionTypes } from "../Redux/actions";
+
+import { store } from "../Redux/store";
 
 export const Routes: FC = () => {
   const dispatch = useDispatch();
-  const { isAuth, isLoading } = useSelector((state: GameOfLifeState) => {
-    return state.loginState;
+  const { isAuth } = useSelector((state: GameOfLifeState) => {
+    return state.authState;
+  });
+  const { isLoading } = useSelector((state: GameOfLifeState) => {
+    return state.loadingState;
   });
 
   useEffect(() => {
@@ -36,6 +41,7 @@ export const Routes: FC = () => {
     })();
   }, []);
 
+  console.log("STORE STATE  ", store.getState());
   return isLoading ? (
     <Loader />
   ) : (

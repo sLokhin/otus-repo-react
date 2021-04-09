@@ -6,7 +6,6 @@ import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
 
 import { defaultState as loginDefaultState } from "./reducer";
-import { defaultState as gameDefaultState } from "../Game/reducer";
 
 const mockStore = configureMockStore([thunk]);
 

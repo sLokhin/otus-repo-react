@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { loginProcess } from "../NameForm/reducer";
+import { loginProcess } from "../../Redux/actions";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const h5Style = {

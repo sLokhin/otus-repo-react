@@ -4,7 +4,7 @@ import { Game } from "../Components/Game/Game";
 import { GameHeader } from "../Components/GameHeader/GameHeader";
 import { useHistory } from "react-router-dom";
 import { GameOfLifeState } from "../Redux/reducer";
-import { logoutProcess } from "../Components/NameForm/reducer";
+import { logoutProcess } from "../Redux/actions";
 
 import styled from "@emotion/styled";
 
@@ -20,7 +20,7 @@ const GameLayout = styled.div`
 export const GamePage: FC = () => {
   const dispatch = useDispatch();
   const { name } = useSelector((state: GameOfLifeState) => {
-    return state.loginState;
+    return state.authState;
   });
 
   const history = useHistory();

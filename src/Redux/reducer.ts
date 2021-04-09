@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import { reducer as gameReducer } from "../Components/Game/reducer";
 import { reducer as loginReducer } from "../Components/NameForm/reducer";
+import { reducer as loadingReducer } from "../Components/Loader/reducer";
 
 export const reducer = combineReducers({
-  loginState: loginReducer,
-  gameState: gameReducer,
+  loadingState: loadingReducer,
+  authState: loginReducer,
 });
 
 export type GameOfLifeState = ReturnType<typeof reducer>;

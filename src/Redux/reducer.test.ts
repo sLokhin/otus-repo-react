@@ -1,6 +1,6 @@
 import { configureStore } from "./store";
 import { loginProcess, logoutProcess, actionTypes } from "../Redux/actions";
-import { defaultState as defaultLoginState } from "../Components/NameForm/reducer";
+import { defaultState as defaultAuthState } from "../Components/NameForm/reducer";
 
 jest.mock("../API/auth", () => ({
   ...(jest.requireActual("../API/auth") as any),
@@ -25,8 +25,8 @@ jest.mock("../API/auth", () => ({
 describe("Redux reducer test", () => {
   it("correct initial login state", () => {
     const store = configureStore();
-    const initialLoginState = store.getState().loginState;
-    expect(initialLoginState).toMatchObject(defaultLoginState);
+    const initialLoginState = store.getState().authState;
+    expect(initialLoginState).toMatchObject(defaultAuthState);
   });
 
   it("does not mutate state", () => {
@@ -95,7 +95,7 @@ describe("Redux reducer test", () => {
     const testName = "NewPlayerSuccess";
     const thunk = loginProcess(testName);
     await thunk(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: actionTypes.LOADING_START,
     });
@@ -104,6 +104,9 @@ describe("Redux reducer test", () => {
       payload: {
         name: testName,
       },
+    });
+    expect(dispatch.mock.calls[2][0]).toEqual({
+      type: actionTypes.LOADING_END,
     });
   });
 
@@ -124,12 +127,15 @@ describe("Redux reducer test", () => {
     const dispatch = jest.fn();
     const thunk = logoutProcess();
     await thunk(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: actionTypes.LOADING_START,
     });
     expect(dispatch.mock.calls[1][0]).toEqual({
       type: actionTypes.LOGOUT,
+    });
+    expect(dispatch.mock.calls[2][0]).toEqual({
+      type: actionTypes.LOADING_END,
     });
   });
 });

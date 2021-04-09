@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
 
-import { defaultState as loginDefaultState } from "./reducer";
+import { defaultState as authDefaultState } from "./reducer";
 
 const mockStore = configureMockStore([thunk]);
 
@@ -17,8 +17,8 @@ describe("NameForm test", () => {
       wrappingComponent: Provider,
       wrappingComponentProps: {
         store: mockStore({
-          loginState: { ...loginDefaultState, isLoading: false },
-          gameState: { ...gameDefaultState },
+          loadingState: { isLoading: false },
+          loginState: { ...authDefaultState },
         }),
       },
     });

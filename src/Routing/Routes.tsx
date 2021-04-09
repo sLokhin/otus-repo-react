@@ -10,8 +10,6 @@ import { getPlayerName, isLoggedIn } from "../API/auth";
 import { GameOfLifeState } from "../Redux/reducer";
 import { actionTypes } from "../Redux/actions";
 
-import { store } from "../Redux/store";
-
 export const Routes: FC = () => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: GameOfLifeState) => {
@@ -41,7 +39,6 @@ export const Routes: FC = () => {
     })();
   }, []);
 
-  console.log("STORE STATE  ", store.getState());
   return isLoading ? (
     <Loader />
   ) : (

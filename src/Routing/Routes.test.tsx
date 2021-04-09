@@ -10,7 +10,7 @@ import { MemoryRouter } from "react-router";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
 
-import { defaultState as loginDefaultState } from "../Components/NameForm/reducer";
+import { defaultState as authDefaultState } from "../Components/NameForm/reducer";
 
 const mockStore = configureMockStore([thunk]);
 const mockHistory = { push: jest.fn() };
@@ -54,8 +54,8 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loginState: { ...loginDefaultState, isLoading: false },
-            gameState: { ...gameDefaultState },
+            loadingState: { isLoading: false },
+            authState: { ...authDefaultState },
           }),
         },
       }
@@ -74,8 +74,8 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loginState: { ...loginDefaultState, isLoading: false },
-            gameState: { ...gameDefaultState },
+            loadingState: { isLoading: false },
+            authState: { ...authDefaultState },
           }),
         },
       }
@@ -94,12 +94,8 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loginState: {
-              ...loginDefaultState,
-              isAuth: true,
-              isLoading: false,
-            },
-            gameState: { ...gameDefaultState, name: "Name from enzyme test" },
+            loadingState: { isLoading: false },
+            authState: { ...authDefaultState, isAuth: true },
           }),
         },
       }
@@ -118,12 +114,8 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loginState: {
-              ...loginDefaultState,
-              isAuth: true,
-              isLoading: false,
-            },
-            gameState: { ...gameDefaultState, name: "Name from enzyme test" },
+            loadingState: { isLoading: false },
+            authState: { ...authDefaultState, isAuth: true },
           }),
         },
       }

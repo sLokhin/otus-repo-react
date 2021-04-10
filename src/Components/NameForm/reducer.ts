@@ -29,23 +29,14 @@ type SuccessLogin = {
   payload: payloadType;
 };
 
-type SuccessLogout = {
-  type: typeof actionTypes.LOGOUT;
+type OtherTypes = {
+  type:
+    | typeof actionTypes.LOGOUT
+    | typeof actionTypes.LOGIN_FAILURE
+    | typeof actionTypes.LOGOUT_FAILURE;
 };
 
-type FailedLogin = {
-  type: typeof actionTypes.LOGIN_FAILURE;
-};
-
-type FailedLogout = {
-  type: typeof actionTypes.LOGOUT_FAILURE;
-};
-
-export type AuthActionType =
-  | SuccessLogin
-  | SuccessLogout
-  | FailedLogin
-  | FailedLogout;
+export type AuthActionType = SuccessLogin | OtherTypes;
 
 export function reducer(
   state: AuthState = authDefaultState,

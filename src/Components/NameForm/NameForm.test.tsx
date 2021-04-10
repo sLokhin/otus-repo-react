@@ -5,7 +5,7 @@ import thunk from "redux-thunk";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
 
-import { defaultState as authDefaultState } from "./reducer";
+import { authDefaultState } from "./reducer";
 
 const mockStore = configureMockStore([thunk]);
 

@@ -5,12 +5,12 @@ export interface LoaderState {
   isLoading: boolean;
 }
 
-export const defaultState: LoaderState = {
+export const loadingDefaultState: LoaderState = {
   isLoading: true,
 };
 
 export function reducer(
-  state: LoaderState = defaultState,
+  state: LoaderState = loadingDefaultState,
   action: Action
 ): LoaderState {
   switch (action.type) {

@@ -1,6 +1,6 @@
 import { configureStore } from "./store";
 import { loginProcess, logoutProcess, actionTypes } from "../Redux/actions";
-import { defaultState as defaultAuthState } from "../Components/NameForm/reducer";
+import { authDefaultState } from "../Components/NameForm/reducer";
 
 jest.mock("../API/auth", () => ({
   ...(jest.requireActual("../API/auth") as any),
@@ -26,7 +26,7 @@ describe("Redux reducer test", () => {
   it("correct initial login state", () => {
     const store = configureStore();
     const initialLoginState = store.getState().authState;
-    expect(initialLoginState).toMatchObject(defaultAuthState);
+    expect(initialLoginState).toMatchObject(authDefaultState);
   });
 
   it("does not mutate state", () => {

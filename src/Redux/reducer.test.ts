@@ -2,24 +2,12 @@ import { configureStore } from "./store";
 import { loginProcess, logoutProcess, actionTypes } from "../Redux/actions";
 import { authDefaultState } from "../Components/NameForm/reducer";
 
+const testName = "NewTestPlayer";
+
 jest.mock("../API/auth", () => ({
   ...(jest.requireActual("../API/auth") as any),
-  login: jest
-    .fn()
-    .mockImplementationOnce(() => {
-      return Promise.reject();
-    })
-    .mockImplementation((name) => {
-      return Promise.resolve(name);
-    }),
-  logout: jest
-    .fn()
-    .mockImplementationOnce(() => {
-      return Promise.reject();
-    })
-    .mockImplementation(() => {
-      return Promise.resolve();
-    }),
+  login: jest.fn().mockRejectedValueOnce(null).mockResolvedValueOnce(testName),
+  logout: jest.fn().mockRejectedValueOnce(null).mockResolvedValueOnce(testName),
 }));
 
 describe("Redux reducer test", () => {
@@ -78,7 +66,6 @@ describe("Redux reducer test", () => {
 
   it("test loginProcess failure", async () => {
     const dispatch = jest.fn();
-    const testName = "NewPlayerFaulure";
     const thunk = loginProcess(testName);
     await thunk(dispatch);
     expect(dispatch).toHaveBeenCalledTimes(2);
@@ -92,7 +79,6 @@ describe("Redux reducer test", () => {
 
   it("test loginProcess success", async () => {
     const dispatch = jest.fn();
-    const testName = "NewPlayerSuccess";
     const thunk = loginProcess(testName);
     await thunk(dispatch);
     expect(dispatch).toHaveBeenCalledTimes(3);

@@ -1,4 +1,3 @@
-import { Action } from "redux";
 import * as actionTypes from "./types";
 
 export interface LoaderState {
@@ -9,9 +8,11 @@ export const loadingDefaultState: LoaderState = {
   isLoading: true,
 };
 
+export type LoaderActionType = { type: keyof typeof actionTypes };
+
 export function reducer(
   state: LoaderState = loadingDefaultState,
-  action: Action
+  action: LoaderActionType
 ): LoaderState {
   switch (action.type) {
     case actionTypes.LOADING_START:

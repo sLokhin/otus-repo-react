@@ -1,4 +1,3 @@
-import { Action } from "redux";
 import * as actionTypes from "./types";
 
 enum errorTypes {
@@ -24,9 +23,33 @@ type payloadType = {
   name: string;
 };
 
+type SuccessLogin = {
+  type: typeof actionTypes.LOGIN;
+} & {
+  payload: payloadType;
+};
+
+type SuccessLogout = {
+  type: typeof actionTypes.LOGOUT;
+};
+
+type FailedLogin = {
+  type: typeof actionTypes.LOGIN_FAILURE;
+};
+
+type FailedLogout = {
+  type: typeof actionTypes.LOGOUT_FAILURE;
+};
+
+export type AuthActionType =
+  | SuccessLogin
+  | SuccessLogout
+  | FailedLogin
+  | FailedLogout;
+
 export function reducer(
   state: AuthState = authDefaultState,
-  action: Action & { payload: payloadType }
+  action: AuthActionType
 ): AuthState {
   switch (action.type) {
     case actionTypes.LOGIN:

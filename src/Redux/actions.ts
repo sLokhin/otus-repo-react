@@ -1,5 +1,5 @@
 import { Dispatch } from "redux";
-import { login, logout } from "../API/auth";
+import { executeLogin, executeLogout } from "../API/auth";
 
 import * as loginTypes from "../Components/NameForm/types";
 import * as loadingTypes from "../Components/Loader/types";
@@ -14,57 +14,59 @@ export const actionTypes = {
 
 export type Actions = LoaderActionType | AuthActionType;
 
-export const loadingStartAction = (): LoaderActionType => {
+export const loadingStart = (): LoaderActionType => {
   return { type: actionTypes.LOADING_START };
 };
 
-export const loadingEndAction = (): LoaderActionType => {
+export const loadingEnd = (): LoaderActionType => {
   return { type: actionTypes.LOADING_END };
 };
 
-export const loginAction = (payload: payloadType): AuthActionType => {
+export const login = (payload: payloadType): AuthActionType => {
   return {
     type: actionTypes.LOGIN,
     payload,
   };
 };
 
-export const loginFailureAction = (): AuthActionType => {
+export const loginFailure = (): AuthActionType => {
   return { type: actionTypes.LOGIN_FAILURE };
 };
 
-export const logoutAction = (): AuthActionType => {
+export const logout = (): AuthActionType => {
   return { type: actionTypes.LOGOUT };
 };
 
-export const logoutFailureAction = (): AuthActionType => {
+export const logoutFailure = (): AuthActionType => {
   return { type: actionTypes.LOGOUT_FAILURE };
 };
 
 export const loginProcess = (name: string) => {
   return async (dispatch: Dispatch<Actions>): Promise<void> => {
-    dispatch(loadingStartAction());
-    await login(name)
+    dispatch(loadingStart());
+    await executeLogin(name)
       .then((nameFromPromise) => {
-        dispatch(loginAction({ name: nameFromPromise }));
-        dispatch(loadingEndAction());
+        dispatch(login({ name: nameFromPromise }));
+        dispatch(loadingEnd());
       })
       .catch(() => {
-        dispatch(loginFailureAction());
+        dispatch(loginFailure());
+        dispatch(loadingEnd());
       });
   };
 };
 
 export const logoutProcess = () => {
   return async (dispatch: Dispatch<Actions>): Promise<void> => {
-    dispatch(loadingStartAction());
-    await logout()
+    dispatch(loadingStart());
+    await executeLogout()
       .then(() => {
-        dispatch(logoutAction());
-        dispatch(loadingEndAction());
+        dispatch(logout());
+        dispatch(loadingEnd());
       })
       .catch(() => {
-        dispatch(logoutFailureAction());
+        dispatch(logoutFailure());
+        dispatch(loadingEnd());
       });
   };
 };

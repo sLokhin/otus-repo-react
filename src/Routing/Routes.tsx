@@ -8,7 +8,7 @@ import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
 
 import { GameOfLifeState } from "../Redux/reducer";
-import { loginAction, logoutAction, loadingEndAction } from "../Redux/actions";
+import { login, logout, loadingEnd } from "../Redux/actions";
 
 export const Routes: FC = () => {
   const dispatch = useDispatch();
@@ -24,11 +24,11 @@ export const Routes: FC = () => {
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
       if (isLogged) {
-        dispatch(loginAction({ name: String(name) }));
+        dispatch(login({ name: String(name) }));
       } else {
-        dispatch(logoutAction());
+        dispatch(logout());
       }
-      dispatch(loadingEndAction());
+      dispatch(loadingEnd());
     })();
   }, []);
 

@@ -4,7 +4,7 @@ import { login, logout } from "../API/auth";
 import * as loginTypes from "../Components/NameForm/types";
 import * as loadingTypes from "../Components/Loader/types";
 
-import { AuthActionType } from "../Components/NameForm/reducer";
+import { AuthActionType, payloadType } from "../Components/NameForm/reducer";
 import { LoaderActionType } from "../Components/Loader/reducer";
 
 export const actionTypes = {
@@ -14,33 +14,57 @@ export const actionTypes = {
 
 export type Actions = LoaderActionType | AuthActionType;
 
+export const loadingStartAction = (): LoaderActionType => {
+  return { type: actionTypes.LOADING_START };
+};
+
+export const loadingEndAction = (): LoaderActionType => {
+  return { type: actionTypes.LOADING_END };
+};
+
+export const loginAction = (payload: payloadType): AuthActionType => {
+  return {
+    type: actionTypes.LOGIN,
+    payload,
+  };
+};
+
+export const loginFailureAction = (): AuthActionType => {
+  return { type: actionTypes.LOGIN_FAILURE };
+};
+
+export const logoutAction = (): AuthActionType => {
+  return { type: actionTypes.LOGOUT };
+};
+
+export const logoutFailureAction = (): AuthActionType => {
+  return { type: actionTypes.LOGOUT_FAILURE };
+};
+
 export const loginProcess = (name: string) => {
   return async (dispatch: Dispatch<Actions>): Promise<void> => {
-    dispatch({ type: actionTypes.LOADING_START });
+    dispatch(loadingStartAction());
     await login(name)
       .then((nameFromPromise) => {
-        dispatch({
-          type: actionTypes.LOGIN,
-          payload: { name: nameFromPromise },
-        });
-        dispatch({ type: actionTypes.LOADING_END });
+        dispatch(loginAction({ name: nameFromPromise }));
+        dispatch(loadingEndAction());
       })
       .catch(() => {
-        dispatch({ type: actionTypes.LOGIN_FAILURE });
+        dispatch(loginFailureAction());
       });
   };
 };
 
 export const logoutProcess = () => {
   return async (dispatch: Dispatch<Actions>): Promise<void> => {
-    dispatch({ type: actionTypes.LOADING_START });
+    dispatch(loadingStartAction());
     await logout()
       .then(() => {
-        dispatch({ type: actionTypes.LOGOUT });
-        dispatch({ type: actionTypes.LOADING_END });
+        dispatch(logoutAction());
+        dispatch(loadingEndAction());
       })
       .catch(() => {
-        dispatch({ type: actionTypes.LOGOUT_FAILURE });
+        dispatch(logoutFailureAction());
       });
   };
 };

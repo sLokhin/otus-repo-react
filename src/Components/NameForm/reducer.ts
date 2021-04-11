@@ -19,7 +19,7 @@ export const authDefaultState: AuthState = {
   errorLog: [],
 };
 
-type payloadType = {
+export type payloadType = {
   name: string;
 };
 

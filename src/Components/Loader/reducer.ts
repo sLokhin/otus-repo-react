@@ -14,13 +14,9 @@ export function reducer(
     case actionTypes.LOADING_START:
       return true;
     case actionTypes.LOADING_END:
-      return false;
     case actionTypes.LOGIN:
-      return false;
     case actionTypes.LOGIN_FAILURE:
-      return false;
     case actionTypes.LOGOUT:
-      return false;
     case actionTypes.LOGOUT_FAILURE:
       return false;
     default:

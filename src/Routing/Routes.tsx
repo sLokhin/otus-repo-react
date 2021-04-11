@@ -28,7 +28,6 @@ export const Routes: FC = () => {
       } else {
         dispatch(logout());
       }
-      dispatch(loadingEnd());
     })();
   }, []);
 

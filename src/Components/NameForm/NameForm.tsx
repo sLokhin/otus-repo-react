@@ -1,4 +1,5 @@
-import React, { FC, useState, useContext } from "react";
+import React, { FC, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Grid,
   Paper,
@@ -7,10 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { AppContext } from "../App/App";
-import { login } from "../../API/auth";
-import * as actionTypes from "../../API/actionTypes";
-
+import { loginProcess } from "../../Redux/actions";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const h5Style = {
@@ -34,14 +32,11 @@ interface NameFormProps {
 }
 
 export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
-  const [state, dispatch] = useContext(AppContext);
   const [nameFromState, setName] = useState("");
-
+  const dispatch = useDispatch();
   const {
     onSubmit = async (name: string): Promise<void> => {
-      dispatch({ type: actionTypes.LOADING_START });
-      await login(name);
-      dispatch({ type: actionTypes.LOGIN, payload: { name } });
+      dispatch(loginProcess(name));
     },
   } = props;
 

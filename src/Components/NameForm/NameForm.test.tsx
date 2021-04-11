@@ -1,24 +1,27 @@
 import React from "react";
+import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
-import { AppContext } from "../App/App";
+import { configureStore } from "../../Redux/store";
 
 describe("NameForm test", () => {
   it("submit NameForm", () => {
+    const store = configureStore();
+    const testName = "New Player";
     const onSubmit = jest.fn();
-    const form = mount(<NameForm onSubmit={onSubmit} />, {
-      wrappingComponent: AppContext.Provider,
-      wrappingComponentProps: {
-        value: [{}, () => null],
-      },
-    });
+
+    const form = mount(
+      <Provider store={store}>
+        <NameForm onSubmit={onSubmit} />
+      </Provider>
+    );
 
     form.find("input").simulate("change", {
-      target: { value: "New Player" },
+      target: { value: testName },
     });
     form.find("button").simulate("submit");
     expect(onSubmit).toHaveBeenCalled();
     expect(onSubmit).toHaveBeenCalledTimes(1);
-    expect(onSubmit.mock.calls[0][0]).toEqual("New Player");
+    expect(onSubmit.mock.calls[0][0]).toEqual(testName);
   });
 });

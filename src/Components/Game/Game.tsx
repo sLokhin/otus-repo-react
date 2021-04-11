@@ -44,11 +44,11 @@ interface GameState {
   speed: string;
 }
 
-const getInitialPixelMass = (n: number): boolean[][] => {
+export const getInitialPixelMass = (n: number): boolean[][] => {
   return new Array(n).fill(undefined).map(() => new Array(n).fill(false));
 };
 
-const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
+export const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
   const pixelMatrix: boolean[][] = getInitialPixelMass(n);
   let a = Math.round(Math.pow(n, 2) * (percent / 100));
   let b = Math.pow(n, 2);
@@ -64,7 +64,7 @@ const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
   return pixelMatrix;
 };
 
-const initialState: GameState = {
+export const initialState: GameState = {
   pixelStatesMatrix: getRandomPixelMass(
     DEFAULT_FIELD_SIZE,
     DEFAULT_SLIDER_PERCENT

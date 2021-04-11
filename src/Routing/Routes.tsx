@@ -1,26 +1,33 @@
-import React, { FC, useContext, useEffect } from "react";
+import React, { FC, useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
 import { AuthRoute } from "./AuthRoute";
-import { AppContext } from "../Components/App/App";
 import { Loader } from "../Components/Loader/Loader";
 import { getPlayerName, isLoggedIn } from "../API/auth";
-import * as actionTypes from "../API/actionTypes";
+
+import { GameOfLifeState } from "../Redux/reducer";
+import { login, logout, loadingEnd } from "../Redux/actions";
 
 export const Routes: FC = () => {
-  const [state, dispatch] = useContext(AppContext);
-  const { isAuth, isLoading } = state;
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector((state: GameOfLifeState) => {
+    return state.authState;
+  });
+  const isLoading = useSelector((state: GameOfLifeState) => {
+    return state.loadingState;
+  });
+
   useEffect(() => {
     (async () => {
       const isLogged = await isLoggedIn();
       const name = getPlayerName();
       if (isLogged) {
-        dispatch({ type: actionTypes.LOGIN, payload: { name } });
+        dispatch(login({ name: String(name) }));
       } else {
-        dispatch({ type: actionTypes.LOGOUT });
+        dispatch(logout());
       }
-      dispatch({ type: actionTypes.LOADING_END });
     })();
   }, []);
 
@@ -28,10 +35,10 @@ export const Routes: FC = () => {
     <Loader />
   ) : (
     <Switch>
-      <AuthRoute criterion={isAuth} path="/" alterPath="/login" exact>
+      <AuthRoute condition={isAuth} path="/" alterPath="/login" exact>
         <GamePage />
       </AuthRoute>
-      <AuthRoute criterion={!isAuth} path="/login" alterPath="/" exact>
+      <AuthRoute condition={!isAuth} path="/login" alterPath="/" exact>
         <LoginPage />
       </AuthRoute>
       <Route path="*">

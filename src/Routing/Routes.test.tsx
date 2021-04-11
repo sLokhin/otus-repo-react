@@ -1,6 +1,8 @@
 import React from "react";
+import { Provider } from "react-redux";
+import configureMockStore from "redux-mock-store";
+import thunk from "redux-thunk";
 import { mount } from "enzyme";
-import { AppContext, initialState } from "../Components/App/App";
 import { Routes } from "./Routes";
 
 import { MemoryRouter } from "react-router";
@@ -8,6 +10,9 @@ import { MemoryRouter } from "react-router";
 import { LoginPage } from "../Pages/LoginPage";
 import { GamePage } from "../Pages/GamePage";
 
+import { authDefaultState } from "../Components/NameForm/reducer";
+
+const mockStore = configureMockStore([thunk]);
 const mockHistory = { push: jest.fn() };
 jest.mock("react-router-dom", () => ({
   ...(jest.requireActual("react-router-dom") as any),
@@ -23,10 +28,10 @@ jest.mock("../Utils/delay", () => ({
 jest.spyOn(React, "useEffect").mockImplementation((f) => f());
 
 jest.mock("../API/auth", () => ({
-  login: jest.fn(() => {
+  executeLogin: jest.fn(() => {
     return null;
   }),
-  logout: jest.fn(() => {
+  executeLogout: jest.fn(() => {
     return null;
   }),
   isLoggedIn: jest.fn(() => {
@@ -46,9 +51,12 @@ describe("App routing test", () => {
         <Routes />
       </MemoryRouter>,
       {
-        wrappingComponent: AppContext.Provider,
+        wrappingComponent: Provider,
         wrappingComponentProps: {
-          value: [{ ...initialState, isLoading: false }, jest.fn()],
+          store: mockStore({
+            loadingState: false,
+            authState: { ...authDefaultState },
+          }),
         },
       }
     );
@@ -63,9 +71,12 @@ describe("App routing test", () => {
         <Routes />
       </MemoryRouter>,
       {
-        wrappingComponent: AppContext.Provider,
+        wrappingComponent: Provider,
         wrappingComponentProps: {
-          value: [{ ...initialState, isLoading: false }, jest.fn()],
+          store: mockStore({
+            loadingState: false,
+            authState: { ...authDefaultState },
+          }),
         },
       }
     );
@@ -80,16 +91,12 @@ describe("App routing test", () => {
         <Routes />
       </MemoryRouter>,
       {
-        wrappingComponent: AppContext.Provider,
+        wrappingComponent: Provider,
         wrappingComponentProps: {
-          value: [
-            {
-              name: "Name from enzyme test - 000",
-              isAuth: true,
-              isLoading: false,
-            },
-            jest.fn(),
-          ],
+          store: mockStore({
+            loadingState: false,
+            authState: { ...authDefaultState, isAuth: true },
+          }),
         },
       }
     );
@@ -104,16 +111,12 @@ describe("App routing test", () => {
         <Routes />
       </MemoryRouter>,
       {
-        wrappingComponent: AppContext.Provider,
+        wrappingComponent: Provider,
         wrappingComponentProps: {
-          value: [
-            {
-              name: "Name from enzyme test - 555",
-              isAuth: true,
-              isLoading: false,
-            },
-            jest.fn(),
-          ],
+          store: mockStore({
+            loadingState: false,
+            authState: { ...authDefaultState, isAuth: true },
+          }),
         },
       }
     );

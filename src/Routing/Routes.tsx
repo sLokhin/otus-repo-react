@@ -15,7 +15,7 @@ export const Routes: FC = () => {
   const { isAuth } = useSelector((state: GameOfLifeState) => {
     return state.authState;
   });
-  const { isLoading } = useSelector((state: GameOfLifeState) => {
+  const isLoading = useSelector((state: GameOfLifeState) => {
     return state.loadingState;
   });
 

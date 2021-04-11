@@ -28,10 +28,10 @@ jest.mock("../Utils/delay", () => ({
 jest.spyOn(React, "useEffect").mockImplementation((f) => f());
 
 jest.mock("../API/auth", () => ({
-  login: jest.fn(() => {
+  executeLogin: jest.fn(() => {
     return null;
   }),
-  logout: jest.fn(() => {
+  executeLogout: jest.fn(() => {
     return null;
   }),
   isLoggedIn: jest.fn(() => {
@@ -54,7 +54,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loadingState: { isLoading: false },
+            loadingState: false,
             authState: { ...authDefaultState },
           }),
         },
@@ -74,7 +74,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loadingState: { isLoading: false },
+            loadingState: false,
             authState: { ...authDefaultState },
           }),
         },
@@ -94,7 +94,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loadingState: { isLoading: false },
+            loadingState: false,
             authState: { ...authDefaultState, isAuth: true },
           }),
         },
@@ -114,7 +114,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
-            loadingState: { isLoading: false },
+            loadingState: false,
             authState: { ...authDefaultState, isAuth: true },
           }),
         },

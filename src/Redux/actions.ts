@@ -47,11 +47,9 @@ export const loginProcess = (name: string) => {
     await executeLogin(name)
       .then((nameFromPromise) => {
         dispatch(login({ name: nameFromPromise }));
-        dispatch(loadingEnd());
       })
       .catch(() => {
         dispatch(loginFailure());
-        dispatch(loadingEnd());
       });
   };
 };
@@ -62,11 +60,9 @@ export const logoutProcess = () => {
     await executeLogout()
       .then(() => {
         dispatch(logout());
-        dispatch(loadingEnd());
       })
       .catch(() => {
         dispatch(logoutFailure());
-        dispatch(loadingEnd());
       });
   };
 };

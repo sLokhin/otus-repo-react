@@ -38,17 +38,22 @@ describe("Redux reducer test", () => {
     const states = [store.getState()];
 
     let state;
-    store.dispatch(loadingStart());
-    state = store.getState();
-    expect(states.indexOf(state)).toBe(-1);
-    states.push(state);
-
     store.dispatch(login({ name: "New Name" }));
     state = store.getState();
     expect(states.indexOf(state)).toBe(-1);
     states.push(state);
 
-    store.dispatch(loadingEnd());
+    store.dispatch(logout());
+    state = store.getState();
+    expect(states.indexOf(state)).toBe(-1);
+    states.push(state);
+
+    store.dispatch(loginFailure());
+    state = store.getState();
+    expect(states.indexOf(state)).toBe(-1);
+    states.push(state);
+
+    store.dispatch(logoutFailure());
     state = store.getState();
     expect(states.indexOf(state)).toBe(-1);
     states.push(state);
@@ -72,15 +77,12 @@ describe("Redux reducer test", () => {
     const dispatch = jest.fn();
     const thunk = loginProcess(testName);
     await thunk(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: actionTypes.LOADING_START,
     });
     expect(dispatch.mock.calls[1][0]).toEqual({
       type: actionTypes.LOGIN_FAILURE,
-    });
-    expect(dispatch.mock.calls[2][0]).toEqual({
-      type: actionTypes.LOADING_END,
     });
   });
 
@@ -88,7 +90,7 @@ describe("Redux reducer test", () => {
     const dispatch = jest.fn();
     const thunk = loginProcess(testName);
     await thunk(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: actionTypes.LOADING_START,
     });
@@ -98,24 +100,18 @@ describe("Redux reducer test", () => {
         name: testName,
       },
     });
-    expect(dispatch.mock.calls[2][0]).toEqual({
-      type: actionTypes.LOADING_END,
-    });
   });
 
   it("test logoutProcess failure", async () => {
     const dispatch = jest.fn();
     const thunk = logoutProcess();
     await thunk(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: actionTypes.LOADING_START,
     });
     expect(dispatch.mock.calls[1][0]).toEqual({
       type: actionTypes.LOGOUT_FAILURE,
-    });
-    expect(dispatch.mock.calls[2][0]).toEqual({
-      type: actionTypes.LOADING_END,
     });
   });
 
@@ -123,15 +119,12 @@ describe("Redux reducer test", () => {
     const dispatch = jest.fn();
     const thunk = logoutProcess();
     await thunk(dispatch);
-    expect(dispatch).toHaveBeenCalledTimes(3);
+    expect(dispatch).toHaveBeenCalledTimes(2);
     expect(dispatch.mock.calls[0][0]).toEqual({
       type: actionTypes.LOADING_START,
     });
     expect(dispatch.mock.calls[1][0]).toEqual({
       type: actionTypes.LOGOUT,
-    });
-    expect(dispatch.mock.calls[2][0]).toEqual({
-      type: actionTypes.LOADING_END,
     });
   });
 });

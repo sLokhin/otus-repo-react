@@ -1,12 +1,8 @@
 import * as actionTypes from "./types";
 
-export interface LoaderState {
-  isLoading: boolean;
-}
+export type LoaderState = boolean;
 
-export const loadingDefaultState: LoaderState = {
-  isLoading: true,
-};
+export const loadingDefaultState: LoaderState = true;
 
 export type LoaderActionType = { type: keyof typeof actionTypes };
 
@@ -16,15 +12,17 @@ export function reducer(
 ): LoaderState {
   switch (action.type) {
     case actionTypes.LOADING_START:
-      return {
-        ...state,
-        isLoading: true,
-      };
+      return true;
     case actionTypes.LOADING_END:
-      return {
-        ...state,
-        isLoading: false,
-      };
+      return false;
+    case actionTypes.LOGIN:
+      return false;
+    case actionTypes.LOGIN_FAILURE:
+      return false;
+    case actionTypes.LOGOUT:
+      return false;
+    case actionTypes.LOGOUT_FAILURE:
+      return false;
     default:
       return state;
   }

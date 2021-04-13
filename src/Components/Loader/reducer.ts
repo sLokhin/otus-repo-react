@@ -1,10 +1,20 @@
 import * as actionTypes from "./types";
+import { createSlice } from "@reduxjs/toolkit";
 
 export type LoaderState = boolean;
 
+export type LoaderActionType = { type: keyof typeof actionTypes };
+
 export const loadingDefaultState: LoaderState = true;
 
-export type LoaderActionType = { type: keyof typeof actionTypes };
+export const loaderSlice = createSlice({
+  name: "loader",
+  initialState: loadingDefaultState,
+  reducers: {
+    loadingStart: () => true,
+    loadingEnd: () => false,
+  },
+});
 
 export function reducer(
   state: LoaderState = loadingDefaultState,

@@ -1,4 +1,5 @@
 import * as actionTypes from "./types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 enum errorTypes {
   loginError,
@@ -37,6 +38,29 @@ type OtherTypes = {
 };
 
 export type AuthActionType = SuccessLogin | OtherTypes;
+
+export const authSlice = createSlice({
+  name: "auth",
+  initialState: authDefaultState,
+  reducers: {
+    login: (state, { payload }: PayloadAction<payloadType>) => {
+      state.name = payload.name;
+      state.isAuth = true;
+    },
+    loginFailure: (state) => {
+      state.name = "";
+      state.isAuth = false;
+      state.errorLog.push("loginError");
+    },
+    logout: (state) => {
+      state.name = "";
+      state.isAuth = false;
+    },
+    logoutFailure: (state) => {
+      state.errorLog.push("logoutError");
+    },
+  },
+});
 
 export function reducer(
   state: AuthState = authDefaultState,

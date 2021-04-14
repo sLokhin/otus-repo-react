@@ -1,68 +1,48 @@
 import { Dispatch } from "redux";
+
 import { executeLogin, executeLogout } from "../API/auth";
 
 import * as loginTypes from "../Components/NameForm/types";
 import * as loadingTypes from "../Components/Loader/types";
 
-import { AuthActionType, payloadType } from "../Components/NameForm/reducer";
-import { LoaderActionType } from "../Components/Loader/reducer";
+import { authSlice } from "../Components/NameForm/reducer";
+import { loaderSlice } from "../Components/Loader/reducer";
 
 export const actionTypes = {
   ...loginTypes,
   ...loadingTypes,
 };
 
-export type Actions = LoaderActionType | AuthActionType;
-
-export const loadingStart = (): LoaderActionType => {
-  return { type: actionTypes.LOADING_START };
-};
-
-export const loadingEnd = (): LoaderActionType => {
-  return { type: actionTypes.LOADING_END };
-};
-
-export const login = (payload: payloadType): AuthActionType => {
-  return {
-    type: actionTypes.LOGIN,
-    payload,
-  };
-};
-
-export const loginFailure = (): AuthActionType => {
-  return { type: actionTypes.LOGIN_FAILURE };
-};
-
-export const logout = (): AuthActionType => {
-  return { type: actionTypes.LOGOUT };
-};
-
-export const logoutFailure = (): AuthActionType => {
-  return { type: actionTypes.LOGOUT_FAILURE };
-};
-
 export const loginProcess = (name: string) => {
-  return async (dispatch: Dispatch<Actions>): Promise<void> => {
-    dispatch(loadingStart());
+  return async (dispatch: Dispatch<any>): Promise<void> => {
+    dispatch(loaderSlice.actions.loadingStart());
     await executeLogin(name)
       .then((nameFromPromise) => {
-        dispatch(login({ name: nameFromPromise }));
+        console.log(
+          "ACTIOn   ",
+          authSlice.actions.login({ name: nameFromPromise })
+        );
+        dispatch(authSlice.actions.login({ name: nameFromPromise }));
+        dispatch(loaderSlice.actions.loadingEnd());
       })
       .catch(() => {
-        dispatch(loginFailure());
+        dispatch(authSlice.actions.loginFailure());
+        dispatch(loaderSlice.actions.loadingEnd());
       });
   };
 };
 
 export const logoutProcess = () => {
-  return async (dispatch: Dispatch<Actions>): Promise<void> => {
-    dispatch(loadingStart());
+  return async (dispatch: Dispatch<any>): Promise<void> => {
+    dispatch(loaderSlice.actions.loadingStart());
     await executeLogout()
       .then(() => {
-        dispatch(logout());
+        dispatch(authSlice.actions.logout());
+        dispatch(loaderSlice.actions.loadingEnd());
       })
       .catch(() => {
-        dispatch(logoutFailure());
+        dispatch(authSlice.actions.logoutFailure());
+        dispatch(loaderSlice.actions.loadingEnd());
       });
   };
 };

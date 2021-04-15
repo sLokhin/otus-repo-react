@@ -13,13 +13,13 @@ interface AuthState {
   errorLog: errorLog;
 }
 
-const authDefaultState: AuthState = {
+export const authDefaultState: AuthState = {
   name: "",
   isAuth: false,
   errorLog: [],
 };
 
-type payloadType = {
+export type payloadType = {
   name: string;
 };
 

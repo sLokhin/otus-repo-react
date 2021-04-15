@@ -2,11 +2,10 @@ import React from "react";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
-import { configureStore } from "../../Redux/store";
+import { store } from "../../Redux/store";
 
 describe("NameForm test", () => {
   it("submit NameForm", () => {
-    const store = configureStore();
     const testName = "New Player";
     const onSubmit = jest.fn();
 

@@ -29,11 +29,9 @@ export function* loginSaga({
   yield put(loaderSlice.actions.loadingStart());
   const name = String(payload.name);
   try {
-    if (!isEmpty(name)) {
-      yield call(executeLogin, name);
-      yield put(actions.loginSuccess({ name }));
-      yield put(loaderSlice.actions.loadingEnd());
-    }
+    yield call(executeLogin, name);
+    yield put(actions.loginSuccess({ name }));
+    yield put(loaderSlice.actions.loadingEnd());
   } catch {
     yield put(actions.loginFailure());
     yield put(loaderSlice.actions.loadingEnd());

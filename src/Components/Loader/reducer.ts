@@ -12,3 +12,5 @@ export const loaderSlice = createSlice({
     loadingEnd: () => false,
   },
 });
+
+export const { reducer, actions } = loaderSlice;

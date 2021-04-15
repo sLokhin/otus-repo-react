@@ -36,7 +36,6 @@ export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const dispatch = useDispatch();
   const {
     onSubmit = async (name: string): Promise<void> => {
-      console.log("DISPATCH NAME", name);
       dispatch(actions.login({ name }));
     },
   } = props;

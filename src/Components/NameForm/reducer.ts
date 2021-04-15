@@ -1,5 +1,27 @@
-import { authDefaultState, payloadType } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+enum errorTypes {
+  loginError,
+  logoutError,
+}
+
+type errorLog = Array<keyof typeof errorTypes>;
+
+interface AuthState {
+  name: string;
+  isAuth: boolean;
+  errorLog: errorLog;
+}
+
+const authDefaultState: AuthState = {
+  name: "",
+  isAuth: false,
+  errorLog: [],
+};
+
+type payloadType = {
+  name: string;
+};
 
 export const authSlice = createSlice({
   name: "auth",
@@ -9,7 +31,6 @@ export const authSlice = createSlice({
       return state;
     },
     loginSuccess: (state, { payload }: PayloadAction<payloadType>) => {
-      console.log("PAYLOAD NAME ", payload, payload.name);
       state.name = payload.name;
       state.isAuth = true;
     },

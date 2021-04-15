@@ -1,28 +1,5 @@
-import * as actionTypes from "./types";
+import { authDefaultState, payloadType } from "./types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-enum errorTypes {
-  loginError,
-  logoutError,
-}
-
-type errorLog = Array<keyof typeof errorTypes>;
-
-export interface AuthState {
-  name: string;
-  isAuth: boolean;
-  errorLog: errorLog;
-}
-
-export const authDefaultState: AuthState = {
-  name: "",
-  isAuth: false,
-  errorLog: [],
-};
-
-export type payloadType = {
-  name: string;
-};
 
 export const authSlice = createSlice({
   name: "auth",

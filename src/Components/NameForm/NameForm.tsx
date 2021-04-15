@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { loginProcess } from "../../Redux/actions";
+import { actions } from "./reducer";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const h5Style = {
@@ -36,7 +36,8 @@ export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const dispatch = useDispatch();
   const {
     onSubmit = async (name: string): Promise<void> => {
-      dispatch(loginProcess(name));
+      console.log("DISPATCH NAME", name);
+      dispatch(actions.login({ name }));
     },
   } = props;
 

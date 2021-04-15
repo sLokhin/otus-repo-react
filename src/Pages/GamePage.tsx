@@ -4,7 +4,7 @@ import { Game } from "../Components/Game/Game";
 import { GameHeader } from "../Components/GameHeader/GameHeader";
 import { useHistory } from "react-router-dom";
 import { GameOfLifeState } from "../Redux/reducer";
-import { logoutProcess } from "../Redux/actions";
+import { actions } from "../Components/NameForm/reducer";
 
 import styled from "@emotion/styled";
 
@@ -32,7 +32,7 @@ export const GamePage: FC = () => {
   }, []);
 
   const onLogout = async () => {
-    dispatch(logoutProcess());
+    dispatch(actions.logout());
   };
   return (
     <GameLayout>

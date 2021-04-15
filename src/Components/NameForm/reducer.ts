@@ -24,26 +24,15 @@ export type payloadType = {
   name: string;
 };
 
-type SuccessLogin = {
-  type: typeof actionTypes.LOGIN;
-} & {
-  payload: payloadType;
-};
-
-type OtherTypes = {
-  type:
-    | typeof actionTypes.LOGOUT
-    | typeof actionTypes.LOGIN_FAILURE
-    | typeof actionTypes.LOGOUT_FAILURE;
-};
-
-export type AuthActionType = SuccessLogin | OtherTypes;
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: authDefaultState,
   reducers: {
-    login: (state, { payload }: PayloadAction<payloadType>) => {
+    login: (state, {}: PayloadAction<payloadType>) => {
+      return state;
+    },
+    loginSuccess: (state, { payload }: PayloadAction<payloadType>) => {
+      console.log("PAYLOAD NAME ", payload, payload.name);
       state.name = payload.name;
       state.isAuth = true;
     },
@@ -53,6 +42,9 @@ export const authSlice = createSlice({
       state.errorLog.push("loginError");
     },
     logout: (state) => {
+      return state;
+    },
+    logoutSuccess: (state) => {
       state.name = "";
       state.isAuth = false;
     },
@@ -62,36 +54,4 @@ export const authSlice = createSlice({
   },
 });
 
-export function reducer(
-  state: AuthState = authDefaultState,
-  action: AuthActionType
-): AuthState {
-  switch (action.type) {
-    case actionTypes.LOGIN:
-      return {
-        ...state,
-        name: action.payload.name,
-        isAuth: true,
-      };
-    case actionTypes.LOGIN_FAILURE:
-      return {
-        ...state,
-        name: "",
-        isAuth: false,
-        errorLog: [...state.errorLog, "loginError"],
-      };
-    case actionTypes.LOGOUT:
-      return {
-        ...state,
-        name: "",
-        isAuth: false,
-      };
-    case actionTypes.LOGOUT_FAILURE:
-      return {
-        ...state,
-        errorLog: [...state.errorLog, "logoutError"],
-      };
-    default:
-      return state;
-  }
-}
+export const { reducer, actions } = authSlice;

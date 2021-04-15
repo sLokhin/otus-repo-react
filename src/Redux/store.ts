@@ -1,13 +1,19 @@
-import { createStore, applyMiddleware, compose, Store } from "redux";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import createSagaMiddleware from "redux-saga";
+import { fork } from "redux-saga/effects";
+import { authSaga } from "../Components/NameForm/saga";
 import { reducer } from "./reducer";
-import thunk from "redux-thunk";
 
-export const composeEnhancers =
-  (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+const sagaMiddleware = createSagaMiddleware();
 
-export const configureStore = (): Store => {
-  const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));
-  return store;
-};
+function* rootSaga() {
+  yield fork(authSaga);
+}
 
-export const store = configureStore();
+export const store = configureStore({
+  reducer,
+  middleware: [...getDefaultMiddleware(), sagaMiddleware],
+  devTools: true,
+});
+
+sagaMiddleware.run(rootSaga);

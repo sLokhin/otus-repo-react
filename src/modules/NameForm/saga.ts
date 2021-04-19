@@ -1,14 +1,12 @@
-import { isEmpty } from "ramda";
 import { takeEvery, call, put, fork } from "redux-saga/effects";
 import { actions } from "./reducer";
 import { loaderSlice } from "../Loader/reducer";
-
 import {
   isLoggedIn,
   getPlayerName,
   executeLogin,
   executeLogout,
-} from "../../API/auth";
+} from "@/api/auth";
 import { SagaIterator } from "@redux-saga/types";
 
 export function* checkAuthSaga(): SagaIterator {

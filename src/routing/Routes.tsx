@@ -1,12 +1,12 @@
 import React, { FC } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { LoginPage } from "../Pages/LoginPage";
-import { GamePage } from "../Pages/GamePage";
+import { LoginPage } from "@/pages/LoginPage";
+import { GamePage } from "@/pages/GamePage";
 import { AuthRoute } from "./AuthRoute";
-import { Loader } from "../Components/Loader/Loader";
+import { Loader } from "@/modules/Loader/Loader";
 
-import { GameOfLifeState } from "../Redux/reducer";
+import { GameOfLifeState } from "@/redux/reducer";
 
 export const Routes: FC = () => {
   const { isAuth } = useSelector((state: GameOfLifeState) => {

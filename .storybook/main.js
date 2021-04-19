@@ -1,17 +1,7 @@
-module.exports = {
-  "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
-  ],
-  "addons": [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials"
-  ]
-}
-
 const path = require('path');
 const webpack = require('webpack');
 const custom = require('../webpack.config.js');
+
 module.exports = {
   stories: [
     "../src/**/*.stories.mdx",
@@ -67,10 +57,14 @@ module.exports = {
       exclude: [/node_modules/],
       enforce: 'pre',
     });
+
     return {
       ...config,
       resolve: {
-        extensions: custom.resolve.extensions
+        extensions: custom.resolve.extensions,
+        alias: {
+          "@": path.resolve(__dirname, "../src")
+        }
       },
       module: {
         ...config.module,

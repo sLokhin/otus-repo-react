@@ -8,7 +8,7 @@ import {
   getPlayerName,
   executeLogin,
   executeLogout,
-} from "../../API/auth";
+} from "@/api/auth";
 import { loaderSlice } from "../Loader/reducer";
 
 const testName = "Test Name";

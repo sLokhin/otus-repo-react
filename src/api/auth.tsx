@@ -1,4 +1,4 @@
-import { delay } from "../Utils/delay";
+import { delay } from "@/utils/delay";
 
 export const executeLogin = async (name: string): Promise<string> => {
   await delay(1000);

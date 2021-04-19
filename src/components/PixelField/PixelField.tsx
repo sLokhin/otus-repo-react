@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Pixel } from "../Pixel/Pixel";
+import { Pixel } from "./Pixel";
 import styled from "@emotion/styled";
 
 const PixelRow = styled.div`

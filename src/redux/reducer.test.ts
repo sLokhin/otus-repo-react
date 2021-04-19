@@ -1,7 +1,7 @@
 import { store } from "./store";
-import { actions as loaderActions } from "../Components/Loader/reducer";
-import { actions as authActions } from "../Components/NameForm/reducer";
-import { authDefaultState } from "../Components/NameForm/reducer";
+import { actions as loaderActions } from "@/modules/Loader/reducer";
+import { actions as authActions } from "@/modules/NameForm/reducer";
+import { authDefaultState } from "@/modules/NameForm/reducer";
 
 describe("Redux reducer test", () => {
   it("correct initial login state", () => {

@@ -1,10 +1,10 @@
 import React, { FC, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Game } from "../Components/Game/Game";
-import { GameHeader } from "../Components/GameHeader/GameHeader";
 import { useHistory } from "react-router-dom";
-import { GameOfLifeState } from "../Redux/reducer";
-import { actions } from "../Components/NameForm/reducer";
+import { GameHeader } from "@/components/GameHeader/GameHeader";
+import { Game } from "@/modules/Game/Game";
+import { actions } from "@/modules/NameForm/reducer";
+import { GameOfLifeState } from "@/redux/reducer";
 
 import styled from "@emotion/styled";
 

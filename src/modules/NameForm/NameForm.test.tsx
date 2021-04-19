@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import { NameForm } from "./NameForm";
-import { store } from "../../Redux/store";
+import { store } from "@/redux/store";
 
 describe("NameForm test", () => {
   it("submit NameForm", () => {

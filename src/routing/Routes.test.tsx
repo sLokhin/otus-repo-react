@@ -7,10 +7,10 @@ import { Routes } from "./Routes";
 
 import { MemoryRouter } from "react-router";
 
-import { LoginPage } from "../Pages/LoginPage";
-import { GamePage } from "../Pages/GamePage";
+import { LoginPage } from "@/pages/LoginPage";
+import { GamePage } from "@/pages/GamePage";
 
-import { authDefaultState } from "../Components/NameForm/reducer";
+import { authDefaultState } from "@/modules/NameForm/reducer";
 
 const mockStore = configureMockStore([thunk]);
 const mockHistory = { push: jest.fn() };
@@ -19,7 +19,7 @@ jest.mock("react-router-dom", () => ({
   useHistory: () => mockHistory,
 }));
 
-jest.mock("../Utils/delay", () => ({
+jest.mock("../utils/delay", () => ({
   delay: jest.fn(() => {
     return Promise.resolve();
   }),
@@ -27,7 +27,7 @@ jest.mock("../Utils/delay", () => ({
 
 jest.spyOn(React, "useEffect").mockImplementation((f) => f());
 
-jest.mock("../API/auth", () => ({
+jest.mock("../api/auth", () => ({
   executeLogin: jest.fn(() => {
     return null;
   }),

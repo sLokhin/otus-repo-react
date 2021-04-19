@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import { authSlice } from "../Components/NameForm/reducer";
-import { loaderSlice } from "../Components/Loader/reducer";
+import { authSlice } from "@/modules/NameForm/reducer";
+import { loaderSlice } from "@/modules/Loader/reducer";
 
 export const reducer = combineReducers({
   loadingState: loaderSlice.reducer,

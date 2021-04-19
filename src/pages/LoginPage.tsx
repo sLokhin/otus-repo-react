@@ -1,6 +1,6 @@
 import React, { FC, useEffect } from "react";
-import { NameForm } from "../Components/NameForm/NameForm";
 import { useHistory } from "react-router-dom";
+import { NameForm } from "@/modules/NameForm/NameForm";
 import styled from "@emotion/styled";
 
 const LoginLayout = styled.div`

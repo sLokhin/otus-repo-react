@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 import { Game, DEFAULT_SLIDER_PERCENT, DEFAULT_FIELD_SIZE } from "./Game";
-import { PixelField } from "../PixelField/PixelField";
+import { PixelField } from "@/components/PixelField/PixelField";
 import { Slider } from "@material-ui/core";
 
 describe("Game test", () => {

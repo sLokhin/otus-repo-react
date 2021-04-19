@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 import styled from "@emotion/styled";
 
-import { GameControls } from "../GameControls/GameControls";
-import { GameOptions } from "../GameOptions/GameOptions";
-import { FillSlider } from "../FillSlider/FillSlider";
-import { PixelField } from "../PixelField/PixelField";
+import { GameControls } from "@/components/GameControls/GameControls";
+import { GameOptions } from "@/components/GameOptions/GameOptions";
+import { FillSlider } from "@/components/FillSlider/FillSlider";
+import { PixelField } from "@/components/PixelField/PixelField";
 
 import { Grid, Paper } from "@material-ui/core";
 

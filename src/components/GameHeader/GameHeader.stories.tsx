@@ -1,4 +1,5 @@
 import React from "react";
+import { action } from "@storybook/addon-actions";
 import { withKnobs, text } from "@storybook/addon-knobs";
 import { GameHeader } from "./GameHeader";
 export default {
@@ -6,9 +7,7 @@ export default {
   decorators: [withKnobs],
 };
 
-const onLogout = (): null => {
-  return null;
-};
+const onLogout = action("Logout clicked (element)");
 
 export const gameHeaderDefault = (): React.ReactNode => {
   return (

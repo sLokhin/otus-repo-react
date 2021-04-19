@@ -1,4 +1,5 @@
 import React from "react";
+import { action } from "@storybook/addon-actions";
 import { withKnobs, object } from "@storybook/addon-knobs";
 import { PixelField } from "./PixelField";
 export default {
@@ -6,9 +7,7 @@ export default {
   decorators: [withKnobs],
 };
 
-const onPixelClick = (): null => {
-  return null;
-};
+const onPixelClick = action("Pixel field clicked (element)");
 
 export const emptyPixelField = (): React.ReactNode => {
   return (

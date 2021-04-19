@@ -1,4 +1,5 @@
 import React from "react";
+import { action } from "@storybook/addon-actions";
 import { withKnobs } from "@storybook/addon-knobs";
 import { GameOptions } from "./GameOptions";
 export default {
@@ -6,13 +7,9 @@ export default {
   decorators: [withKnobs],
 };
 
-const setOptionsSize = (): null => {
-  return null;
-};
+const setOptionsSize = action("Size option clicked (element)");
 
-const setOptionsSpeed = (): null => {
-  return null;
-};
+const setOptionsSpeed = action("Speed option clicked (element)");
 
 export const gameOptionsDefault = (): React.ReactNode => {
   return (

@@ -1,12 +1,14 @@
 import { takeEvery, call, put, fork } from "redux-saga/effects";
 import { actions } from "./reducer";
-import { loaderSlice } from "../Loader/reducer";
+import { loaderSlice } from "@/modules/Loader/reducer";
 import {
   isLoggedIn,
   getPlayerName,
   executeLogin,
   executeLogout,
+  saveAppState,
 } from "@/api/auth";
+import { store } from "@/redux/store";
 import { SagaIterator } from "@redux-saga/types";
 
 export function* checkAuthSaga(): SagaIterator {
@@ -23,7 +25,7 @@ export function* checkAuthSaga(): SagaIterator {
 
 export function* loginSaga({
   payload,
-}: ReturnType<typeof actions.login>): SagaIterator {
+}: ReturnType<typeof actions.loginAttempt>): SagaIterator {
   yield put(loaderSlice.actions.loadingStart());
   const name = String(payload.name);
   try {
@@ -37,6 +39,7 @@ export function* loginSaga({
 }
 
 export function* logoutSaga(): SagaIterator {
+  yield call(saveAppState, store.getState());
   yield put(loaderSlice.actions.loadingStart());
   try {
     yield call(executeLogout);
@@ -50,6 +53,6 @@ export function* logoutSaga(): SagaIterator {
 
 export function* authSaga(): SagaIterator {
   yield fork(checkAuthSaga);
-  yield takeEvery(actions.login.type, loginSaga);
-  yield takeEvery(actions.logout.type, logoutSaga);
+  yield takeEvery(actions.loginAttempt.type, loginSaga);
+  yield takeEvery(actions.logoutAttempt.type, logoutSaga);
 }

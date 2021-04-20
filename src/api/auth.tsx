@@ -21,3 +21,9 @@ export const isLoggedIn = async (): Promise<boolean> => {
 export const getPlayerName = (): string | null => {
   return localStorage.getItem("login");
 };
+
+export const saveAppState = async (
+  appState: Record<string, unknown>
+): Promise<void> => {
+  localStorage.setItem("appState", JSON.stringify(appState));
+};

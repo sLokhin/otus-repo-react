@@ -27,7 +27,7 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: authDefaultState,
   reducers: {
-    login: (state, {}: PayloadAction<payloadType>) => {
+    loginAttempt: (state, {}: PayloadAction<payloadType>) => {
       return state;
     },
     loginSuccess: (state, { payload }: PayloadAction<payloadType>) => {
@@ -39,7 +39,7 @@ export const authSlice = createSlice({
       state.isAuth = false;
       state.errorLog.push("loginError");
     },
-    logout: (state) => {
+    logoutAttempt: (state) => {
       return state;
     },
     logoutSuccess: (state) => {

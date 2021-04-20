@@ -32,7 +32,7 @@ export const GamePage: FC = () => {
   }, []);
 
   const onLogout = async () => {
-    dispatch(actions.logout());
+    dispatch(actions.logoutAttempt());
   };
   return (
     <GameLayout>

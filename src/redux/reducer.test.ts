@@ -9,31 +9,6 @@ describe("Redux reducer test", () => {
     expect(initialLoginState).toMatchObject(authDefaultState);
   });
 
-  it("does not mutate state", () => {
-    const states = [store.getState()];
-
-    let state;
-    store.dispatch(authActions.loginSuccess({ name: "New Name" }));
-    state = store.getState();
-    expect(states.indexOf(state)).toBe(-1);
-    states.push(state);
-
-    store.dispatch(authActions.logoutSuccess());
-    state = store.getState();
-    expect(states.indexOf(state)).toBe(-1);
-    states.push(state);
-
-    store.dispatch(authActions.loginFailure());
-    state = store.getState();
-    expect(states.indexOf(state)).toBe(-1);
-    states.push(state);
-
-    store.dispatch(authActions.logoutFailure());
-    state = store.getState();
-    expect(states.indexOf(state)).toBe(-1);
-    states.push(state);
-  });
-
   it("calls subscribers on every change", () => {
     const subscriber1 = jest.fn();
     const subscriber2 = jest.fn();

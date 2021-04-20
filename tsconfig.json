@@ -1,5 +1,10 @@
 {
     "compilerOptions": {
+      "baseUrl": "./",
+      "paths": {
+        "componsnts/*": ["src/components/*"],
+        "@/*": ["src/*"]
+      },
       "target": "es5",
       "module": "commonjs",
       "allowJs": true,
@@ -7,6 +12,6 @@
       "sourceMap": true,
       "strict": true,
       "esModuleInterop": true,
-      "outDir": "dist"
+      "outDir": "dist",
     }
   }

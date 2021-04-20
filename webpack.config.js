@@ -8,6 +8,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".jsx", ".ts", ".tsx", ".json"],
+    alias: {
+      components: path.resolve(__dirname, "scr/components"),
+      "@": path.resolve(__dirname, "src"),
+    },
   },
   output: {
     path: path.resolve(__dirname, "./dist"),

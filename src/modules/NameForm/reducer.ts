@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+export const LOGIN_ATTEMPT = "LOGIN_ATTEMPT";
+export const LOGOUT_ATTEMPT = "LOGOUT_ATTEMPT";
+
 enum errorTypes {
   loginError,
   logoutError,
@@ -27,9 +30,6 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: authDefaultState,
   reducers: {
-    loginAttempt: (state, {}: PayloadAction<payloadType>) => {
-      return state;
-    },
     loginSuccess: (state, { payload }: PayloadAction<payloadType>) => {
       state.name = payload.name;
       state.isAuth = true;
@@ -38,9 +38,6 @@ export const authSlice = createSlice({
       state.name = "";
       state.isAuth = false;
       state.errorLog.push("loginError");
-    },
-    logoutAttempt: (state) => {
-      return state;
     },
     logoutSuccess: (state) => {
       state.name = "";

@@ -1,5 +1,5 @@
-import { takeEvery, call, put, fork } from "redux-saga/effects";
-import { actions } from "./reducer";
+import { take, call, put, fork, actionChannel } from "redux-saga/effects";
+import { actions, LOGIN_ATTEMPT, LOGOUT_ATTEMPT } from "./reducer";
 import { loaderSlice } from "@/modules/Loader/reducer";
 import {
   isLoggedIn,
@@ -25,7 +25,7 @@ export function* checkAuthSaga(): SagaIterator {
 
 export function* loginSaga({
   payload,
-}: ReturnType<typeof actions.loginAttempt>): SagaIterator {
+}: ReturnType<typeof actions.loginSuccess>): SagaIterator {
   yield put(loaderSlice.actions.loadingStart());
   const name = String(payload.name);
   try {
@@ -35,6 +35,14 @@ export function* loginSaga({
   } catch {
     yield put(actions.loginFailure());
     yield put(loaderSlice.actions.loadingEnd());
+  }
+}
+
+export function* loginAttemptSaga(): SagaIterator {
+  const loginChannel = yield actionChannel(LOGIN_ATTEMPT);
+  while (true) {
+    const loginAction = yield take(loginChannel);
+    yield call(loginSaga, loginAction);
   }
 }
 
@@ -51,8 +59,16 @@ export function* logoutSaga(): SagaIterator {
   }
 }
 
+export function* logoutAttemptSaga(): SagaIterator {
+  const logoutChannel = yield actionChannel(LOGOUT_ATTEMPT);
+  while (true) {
+    yield take(logoutChannel);
+    yield* logoutSaga();
+  }
+}
+
 export function* authSaga(): SagaIterator {
   yield fork(checkAuthSaga);
-  yield takeEvery(actions.loginAttempt.type, loginSaga);
-  yield takeEvery(actions.logoutAttempt.type, logoutSaga);
+  yield fork(loginAttemptSaga);
+  yield fork(logoutAttemptSaga);
 }

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { GameHeader } from "@/components/GameHeader/GameHeader";
 import { Game } from "@/modules/Game/Game";
-import { actions } from "@/modules/NameForm/reducer";
+import { LOGOUT_ATTEMPT } from "@/modules/NameForm/reducer";
 import { GameOfLifeState } from "@/redux/reducer";
 
 import styled from "@emotion/styled";
@@ -32,7 +32,7 @@ export const GamePage: FC = () => {
   }, []);
 
   const onLogout = async () => {
-    dispatch(actions.logoutAttempt());
+    dispatch({ type: LOGOUT_ATTEMPT });
   };
   return (
     <GameLayout>

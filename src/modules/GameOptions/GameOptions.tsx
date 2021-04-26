@@ -98,9 +98,9 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
           newFieldSize,
           fillPercent
         );
+        dispatch(actions.setFieldSize(newFieldSize));
         dispatch(gameProcessActions.setPixelMatrix(newPixelStatesMatrix));
       }
-      dispatch(actions.setFieldSize(newFieldSize));
     },
     setGameSpeed = async (newGameSpeed: possibleSpeed): Promise<void> => {
       dispatch(actions.setGameSpeed(newGameSpeed));
@@ -111,9 +111,9 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
           filedSize,
           newFillPercent
         );
+        dispatch(actions.setFillPercent(newFillPercent));
         dispatch(gameProcessActions.setPixelMatrix(newPixelStatesMatrix));
       }
-      dispatch(actions.setFillPercent(newFillPercent));
     },
   } = props;
 

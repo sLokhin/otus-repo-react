@@ -8,7 +8,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { actions } from "./reducer";
+import { LOGIN_ATTEMPT } from "./reducer";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 const h5Style = {
@@ -36,7 +36,7 @@ export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const dispatch = useDispatch();
   const {
     onSubmit = async (name: string): Promise<void> => {
-      dispatch(actions.login({ name }));
+      dispatch({ type: LOGIN_ATTEMPT, payload: { name } });
     },
   } = props;
 

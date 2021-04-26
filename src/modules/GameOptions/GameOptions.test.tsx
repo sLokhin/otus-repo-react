@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import { GameOptions } from "./GameOptions";
-import { possibleSize, possibleSpeed } from "./reducer";
+import { possibleSize, possibleSpeed } from "@/modules/Game/reducer";
 import { store } from "@/redux/store";
 
 describe("GameOptions test", () => {

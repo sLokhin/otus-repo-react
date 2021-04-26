@@ -1,7 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
-import { Game, DEFAULT_SLIDER_PERCENT, DEFAULT_FIELD_SIZE } from "./Game";
+import { Game } from "./Game";
+import { DEFAULT_SLIDER_PERCENT, DEFAULT_FIELD_SIZE } from "./reducer";
 import { store } from "@/redux/store";
 import { PixelField } from "@/components/PixelField/PixelField";
 import { Slider } from "@material-ui/core";

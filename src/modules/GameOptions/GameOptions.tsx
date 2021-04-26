@@ -8,7 +8,7 @@ import {
   possibleSpeed,
   DEFAULT_SLIDER_PERCENT,
   actions,
-} from "./reducer";
+} from "@/modules/Game/reducer";
 import { actions as gameProcessActions } from "@/modules/Game/reducer";
 import { getRandomPixelMass } from "@/modules/Game/supportFunctions";
 import { GameOfLifeState } from "@/redux/reducer";
@@ -85,10 +85,10 @@ interface GameOptionsProps {
 
 export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   const fillPercent = useSelector(
-    (state: GameOfLifeState) => state.gameOptionsState.fillPercent
+    (state: GameOfLifeState) => state.gameProcessState.fillPercent
   );
   const filedSize = useSelector(
-    (state: GameOfLifeState) => state.gameOptionsState.fieldSize
+    (state: GameOfLifeState) => state.gameProcessState.fieldSize
   );
   const dispatch = useDispatch();
   const {

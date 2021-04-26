@@ -7,15 +7,12 @@ export default {
   decorators: [withKnobs],
 };
 
-const setOptionsSize = action("Size option clicked (element)");
+const setFieldSize = action("Size option clicked (element)");
 
-const setOptionsSpeed = action("Speed option clicked (element)");
+const setGameSpeed = action("Speed option clicked (element)");
 
 export const gameOptionsDefault = (): React.ReactNode => {
   return (
-    <GameOptions
-      setOptionsSize={setOptionsSize}
-      setOptionsSpeed={setOptionsSpeed}
-    />
+    <GameOptions setFieldSize={setFieldSize} setGameSpeed={setGameSpeed} />
   );
 };

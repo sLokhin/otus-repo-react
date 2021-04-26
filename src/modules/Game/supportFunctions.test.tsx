@@ -1,4 +1,4 @@
-import { getInitialPixelMass, getRandomPixelMass } from "./Game";
+import { getInitialPixelMass, getRandomPixelMass } from "./supportFunctions";
 
 type GetRandomFunction = (min: number, max: number) => number;
 

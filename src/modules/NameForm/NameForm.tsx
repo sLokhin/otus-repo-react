@@ -35,7 +35,7 @@ export const NameForm: FC<NameFormProps> = (props: NameFormProps) => {
   const [nameFromState, setName] = useState("");
   const dispatch = useDispatch();
   const {
-    onSubmit = async (name: string): Promise<void> => {
+    onSubmit = (name: string): void => {
       dispatch({ type: LOGIN_ATTEMPT, payload: { name } });
     },
   } = props;

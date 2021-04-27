@@ -1,5 +1,6 @@
 import { takeEvery, call, put, fork, actionChannel } from "redux-saga/effects";
 import { actions, LOGIN_ATTEMPT, LOGOUT_ATTEMPT } from "./reducer";
+import { gameProcessSlice } from "@/modules/Game/reducer";
 import { loaderSlice } from "@/modules/Loader/reducer";
 import {
   isLoggedIn,
@@ -49,6 +50,7 @@ export function* logoutSaga(): SagaIterator {
   try {
     yield call(executeLogout);
     yield put(actions.logoutSuccess());
+    yield put(gameProcessSlice.actions.setDefaultOptions());
     yield put(loaderSlice.actions.loadingEnd());
   } catch {
     yield put(actions.logoutFailure());

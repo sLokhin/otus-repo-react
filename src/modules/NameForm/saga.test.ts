@@ -20,14 +20,13 @@ import {
   LOGOUT_ATTEMPT,
 } from "./reducer";
 
-import { store } from "@/redux/store";
+import { actions as gameProcessActions } from "@/modules/Game/reducer";
 
 import {
   isLoggedIn,
   getPlayerName,
   executeLogin,
   executeLogout,
-  saveAppState,
 } from "@/api/auth";
 import { loaderSlice } from "../Loader/reducer";
 
@@ -107,6 +106,7 @@ describe("Test auth saga", () => {
       .put(loaderSlice.actions.loadingStart())
       .provide([[matchers.call.fn(executeLogout), null]])
       .put(actions.logoutSuccess())
+      .put(gameProcessActions.setDefaultOptions())
       .hasFinalState({
         ...authDefaultState,
       })

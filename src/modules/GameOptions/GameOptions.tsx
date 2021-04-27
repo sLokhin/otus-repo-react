@@ -92,7 +92,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   );
   const dispatch = useDispatch();
   const {
-    setFieldSize = async (newFieldSize: possibleSize): Promise<void> => {
+    setFieldSize = (newFieldSize: possibleSize): void => {
       if (filedSize !== newFieldSize) {
         const newPixelStatesMatrix = getRandomPixelMass(
           newFieldSize,
@@ -102,10 +102,10 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
         dispatch(gameProcessActions.setPixelMatrix(newPixelStatesMatrix));
       }
     },
-    setGameSpeed = async (newGameSpeed: possibleSpeed): Promise<void> => {
+    setGameSpeed = (newGameSpeed: possibleSpeed): void => {
       dispatch(actions.setGameSpeed(newGameSpeed));
     },
-    setFilledPercent = async (newFillPercent: number): Promise<void> => {
+    setFilledPercent = (newFillPercent: number): void => {
       if (fillPercent !== newFillPercent) {
         const newPixelStatesMatrix = getRandomPixelMass(
           filedSize,

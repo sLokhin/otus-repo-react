@@ -62,10 +62,10 @@ export const GameControls: FC<GameControlsProps> = (
   );
   const dispatch = useDispatch();
   const {
-    setDefaultOptions = async (): Promise<void> => {
+    setDefaultOptions = (): void => {
       dispatch(actions.setDefaultOptions());
     },
-    setGameState = async (newGameState: possibleState): Promise<void> => {
+    setGameState = (newGameState: possibleState): void => {
       if (gameState !== newGameState) {
         dispatch(actions.setGameState(newGameState));
       }

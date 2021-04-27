@@ -5,9 +5,15 @@ const GenCounterWrapper = styled.div`
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   display: flex;
   margin: auto;
+  padding-bottom: 20px;
   justify-content: space-around;
   align-items: center;
-  width: 400px;
+  color: black;
+`;
+
+export const TextWrapper = styled.div`
+  font-size: 24px;
+  font-weight: bold;
 `;
 
 interface GenCounterProps {
@@ -18,7 +24,7 @@ export const GenCounter: FC<GenCounterProps> = (props: GenCounterProps) => {
   const { counter } = props;
   return (
     <GenCounterWrapper>
-      <h2>Generation : {counter}</h2>
+      <TextWrapper>Generation : {counter}</TextWrapper>
     </GenCounterWrapper>
   );
 };

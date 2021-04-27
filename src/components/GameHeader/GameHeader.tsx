@@ -32,10 +32,10 @@ export const IconWrapper = styled.div`
 `;
 
 export const LabelWrapper = styled.div`
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   margin-right: 15px;
   font-size: 20px;
   text-align: left;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   color: white;
 `;
 

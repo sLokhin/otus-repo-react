@@ -14,9 +14,9 @@ export enum possibleSize {
 }
 
 export enum possibleSpeed {
-  slow = 0.5,
+  slow = 2,
   medium = 1,
-  fast = 2,
+  fast = 0.5,
 }
 
 export const DEFAULT_GAME_STATE = possibleState.pause;

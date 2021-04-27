@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actions } from "./reducer";
+import { actions, possibleState } from "./reducer";
 import { GameOfLifeState } from "@/redux/reducer";
-import { getNewPixelMatrix } from "./supportFunctions";
+import { getNewPixelMatrix, getNextGeneration } from "./supportFunctions";
 
 import styled from "@emotion/styled";
 
@@ -26,9 +26,19 @@ const GameMenuWrapper = styled.div`
 `;
 
 export const Game: FC = () => {
+  const gameState = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameState
+  );
+  const fieldSize = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.fieldSize
+  );
+  const gameSpeed = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameSpeed
+  );
   const pixelStatesMatrix = useSelector(
     (state: GameOfLifeState) => state.gameProcessState.pixelMatrix
   );
+
   const dispatch = useDispatch();
 
   const onPixelClick = (
@@ -45,6 +55,19 @@ export const Game: FC = () => {
 
     dispatch(actions.setPixelMatrix(newPixelStatesMatrix));
   };
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (gameState === possibleState.play) {
+      interval = setInterval(() => {
+        const nextGen = getNextGeneration(pixelStatesMatrix, fieldSize);
+        dispatch(actions.setPixelMatrix(nextGen));
+      }, 500 * gameSpeed);
+    }
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [gameState, pixelStatesMatrix]);
 
   return (
     <Grid>

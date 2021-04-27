@@ -8,9 +8,9 @@ export enum possibleState {
 }
 
 export enum possibleSize {
-  small = 10,
-  medium = 15,
-  large = 20,
+  small = 15,
+  medium = 25,
+  large = 35,
 }
 
 export enum possibleSpeed {
@@ -30,6 +30,7 @@ interface GameProcessState {
   gameSpeed: possibleSpeed;
   fillPercent: number;
   pixelMatrix: boolean[][];
+  genCounter: number;
 }
 
 export const gameOptionsDefaultState: GameProcessState = {
@@ -37,6 +38,7 @@ export const gameOptionsDefaultState: GameProcessState = {
   fieldSize: DEFAULT_FIELD_SIZE,
   gameSpeed: DEFAULT_GAME_SPEED,
   fillPercent: DEFAULT_SLIDER_PERCENT,
+  genCounter: 0,
   pixelMatrix: getRandomPixelMass(DEFAULT_FIELD_SIZE, DEFAULT_SLIDER_PERCENT),
 };
 
@@ -50,15 +52,13 @@ export const gameProcessSlice = createSlice({
   name: "gameProcess",
   initialState: gameOptionsDefaultState,
   reducers: {
-    setDefaultOptions: (state) => {
-      state.gameState = DEFAULT_GAME_STATE;
-      state.fieldSize = DEFAULT_FIELD_SIZE;
-      state.gameSpeed = DEFAULT_GAME_SPEED;
-      state.fillPercent = DEFAULT_SLIDER_PERCENT;
-      state.pixelMatrix = getRandomPixelMass(
+    setDefaultOptions: () => {
+      const defaultState = { ...gameOptionsDefaultState };
+      defaultState.pixelMatrix = getRandomPixelMass(
         DEFAULT_FIELD_SIZE,
         DEFAULT_SLIDER_PERCENT
       );
+      return defaultState;
     },
     setGameState: (state, { payload }: PayloadAction<payloadStateType>) => {
       state.gameState = payload;
@@ -77,6 +77,9 @@ export const gameProcessSlice = createSlice({
     },
     setFillPercent: (state, { payload }: PayloadAction<payloadPercentType>) => {
       state.fillPercent = payload;
+    },
+    incrementGenCounter: (state) => {
+      state.genCounter = state.genCounter + 1;
     },
   },
 });

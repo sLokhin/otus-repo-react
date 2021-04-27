@@ -34,11 +34,11 @@ const OptionsRow = styled.div`
 `;
 
 const LabelWrapper = styled.div`
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   width: 130px;
   margin-right: 15px;
   font-size: 20px;
   text-align: left;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: bold;
   color: #2f42d0;
 `;

@@ -7,6 +7,7 @@ import { getNewPixelMatrix, getNextGeneration } from "./supportFunctions";
 import styled from "@emotion/styled";
 
 import { PixelField } from "@/components/PixelField/PixelField";
+import { GenCounter } from "@/components/GenCounter/GenCounter";
 import { GameControls } from "@/modules/GameControls/GameControls";
 import { GameOptions } from "@/modules/GameOptions/GameOptions";
 
@@ -38,6 +39,9 @@ export const Game: FC = () => {
   const pixelStatesMatrix = useSelector(
     (state: GameOfLifeState) => state.gameProcessState.pixelMatrix
   );
+  const genCounter = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.genCounter
+  );
 
   const dispatch = useDispatch();
 
@@ -62,7 +66,8 @@ export const Game: FC = () => {
       interval = setInterval(() => {
         const nextGen = getNextGeneration(pixelStatesMatrix, fieldSize);
         dispatch(actions.setPixelMatrix(nextGen));
-      }, 500 * gameSpeed);
+        dispatch(actions.incrementGenCounter());
+      }, 200 * gameSpeed);
     }
     return () => {
       if (interval) clearInterval(interval);
@@ -77,6 +82,7 @@ export const Game: FC = () => {
             <GameControls />
             <GameOptions />
           </GameMenuWrapper>
+          <GenCounter counter={genCounter} />
           <PixelField
             pixelStatesMatrix={pixelStatesMatrix}
             onPixelClick={onPixelClick}

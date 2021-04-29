@@ -1,5 +1,6 @@
-import { take, call, put, fork, actionChannel } from "redux-saga/effects";
+import { takeEvery, call, put, fork, actionChannel } from "redux-saga/effects";
 import { actions, LOGIN_ATTEMPT, LOGOUT_ATTEMPT } from "./reducer";
+import { gameProcessSlice } from "@/modules/Game/reducer";
 import { loaderSlice } from "@/modules/Loader/reducer";
 import {
   isLoggedIn,
@@ -40,10 +41,7 @@ export function* loginSaga({
 
 export function* loginAttemptSaga(): SagaIterator {
   const loginChannel = yield actionChannel(LOGIN_ATTEMPT);
-  while (true) {
-    const loginAction = yield take(loginChannel);
-    yield call(loginSaga, loginAction);
-  }
+  yield takeEvery(loginChannel, loginSaga);
 }
 
 export function* logoutSaga(): SagaIterator {
@@ -52,6 +50,7 @@ export function* logoutSaga(): SagaIterator {
   try {
     yield call(executeLogout);
     yield put(actions.logoutSuccess());
+    yield put(gameProcessSlice.actions.setDefaultOptions());
     yield put(loaderSlice.actions.loadingEnd());
   } catch {
     yield put(actions.logoutFailure());
@@ -61,10 +60,7 @@ export function* logoutSaga(): SagaIterator {
 
 export function* logoutAttemptSaga(): SagaIterator {
   const logoutChannel = yield actionChannel(LOGOUT_ATTEMPT);
-  while (true) {
-    yield take(logoutChannel);
-    yield* logoutSaga();
-  }
+  yield takeEvery(logoutChannel, logoutSaga);
 }
 
 export function* authSaga(): SagaIterator {

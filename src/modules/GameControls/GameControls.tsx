@@ -1,6 +1,9 @@
 import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, withStyles } from "@material-ui/core";
 import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
+import { possibleState, actions } from "@/modules/Game/reducer";
+import { GameOfLifeState } from "@/redux/reducer";
 import styled from "@emotion/styled";
 
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
@@ -47,28 +50,27 @@ const buttonPauseClasses = { root: "control-button-pause" };
 const buttonResetClasses = { root: "control-button-reset" };
 
 interface GameControlsProps {
-  setControlsState: (options: { pause: boolean; reset: boolean }) => void;
+  setDefaultOptions?: () => void;
+  setGameState?: (gameState: possibleState) => void;
 }
-
-const STATE_START = {
-  pause: false,
-  reset: false,
-};
-
-const STATE_PAUSE = {
-  pause: true,
-  reset: false,
-};
-
-const STATE_RESET = {
-  pause: true,
-  reset: true,
-};
 
 export const GameControls: FC<GameControlsProps> = (
   props: GameControlsProps
 ) => {
-  const { setControlsState } = props;
+  const gameState = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameState
+  );
+  const dispatch = useDispatch();
+  const {
+    setDefaultOptions = (): void => {
+      dispatch(actions.setDefaultOptions());
+    },
+    setGameState = (newGameState: possibleState): void => {
+      if (gameState !== newGameState) {
+        dispatch(actions.setGameState(newGameState));
+      }
+    },
+  } = props;
 
   return (
     <ControlsWrapper>
@@ -77,7 +79,7 @@ export const GameControls: FC<GameControlsProps> = (
         variant={"contained"}
         color={"primary"}
         startIcon={<PlayArrowIcon />}
-        onClick={() => setControlsState(STATE_START)}
+        onClick={() => setGameState(possibleState.play)}
       >
         Play
       </BlueButton>
@@ -86,7 +88,7 @@ export const GameControls: FC<GameControlsProps> = (
         variant={"contained"}
         color={"primary"}
         startIcon={<PauseIcon />}
-        onClick={() => setControlsState(STATE_PAUSE)}
+        onClick={() => setGameState(possibleState.pause)}
       >
         Pause
       </LightBlueButton>
@@ -95,7 +97,7 @@ export const GameControls: FC<GameControlsProps> = (
         variant={"contained"}
         color={"primary"}
         startIcon={<RotateLeftIcon />}
-        onClick={() => setControlsState(STATE_RESET)}
+        onClick={() => setDefaultOptions()}
       >
         Reset
       </LightGreenButton>

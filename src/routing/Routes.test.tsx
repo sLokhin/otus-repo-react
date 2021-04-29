@@ -4,6 +4,7 @@ import configureMockStore from "redux-mock-store";
 import thunk from "redux-thunk";
 import { mount } from "enzyme";
 import { Routes } from "./Routes";
+import { store } from "@/redux/store";
 
 import { MemoryRouter } from "react-router";
 
@@ -54,6 +55,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
+            ...store.getState(),
             loadingState: false,
             authState: { ...authDefaultState },
           }),
@@ -74,6 +76,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
+            ...store.getState(),
             loadingState: false,
             authState: { ...authDefaultState },
           }),
@@ -94,6 +97,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
+            ...store.getState(),
             loadingState: false,
             authState: { ...authDefaultState, isAuth: true },
           }),
@@ -114,6 +118,7 @@ describe("App routing test", () => {
         wrappingComponent: Provider,
         wrappingComponentProps: {
           store: mockStore({
+            ...store.getState(),
             loadingState: false,
             authState: { ...authDefaultState, isAuth: true },
           }),

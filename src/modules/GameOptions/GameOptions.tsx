@@ -1,6 +1,17 @@
 import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Button, withStyles } from "@material-ui/core";
 import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
+import { FillSlider } from "./FillSlider";
+import {
+  possibleSize,
+  possibleSpeed,
+  DEFAULT_SLIDER_PERCENT,
+  actions,
+} from "@/modules/Game/reducer";
+import { actions as gameProcessActions } from "@/modules/Game/reducer";
+import { getRandomPixelMass } from "@/modules/Game/supportFunctions";
+import { GameOfLifeState } from "@/redux/reducer";
 import styled from "@emotion/styled";
 
 const OptionsWrapper = styled.div`
@@ -23,11 +34,11 @@ const OptionsRow = styled.div`
 `;
 
 const LabelWrapper = styled.div`
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   width: 130px;
   margin-right: 15px;
   font-size: 20px;
   text-align: left;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: bold;
   color: #2f42d0;
 `;
@@ -67,19 +78,44 @@ const LightGreenButton = withStyles(() => ({
 }))(Button);
 
 interface GameOptionsProps {
-  setOptionsSize: (size: string) => void;
-  setOptionsSpeed: (speed: string) => void;
+  setFieldSize?: (fieldSize: possibleSize) => void;
+  setGameSpeed?: (gameSpeed: possibleSpeed) => void;
+  setFilledPercent?: (fillPercent: number) => void;
 }
 
 export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
-  const { setOptionsSize, setOptionsSpeed } = props;
-  const setFieldSize = (size: string): void => {
-    setOptionsSize(size);
-  };
-
-  const setSpeed = (speed: string): void => {
-    setOptionsSpeed(speed);
-  };
+  const fillPercent = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.fillPercent
+  );
+  const filedSize = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.fieldSize
+  );
+  const dispatch = useDispatch();
+  const {
+    setFieldSize = (newFieldSize: possibleSize): void => {
+      if (filedSize !== newFieldSize) {
+        const newPixelStatesMatrix = getRandomPixelMass(
+          newFieldSize,
+          fillPercent
+        );
+        dispatch(actions.setFieldSize(newFieldSize));
+        dispatch(gameProcessActions.setPixelMatrix(newPixelStatesMatrix));
+      }
+    },
+    setGameSpeed = (newGameSpeed: possibleSpeed): void => {
+      dispatch(actions.setGameSpeed(newGameSpeed));
+    },
+    setFilledPercent = (newFillPercent: number): void => {
+      if (fillPercent !== newFillPercent) {
+        const newPixelStatesMatrix = getRandomPixelMass(
+          filedSize,
+          newFillPercent
+        );
+        dispatch(actions.setFillPercent(newFillPercent));
+        dispatch(gameProcessActions.setPixelMatrix(newPixelStatesMatrix));
+      }
+    },
+  } = props;
 
   return (
     <OptionsWrapper>
@@ -90,7 +126,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
             classes={{ root: "options-button-size-small" }}
             variant={"contained"}
             color={"primary"}
-            onClick={() => setFieldSize("small")}
+            onClick={() => setFieldSize(possibleSize.small)}
           >
             Small
           </BlueButton>
@@ -98,7 +134,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
             classes={{ root: "options-button-size-medium" }}
             variant={"contained"}
             color={"primary"}
-            onClick={() => setFieldSize("medium")}
+            onClick={() => setFieldSize(possibleSize.medium)}
           >
             Medium
           </LightBlueButton>
@@ -106,7 +142,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
             classes={{ root: "options-button-size-large" }}
             variant={"contained"}
             color={"primary"}
-            onClick={() => setFieldSize("large")}
+            onClick={() => setFieldSize(possibleSize.large)}
           >
             Large
           </LightGreenButton>
@@ -119,7 +155,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
             classes={{ root: "options-button-speed-slow" }}
             variant={"contained"}
             color={"primary"}
-            onClick={() => setSpeed("slow")}
+            onClick={() => setGameSpeed(possibleSpeed.slow)}
           >
             Slow
           </BlueButton>
@@ -127,7 +163,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
             classes={{ root: "options-button-speed-medium" }}
             variant={"contained"}
             color={"primary"}
-            onClick={() => setSpeed("medium")}
+            onClick={() => setGameSpeed(possibleSpeed.medium)}
           >
             Medium
           </LightBlueButton>
@@ -135,12 +171,17 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
             classes={{ root: "options-button-speed-fast" }}
             variant={"contained"}
             color={"primary"}
-            onClick={() => setSpeed("fast")}
+            onClick={() => setGameSpeed(possibleSpeed.fast)}
           >
             Fast
           </LightGreenButton>
         </ButtonWrapper>
       </OptionsRow>
+      <FillSlider
+        currentPercent={fillPercent}
+        defaultPercent={DEFAULT_SLIDER_PERCENT}
+        setFilledPercent={setFilledPercent}
+      ></FillSlider>
     </OptionsWrapper>
   );
 };

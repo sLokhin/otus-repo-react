@@ -1,4 +1,8 @@
-import { getInitialPixelMass, getRandomPixelMass } from "./Game";
+import {
+  getInitialPixelMass,
+  getRandomPixelMass,
+  getNextGeneration,
+} from "./supportFunctions";
 
 type GetRandomFunction = (min: number, max: number) => number;
 
@@ -49,5 +53,58 @@ describe("Game support functions test", () => {
     const percent = 20;
     const pixelMatrix: boolean[][] = getRandomPixelMass(number, percent);
     expect(pixelMatrix.length).toBe(number);
+  });
+});
+
+describe("Game next gen test", () => {
+  it("field var 1", () => {
+    const oldField = [
+      [false, false, false],
+      [false, false, false],
+      [false, false, false],
+    ];
+    const width = oldField.length;
+    const newField = getNextGeneration(oldField, width);
+
+    expect(newField.length).toBe(width);
+    expect(newField).toEqual([
+      [false, false, false],
+      [false, false, false],
+      [false, false, false],
+    ]);
+  });
+
+  it("field var 2", () => {
+    const oldField = [
+      [true, false, false],
+      [false, true, false],
+      [false, false, true],
+    ];
+    const width = oldField.length;
+    const newField = getNextGeneration(oldField, width);
+
+    expect(newField.length).toBe(width);
+    expect(newField).toEqual([
+      [false, false, false],
+      [false, true, false],
+      [false, false, false],
+    ]);
+  });
+
+  it("field var 3", () => {
+    const oldField = [
+      [true, true, true],
+      [true, false, true],
+      [true, true, true],
+    ];
+    const width = oldField.length;
+    const newField = getNextGeneration(oldField, width);
+
+    expect(newField.length).toBe(width);
+    expect(newField).toEqual([
+      [true, false, true],
+      [false, false, false],
+      [true, false, true],
+    ]);
   });
 });

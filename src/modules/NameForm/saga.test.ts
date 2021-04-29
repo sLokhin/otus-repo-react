@@ -20,14 +20,13 @@ import {
   LOGOUT_ATTEMPT,
 } from "./reducer";
 
-import { store } from "@/redux/store";
+import { actions as gameProcessActions } from "@/modules/Game/reducer";
 
 import {
   isLoggedIn,
   getPlayerName,
   executeLogin,
   executeLogout,
-  saveAppState,
 } from "@/api/auth";
 import { loaderSlice } from "../Loader/reducer";
 
@@ -107,6 +106,7 @@ describe("Test auth saga", () => {
       .put(loaderSlice.actions.loadingStart())
       .provide([[matchers.call.fn(executeLogout), null]])
       .put(actions.logoutSuccess())
+      .put(gameProcessActions.setDefaultOptions())
       .hasFinalState({
         ...authDefaultState,
       })
@@ -129,14 +129,11 @@ describe("Test auth saga", () => {
   it("check loginAttempt saga", () => {
     const saga = testSaga(loginAttemptSaga);
     const loginChannel = actionChannel(LOGIN_ATTEMPT, buffers.expanding(10));
-    const userSession = "Username";
     saga
       .next()
       .actionChannel(LOGIN_ATTEMPT)
       .next(loginChannel.type)
-      .take(loginChannel.type)
-      .next(userSession)
-      .call(loginSaga, userSession)
+      .takeEvery(loginChannel.type, loginSaga)
       .finish();
   });
 
@@ -147,17 +144,7 @@ describe("Test auth saga", () => {
       .next()
       .actionChannel(LOGOUT_ATTEMPT)
       .next(logoutChannel.type)
-      .take(logoutChannel.type)
-      .next()
-      .call(saveAppState, store.getState())
-      .next()
-      .put(loaderSlice.actions.loadingStart())
-      .next()
-      .call(executeLogout)
-      .next()
-      .put(actions.logoutSuccess())
-      .next()
-      .put(loaderSlice.actions.loadingEnd())
+      .takeEvery(logoutChannel.type, logoutSaga)
       .finish();
   });
 });

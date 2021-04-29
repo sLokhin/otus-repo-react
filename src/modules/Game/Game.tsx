@@ -1,10 +1,15 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actions, possibleState } from "./reducer";
+import { GameOfLifeState } from "@/redux/reducer";
+import { getNewPixelMatrix, getNextGeneration } from "./supportFunctions";
+
 import styled from "@emotion/styled";
 
-import { GameControls } from "@/components/GameControls/GameControls";
-import { GameOptions } from "@/components/GameOptions/GameOptions";
-import { FillSlider } from "@/components/FillSlider/FillSlider";
 import { PixelField } from "@/components/PixelField/PixelField";
+import { GenCounter } from "@/components/GenCounter/GenCounter";
+import { GameControls } from "@/modules/GameControls/GameControls";
+import { GameOptions } from "@/modules/GameOptions/GameOptions";
 
 import { Grid, Paper } from "@material-ui/core";
 
@@ -21,169 +26,63 @@ const GameMenuWrapper = styled.div`
   align-items: center;
 `;
 
-export const DEFAULT_FIELD_SIZE = 10;
-export const DEFAULT_SLIDER_PERCENT = 20;
-
-enum possibleSize {
-  small,
-  medium,
-  large,
-}
-
-enum possibleSpeed {
-  slow,
-  medium,
-  fast,
-}
-
-interface GameState {
-  pixelStatesMatrix: boolean[][];
-  fillPercent: number;
-  pause: boolean;
-  size: string;
-  speed: string;
-}
-
-export const getInitialPixelMass = (n: number): boolean[][] => {
-  return new Array(n).fill(undefined).map(() => new Array(n).fill(false));
-};
-
-export const getRandomPixelMass = (n: number, percent: number): boolean[][] => {
-  const pixelMatrix: boolean[][] = getInitialPixelMass(n);
-  let a = Math.round(Math.pow(n, 2) * (percent / 100));
-  let b = Math.pow(n, 2);
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n; j++) {
-      if (Math.random() < a / b) {
-        pixelMatrix[i][j] = true;
-        a--;
-      }
-      b--;
-    }
-  }
-  return pixelMatrix;
-};
-
-export const initialState: GameState = {
-  pixelStatesMatrix: getRandomPixelMass(
-    DEFAULT_FIELD_SIZE,
-    DEFAULT_SLIDER_PERCENT
-  ),
-  fillPercent: DEFAULT_SLIDER_PERCENT,
-  pause: true,
-  size: possibleSize[1],
-  speed: possibleSpeed[1],
-};
-
 export const Game: FC = () => {
-  const [state, setState] = useState(initialState);
-  const { pixelStatesMatrix, fillPercent } = state;
+  const gameState = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameState
+  );
+  const fieldSize = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.fieldSize
+  );
+  const gameSpeed = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameSpeed
+  );
+  const pixelStatesMatrix = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.pixelMatrix
+  );
+  const genCounter = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.genCounter
+  );
 
-  const getNewPixelStatesMatrix = (
-    coordX: number,
-    coordY: number,
-    newFlag: boolean,
-    currentPixelMatrix: boolean[][]
-  ): boolean[][] => {
-    return currentPixelMatrix.map((rowMass, xIdx) => {
-      if (coordX === xIdx) {
-        return rowMass.map((currentPixelState, yIdx) => {
-          if (coordY === yIdx) {
-            return newFlag === currentPixelState ? currentPixelState : newFlag;
-          }
-          return currentPixelState;
-        });
-      }
-      return rowMass;
-    });
-  };
+  const dispatch = useDispatch();
 
   const onPixelClick = (
     coordX: number,
     coordY: number,
     newFlag: boolean
   ): void => {
-    const { pixelStatesMatrix } = state;
-    const newPixelStatesMatrix = getNewPixelStatesMatrix(
+    const newPixelStatesMatrix = getNewPixelMatrix(
       coordX,
       coordY,
       newFlag,
       pixelStatesMatrix
     );
 
-    setState({ ...state, pixelStatesMatrix: newPixelStatesMatrix });
+    dispatch(actions.setPixelMatrix(newPixelStatesMatrix));
   };
 
-  const setFilledPercent = (percent: number): void => {
-    const { fillPercent } = state;
-    const newPixelStatesMatrix = getRandomPixelMass(
-      DEFAULT_FIELD_SIZE,
-      percent
-    );
-    if (percent !== fillPercent) {
-      setState({
-        ...state,
-        pixelStatesMatrix: newPixelStatesMatrix,
-        fillPercent: percent,
-      });
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (gameState === possibleState.play) {
+      interval = setInterval(() => {
+        const nextGen = getNextGeneration(pixelStatesMatrix, fieldSize);
+        dispatch(actions.setPixelMatrix(nextGen));
+        dispatch(actions.incrementGenCounter());
+      }, 200 * gameSpeed);
     }
-  };
-
-  const resetFieldAndSlider = (): Pick<
-    GameState,
-    "fillPercent" | "pixelStatesMatrix"
-  > => {
-    return {
-      fillPercent: DEFAULT_SLIDER_PERCENT,
-      pixelStatesMatrix: getRandomPixelMass(
-        DEFAULT_FIELD_SIZE,
-        DEFAULT_SLIDER_PERCENT
-      ),
+    return () => {
+      if (interval) clearInterval(interval);
     };
-  };
-
-  const setControlsState = (options: {
-    pause: boolean;
-    reset: boolean;
-  }): void => {
-    const { pause, reset } = options;
-    let fieldsFromReset = {};
-    if (reset) {
-      fieldsFromReset = resetFieldAndSlider();
-    }
-
-    const newState = {
-      ...state,
-      pause,
-      ...fieldsFromReset,
-    };
-    setState(newState);
-  };
-
-  const setOptionsSize = (size: string): void => {
-    setState({ ...state, size });
-  };
-
-  const setOptionsSpeed = (speed: string): void => {
-    setState({ ...state, speed });
-  };
+  }, [gameState, pixelStatesMatrix]);
 
   return (
     <Grid>
       <Paper elevation={10}>
         <Grid container direction={"column"} alignItems={"center"}>
           <GameMenuWrapper>
-            <GameControls setControlsState={setControlsState}></GameControls>
-            <GameOptions
-              setOptionsSize={setOptionsSize}
-              setOptionsSpeed={setOptionsSpeed}
-            ></GameOptions>
-            <FillSlider
-              currentPercent={fillPercent}
-              defaultPercent={DEFAULT_SLIDER_PERCENT}
-              setFilledPercent={setFilledPercent}
-            ></FillSlider>
+            <GameControls />
+            <GameOptions />
           </GameMenuWrapper>
+          <GenCounter counter={genCounter} />
           <PixelField
             pixelStatesMatrix={pixelStatesMatrix}
             onPixelClick={onPixelClick}

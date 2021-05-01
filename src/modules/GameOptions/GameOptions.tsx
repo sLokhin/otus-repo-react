@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, withStyles } from "@material-ui/core";
-import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
+import { ControlButton } from "@/components/ControlButton/ControlButton";
 import { FillSlider } from "./FillSlider";
 import {
   possibleSize,
@@ -50,33 +49,6 @@ const ButtonWrapper = styled.div`
   width: 300px;
 `;
 
-const BlueButton = withStyles(() => ({
-  root: {
-    backgroundColor: blue[500],
-    "&:hover": {
-      backgroundColor: blue[700],
-    },
-  },
-}))(Button);
-
-const LightBlueButton = withStyles(() => ({
-  root: {
-    backgroundColor: lightBlue[500],
-    "&:hover": {
-      backgroundColor: lightBlue[700],
-    },
-  },
-}))(Button);
-
-const LightGreenButton = withStyles(() => ({
-  root: {
-    backgroundColor: lightGreen[500],
-    "&:hover": {
-      backgroundColor: lightGreen[700],
-    },
-  },
-}))(Button);
-
 interface GameOptionsProps {
   setFieldSize?: (fieldSize: possibleSize) => void;
   setGameSpeed?: (gameSpeed: possibleSpeed) => void;
@@ -122,59 +94,41 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
       <OptionsRow>
         <LabelWrapper>Field size:</LabelWrapper>
         <ButtonWrapper>
-          <BlueButton
-            classes={{ root: "options-button-size-small" }}
-            variant={"contained"}
-            color={"primary"}
+          <ControlButton
+            style={"blue"}
+            text={"Small"}
             onClick={() => setFieldSize(possibleSize.small)}
-          >
-            Small
-          </BlueButton>
-          <LightBlueButton
-            classes={{ root: "options-button-size-medium" }}
-            variant={"contained"}
-            color={"primary"}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Medium"}
             onClick={() => setFieldSize(possibleSize.medium)}
-          >
-            Medium
-          </LightBlueButton>
-          <LightGreenButton
-            classes={{ root: "options-button-size-large" }}
-            variant={"contained"}
-            color={"primary"}
+          />
+          <ControlButton
+            style={"lightGreen"}
+            text={"Large"}
             onClick={() => setFieldSize(possibleSize.large)}
-          >
-            Large
-          </LightGreenButton>
+          />
         </ButtonWrapper>
       </OptionsRow>
       <OptionsRow>
         <LabelWrapper>Game speed:</LabelWrapper>
         <ButtonWrapper>
-          <BlueButton
-            classes={{ root: "options-button-speed-slow" }}
-            variant={"contained"}
-            color={"primary"}
+          <ControlButton
+            style={"blue"}
+            text={"Slow"}
             onClick={() => setGameSpeed(possibleSpeed.slow)}
-          >
-            Slow
-          </BlueButton>
-          <LightBlueButton
-            classes={{ root: "options-button-speed-medium" }}
-            variant={"contained"}
-            color={"primary"}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Medium"}
             onClick={() => setGameSpeed(possibleSpeed.medium)}
-          >
-            Medium
-          </LightBlueButton>
-          <LightGreenButton
-            classes={{ root: "options-button-speed-fast" }}
-            variant={"contained"}
-            color={"primary"}
+          />
+          <ControlButton
+            style={"lightGreen"}
+            text={"Fast"}
             onClick={() => setGameSpeed(possibleSpeed.fast)}
-          >
-            Fast
-          </LightGreenButton>
+          />
         </ButtonWrapper>
       </OptionsRow>
       <FillSlider

@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, withStyles } from "@material-ui/core";
-import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
+import { ControlButton } from "@/components/ControlButton/ControlButton";
 import { possibleState, actions } from "@/modules/Game/reducer";
 import { GameOfLifeState } from "@/redux/reducer";
 import styled from "@emotion/styled";
@@ -17,37 +16,6 @@ const ControlsWrapper = styled.div`
   align-items: center;
   width: 400px;
 `;
-
-const BlueButton = withStyles(() => ({
-  root: {
-    backgroundColor: blue[500],
-    "&:hover": {
-      backgroundColor: blue[700],
-    },
-  },
-}))(Button);
-
-const LightBlueButton = withStyles(() => ({
-  root: {
-    backgroundColor: lightBlue[500],
-    "&:hover": {
-      backgroundColor: lightBlue[700],
-    },
-  },
-}))(Button);
-
-const LightGreenButton = withStyles(() => ({
-  root: {
-    backgroundColor: lightGreen[500],
-    "&:hover": {
-      backgroundColor: lightGreen[700],
-    },
-  },
-}))(Button);
-
-const buttonPlayClasses = { root: "control-button-play" };
-const buttonPauseClasses = { root: "control-button-pause" };
-const buttonResetClasses = { root: "control-button-reset" };
 
 interface GameControlsProps {
   setDefaultOptions?: () => void;
@@ -74,33 +42,24 @@ export const GameControls: FC<GameControlsProps> = (
 
   return (
     <ControlsWrapper>
-      <BlueButton
-        classes={buttonPlayClasses}
-        variant={"contained"}
-        color={"primary"}
+      <ControlButton
+        style={"blue"}
         startIcon={<PlayArrowIcon />}
+        text={"Play"}
         onClick={() => setGameState(possibleState.play)}
-      >
-        Play
-      </BlueButton>
-      <LightBlueButton
-        classes={buttonPauseClasses}
-        variant={"contained"}
-        color={"primary"}
+      />
+      <ControlButton
+        style={"lightBlue"}
         startIcon={<PauseIcon />}
+        text={"Pause"}
         onClick={() => setGameState(possibleState.pause)}
-      >
-        Pause
-      </LightBlueButton>
-      <LightGreenButton
-        classes={buttonResetClasses}
-        variant={"contained"}
-        color={"primary"}
+      />
+      <ControlButton
+        style={"lightGreen"}
         startIcon={<RotateLeftIcon />}
+        text={"Reset"}
         onClick={() => setDefaultOptions()}
-      >
-        Reset
-      </LightGreenButton>
+      />
     </ControlsWrapper>
   );
 };

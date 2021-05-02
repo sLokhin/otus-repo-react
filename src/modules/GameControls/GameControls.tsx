@@ -49,13 +49,13 @@ export const GameControls: FC<GameControlsProps> = (
         onClick={() => setGameState(possibleState.play)}
       />
       <ControlButton
-        style={"lightBlue"}
+        style={"blue"}
         startIcon={<PauseIcon />}
         text={"Pause"}
         onClick={() => setGameState(possibleState.pause)}
       />
       <ControlButton
-        style={"lightGreen"}
+        style={"blue"}
         startIcon={<RotateLeftIcon />}
         text={"Reset"}
         onClick={() => setDefaultOptions()}

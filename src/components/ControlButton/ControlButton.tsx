@@ -4,10 +4,10 @@ import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
 
 const BlueButton = withStyles(() => ({
   root: {
-    backgroundColor: blue[500],
+    backgroundColor: blue[700],
     transition: "none",
     "&:hover": {
-      backgroundColor: blue[700],
+      backgroundColor: blue[900],
     },
   },
 }))(Button);
@@ -17,7 +17,7 @@ const LightBlueButton = withStyles(() => ({
     backgroundColor: lightBlue[500],
     transition: "none",
     "&:hover": {
-      backgroundColor: lightBlue[700],
+      backgroundColor: lightBlue[600],
     },
   },
 }))(Button);
@@ -26,16 +26,13 @@ const LightGreenButton = withStyles(() => ({
   root: {
     backgroundColor: lightGreen[500],
     transition: "none",
-    "&:hover": {
-      backgroundColor: lightGreen[700],
-    },
+    pointerEvents: "none",
   },
 }))(Button);
 
 export const stylesMap = {
   blue: BlueButton,
   lightBlue: LightBlueButton,
-  lightGreen: LightGreenButton,
 };
 
 export type possibleStyles = keyof typeof stylesMap;
@@ -45,6 +42,7 @@ type ControlButtonProps = {
   startIcon?: React.ReactNode;
   text?: string;
   disabled?: boolean;
+  highlight?: boolean;
   onClick?: () => void;
 };
 
@@ -56,9 +54,12 @@ export const ControlButton: FC<ControlButtonProps> = (
     startIcon,
     text = "Default",
     disabled = false,
+    highlight = false,
     onClick,
   } = props;
-  const StyledComponent = stylesMap[style];
+
+  const StyledComponent = highlight ? LightGreenButton : stylesMap[style];
+
   return (
     <StyledComponent
       variant={"contained"}

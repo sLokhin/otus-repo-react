@@ -43,6 +43,7 @@ const LabelWrapper = styled.div<LabelProps>((props: LabelProps) => ({
   textAlign: "left",
   fontWeight: "bold",
   color: props.disabled ? "rgba(0, 0, 0, 0.26)" : "#2f42d0",
+  userSelect: props.disabled ? "none" : "auto",
 }));
 
 const ButtonWrapper = styled.div`
@@ -63,14 +64,17 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   const fillPercent = useSelector(
     (state: GameOfLifeState) => state.gameProcessState.fillPercent
   );
-  const filedSize = useSelector(
+  const fieldSize = useSelector(
     (state: GameOfLifeState) => state.gameProcessState.fieldSize
+  );
+  const gameSpeed = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameSpeed
   );
   const dispatch = useDispatch();
   const {
     gameState = possibleState.pause,
     setFieldSize = (newFieldSize: possibleSize): void => {
-      if (filedSize !== newFieldSize) {
+      if (fieldSize !== newFieldSize) {
         const newPixelStatesMatrix = getRandomPixelMass(
           newFieldSize,
           fillPercent
@@ -85,7 +89,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
     setFilledPercent = (newFillPercent: number): void => {
       if (fillPercent !== newFillPercent) {
         const newPixelStatesMatrix = getRandomPixelMass(
-          filedSize,
+          fieldSize,
           newFillPercent
         );
         dispatch(actions.setFillPercent(newFillPercent));
@@ -100,18 +104,21 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
         <LabelWrapper disabled={false}>Game speed:</LabelWrapper>
         <ButtonWrapper>
           <ControlButton
-            style={"blue"}
+            style={"lightBlue"}
             text={"Slow"}
+            highlight={gameSpeed === possibleSpeed.slow}
             onClick={() => setGameSpeed(possibleSpeed.slow)}
           />
           <ControlButton
             style={"lightBlue"}
             text={"Medium"}
+            highlight={gameSpeed === possibleSpeed.medium}
             onClick={() => setGameSpeed(possibleSpeed.medium)}
           />
           <ControlButton
-            style={"lightGreen"}
+            style={"lightBlue"}
             text={"Fast"}
+            highlight={gameSpeed === possibleSpeed.fast}
             onClick={() => setGameSpeed(possibleSpeed.fast)}
           />
         </ButtonWrapper>
@@ -122,21 +129,24 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
         </LabelWrapper>
         <ButtonWrapper>
           <ControlButton
-            style={"blue"}
+            style={"lightBlue"}
             text={"Small"}
             disabled={gameState === possibleState.play}
+            highlight={fieldSize === possibleSize.small}
             onClick={() => setFieldSize(possibleSize.small)}
           />
           <ControlButton
             style={"lightBlue"}
             text={"Medium"}
             disabled={gameState === possibleState.play}
+            highlight={fieldSize === possibleSize.medium}
             onClick={() => setFieldSize(possibleSize.medium)}
           />
           <ControlButton
-            style={"lightGreen"}
+            style={"lightBlue"}
             text={"Large"}
             disabled={gameState === possibleState.play}
+            highlight={fieldSize === possibleSize.large}
             onClick={() => setFieldSize(possibleSize.large)}
           />
         </ButtonWrapper>

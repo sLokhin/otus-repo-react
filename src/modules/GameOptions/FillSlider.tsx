@@ -21,6 +21,7 @@ const LabelWrapper = styled.div<LabelProps>((props: LabelProps) => ({
   marginBottom: "10px",
   fontWeight: "bold",
   color: props.disabled ? "rgba(0, 0, 0, 0.26)" : "#2f42d0",
+  userSelect: props.disabled ? "none" : "auto",
 }));
 
 interface FillSliderProps {

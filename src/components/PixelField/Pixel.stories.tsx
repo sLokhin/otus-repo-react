@@ -9,7 +9,7 @@ export default {
 
 const elementClicked = action("Pixel clicked (element)");
 
-export const nonFilledPixel = (): React.ReactNode => {
+export const pixelEmpty = (): React.ReactNode => {
   return (
     <Pixel
       filled={false}
@@ -21,7 +21,7 @@ export const nonFilledPixel = (): React.ReactNode => {
   );
 };
 
-export const filledPixel = (): React.ReactNode => {
+export const pixelFilled = (): React.ReactNode => {
   return (
     <Pixel
       filled={boolean("is filled", true)}

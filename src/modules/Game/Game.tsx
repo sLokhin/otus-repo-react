@@ -80,7 +80,7 @@ export const Game: FC = () => {
         <Grid container direction={"column"} alignItems={"center"}>
           <GameMenuWrapper>
             <GameControls />
-            <GameOptions />
+            <GameOptions gameState={gameState} />
           </GameMenuWrapper>
           <GenCounter counter={genCounter} />
           <PixelField

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ControlButton } from "@/components/ControlButton/ControlButton";
 import { FillSlider } from "./FillSlider";
 import {
+  possibleState,
   possibleSize,
   possibleSpeed,
   DEFAULT_SLIDER_PERCENT,
@@ -32,15 +33,17 @@ const OptionsRow = styled.div`
   }
 `;
 
-const LabelWrapper = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  width: 130px;
-  margin-right: 15px;
-  font-size: 20px;
-  text-align: left;
-  font-weight: bold;
-  color: #2f42d0;
-`;
+type LabelProps = { disabled: boolean };
+
+const LabelWrapper = styled.div<LabelProps>((props: LabelProps) => ({
+  fontFamily: `${'"Roboto", "Helvetica", "Arial", sans-serif'}`,
+  width: "130px",
+  marginRight: "15px",
+  fontSize: "20px",
+  textAlign: "left",
+  fontWeight: "bold",
+  color: props.disabled ? "rgba(0, 0, 0, 0.26)" : "#2f42d0",
+}));
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -50,6 +53,7 @@ const ButtonWrapper = styled.div`
 `;
 
 interface GameOptionsProps {
+  gameState?: possibleState;
   setFieldSize?: (fieldSize: possibleSize) => void;
   setGameSpeed?: (gameSpeed: possibleSpeed) => void;
   setFilledPercent?: (fillPercent: number) => void;
@@ -64,6 +68,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   );
   const dispatch = useDispatch();
   const {
+    gameState = possibleState.pause,
     setFieldSize = (newFieldSize: possibleSize): void => {
       if (filedSize !== newFieldSize) {
         const newPixelStatesMatrix = getRandomPixelMass(
@@ -92,27 +97,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   return (
     <OptionsWrapper>
       <OptionsRow>
-        <LabelWrapper>Field size:</LabelWrapper>
-        <ButtonWrapper>
-          <ControlButton
-            style={"blue"}
-            text={"Small"}
-            onClick={() => setFieldSize(possibleSize.small)}
-          />
-          <ControlButton
-            style={"lightBlue"}
-            text={"Medium"}
-            onClick={() => setFieldSize(possibleSize.medium)}
-          />
-          <ControlButton
-            style={"lightGreen"}
-            text={"Large"}
-            onClick={() => setFieldSize(possibleSize.large)}
-          />
-        </ButtonWrapper>
-      </OptionsRow>
-      <OptionsRow>
-        <LabelWrapper>Game speed:</LabelWrapper>
+        <LabelWrapper disabled={false}>Game speed:</LabelWrapper>
         <ButtonWrapper>
           <ControlButton
             style={"blue"}
@@ -131,9 +116,35 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
           />
         </ButtonWrapper>
       </OptionsRow>
+      <OptionsRow>
+        <LabelWrapper disabled={gameState === possibleState.play}>
+          Field size:
+        </LabelWrapper>
+        <ButtonWrapper>
+          <ControlButton
+            style={"blue"}
+            text={"Small"}
+            disabled={gameState === possibleState.play}
+            onClick={() => setFieldSize(possibleSize.small)}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Medium"}
+            disabled={gameState === possibleState.play}
+            onClick={() => setFieldSize(possibleSize.medium)}
+          />
+          <ControlButton
+            style={"lightGreen"}
+            text={"Large"}
+            disabled={gameState === possibleState.play}
+            onClick={() => setFieldSize(possibleSize.large)}
+          />
+        </ButtonWrapper>
+      </OptionsRow>
       <FillSlider
         currentPercent={fillPercent}
         defaultPercent={DEFAULT_SLIDER_PERCENT}
+        disabled={gameState === possibleState.play}
         setFilledPercent={setFilledPercent}
       ></FillSlider>
     </OptionsWrapper>

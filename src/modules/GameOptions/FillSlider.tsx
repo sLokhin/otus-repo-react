@@ -11,19 +11,22 @@ const SliderWrapper = styled.div`
   width: 100%;
 `;
 
-const LabelWrapper = styled.div`
-  width: 100%;
-  font-size: 20px;
-  text-align: left;
-  margin-bottom: 10px;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: bold;
-  color: #2f42d0;
-`;
+type LabelProps = { disabled: boolean };
+
+const LabelWrapper = styled.div<LabelProps>((props: LabelProps) => ({
+  fontFamily: `${'"Roboto", "Helvetica", "Arial", sans-serif'}`,
+  width: "100%",
+  fontSize: "20px",
+  textAlign: "left",
+  marginBottom: "10px",
+  fontWeight: "bold",
+  color: props.disabled ? "rgba(0, 0, 0, 0.26)" : "#2f42d0",
+}));
 
 interface FillSliderProps {
   currentPercent: number;
   defaultPercent: number;
+  disabled?: boolean;
   setFilledPercent: (percent: number) => void;
 }
 
@@ -43,7 +46,12 @@ function ValueLabelComponent(props: TooltipProps) {
 }
 
 export const FillSlider: FC<FillSliderProps> = (props: FillSliderProps) => {
-  const { currentPercent, defaultPercent, setFilledPercent } = props;
+  const {
+    currentPercent,
+    defaultPercent,
+    disabled = false,
+    setFilledPercent,
+  } = props;
   const changePercent = (
     event: React.ChangeEvent<Record<string, unknown>>,
     newValue: number | number[]
@@ -54,13 +62,13 @@ export const FillSlider: FC<FillSliderProps> = (props: FillSliderProps) => {
 
   return (
     <SliderWrapper>
-      <LabelWrapper>Field filled percent:</LabelWrapper>
+      <LabelWrapper disabled={disabled}>Field filled percent:</LabelWrapper>
       <Slider
         ValueLabelComponent={ValueLabelComponent}
-        onChange={changePercent}
         value={currentPercent}
         defaultValue={defaultPercent}
-        name={"fill-percent-input"}
+        disabled={disabled}
+        onChange={changePercent}
       />
     </SliderWrapper>
   );

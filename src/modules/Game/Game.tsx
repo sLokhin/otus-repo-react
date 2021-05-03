@@ -62,7 +62,6 @@ export const Game: FC = () => {
   };
 
   const isSomePixelsAlive = useCallback((pixelStatesMatrix: boolean[][]) => {
-    console.log("AAAA  ", pixelStatesMatrix);
     return pixelStatesMatrix.some((row) => {
       return row.some((pixel) => {
         return pixel;

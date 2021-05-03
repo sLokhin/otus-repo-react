@@ -24,7 +24,6 @@ const checkHistoryOnCycle = (
   const length2 = pattern.length;
   let result = true;
   for (let i = 0; i < length1; i++) {
-    console.log("counter", i);
     const currentGen = verifiableHistory[i];
     const patternPart = pattern[i % length2];
     if (currentGen !== patternPart) {
@@ -40,17 +39,9 @@ const findCycle = (genHistory: string[]): boolean => {
   const patternLength = pattern.length;
   const possibleCyclesAmount = Math.trunc(HISTORY_BUFFER / patternLength);
 
-  console.log(
-    "FULL HISTORY ",
-    patternLength,
-    possibleCyclesAmount,
-    store.getState().gameProcessState.genCounter
-  );
-
   if (possibleCyclesAmount > 1) {
     const length = possibleCyclesAmount * patternLength;
     const verifiableHistory = genHistory.slice(-length).reverse();
-    console.log(verifiableHistory.length);
     return checkHistoryOnCycle(verifiableHistory, pattern);
   } else {
     return false;
@@ -71,7 +62,6 @@ export function* checkWinConditionSaga(): SagaIterator {
   if (isCycleFound) {
     yield put(actions.setGameState(possibleState.finish));
   }
-  console.log("IS CYCLE FOUND ", isCycleFound);
 }
 
 export function* gameSaga(): SagaIterator {

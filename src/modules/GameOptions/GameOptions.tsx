@@ -101,51 +101,56 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   return (
     <OptionsWrapper>
       <OptionsRow>
-        <LabelWrapper disabled={false}>Game speed:</LabelWrapper>
+        <LabelWrapper disabled={gameState === possibleState.finish}>
+          Game speed:
+        </LabelWrapper>
         <ButtonWrapper>
           <ControlButton
             style={"lightBlue"}
             text={"Slow"}
             highlight={gameSpeed === possibleSpeed.slow}
+            disabled={gameState === possibleState.finish}
             onClick={() => setGameSpeed(possibleSpeed.slow)}
           />
           <ControlButton
             style={"lightBlue"}
             text={"Medium"}
             highlight={gameSpeed === possibleSpeed.medium}
+            disabled={gameState === possibleState.finish}
             onClick={() => setGameSpeed(possibleSpeed.medium)}
           />
           <ControlButton
             style={"lightBlue"}
             text={"Fast"}
             highlight={gameSpeed === possibleSpeed.fast}
+            disabled={gameState === possibleState.finish}
             onClick={() => setGameSpeed(possibleSpeed.fast)}
           />
         </ButtonWrapper>
       </OptionsRow>
       <OptionsRow>
-        <LabelWrapper disabled={gameState === possibleState.play}>
+        <LabelWrapper disabled={gameState !== possibleState.pause}>
           Field size:
         </LabelWrapper>
         <ButtonWrapper>
           <ControlButton
             style={"lightBlue"}
             text={"Small"}
-            disabled={gameState === possibleState.play}
+            disabled={gameState !== possibleState.pause}
             highlight={fieldSize === possibleSize.small}
             onClick={() => setFieldSize(possibleSize.small)}
           />
           <ControlButton
             style={"lightBlue"}
             text={"Medium"}
-            disabled={gameState === possibleState.play}
+            disabled={gameState !== possibleState.pause}
             highlight={fieldSize === possibleSize.medium}
             onClick={() => setFieldSize(possibleSize.medium)}
           />
           <ControlButton
             style={"lightBlue"}
             text={"Large"}
-            disabled={gameState === possibleState.play}
+            disabled={gameState !== possibleState.pause}
             highlight={fieldSize === possibleSize.large}
             onClick={() => setFieldSize(possibleSize.large)}
           />
@@ -154,7 +159,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
       <FillSlider
         currentPercent={fillPercent}
         defaultPercent={DEFAULT_SLIDER_PERCENT}
-        disabled={gameState === possibleState.play}
+        disabled={gameState !== possibleState.pause}
         setFilledPercent={setFilledPercent}
       ></FillSlider>
     </OptionsWrapper>

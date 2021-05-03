@@ -2,22 +2,31 @@ import React, { FC } from "react";
 import { Pixel } from "./Pixel";
 import styled from "@emotion/styled";
 
-const PixelRow = styled.div`
+type FieldProps = { disabled: boolean };
+
+const Field = styled.div<FieldProps>((props: FieldProps) => ({
+  display: "inline-block",
+  border: "2px solid #1a1a1a",
+  pointerEvents: props.disabled ? "none" : "auto",
+}));
+
+const Row = styled.div`
   display: flex;
 `;
 
 interface PixelFieldProps {
   pixelStatesMatrix: boolean[][];
+  disabled?: boolean;
   onPixelClick: (coordX: number, coordY: number, newFlag: boolean) => void;
 }
 
 export const PixelField: FC<PixelFieldProps> = (props: PixelFieldProps) => {
-  const { pixelStatesMatrix, onPixelClick } = props;
+  const { pixelStatesMatrix, disabled = false, onPixelClick } = props;
   return (
-    <div style={{ display: "inline-block", border: "2px solid #1a1a1a" }}>
+    <Field disabled={disabled}>
       {pixelStatesMatrix.map((row: boolean[], x: number) => {
         return (
-          <PixelRow key={`row-${x}`}>
+          <Row key={`row-${x}`}>
             {row.map(
               (filled: boolean, y: number): React.ReactNode => {
                 return (
@@ -31,9 +40,9 @@ export const PixelField: FC<PixelFieldProps> = (props: PixelFieldProps) => {
                 );
               }
             )}
-          </PixelRow>
+          </Row>
         );
       })}
-    </div>
+    </Field>
   );
 };

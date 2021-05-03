@@ -46,12 +46,14 @@ export const GameControls: FC<GameControlsProps> = (
         style={"blue"}
         startIcon={<PlayArrowIcon />}
         text={"Play"}
+        disabled={gameState === possibleState.finish}
         onClick={() => setGameState(possibleState.play)}
       />
       <ControlButton
         style={"blue"}
         startIcon={<PauseIcon />}
         text={"Pause"}
+        disabled={gameState === possibleState.finish}
         onClick={() => setGameState(possibleState.pause)}
       />
       <ControlButton

@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { actions, possibleState } from "./reducer";
 import { GameOfLifeState } from "@/redux/reducer";
@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 
 import { PixelField } from "@/components/PixelField/PixelField";
 import { GenCounter } from "@/components/GenCounter/GenCounter";
+import { Congrat } from "@/components/Congrat/Congrat";
 import { GameControls } from "@/modules/GameControls/GameControls";
 import { GameOptions } from "@/modules/GameOptions/GameOptions";
 
@@ -60,6 +61,15 @@ export const Game: FC = () => {
     dispatch(actions.setPixelMatrix(newPixelStatesMatrix));
   };
 
+  const isSomePixelsAlive = useCallback((pixelStatesMatrix: boolean[][]) => {
+    console.log("AAAA  ", pixelStatesMatrix);
+    return pixelStatesMatrix.some((row) => {
+      return row.some((pixel) => {
+        return pixel;
+      });
+    });
+  }, []);
+
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
     if (gameState === possibleState.play) {
@@ -84,9 +94,17 @@ export const Game: FC = () => {
             <GameOptions gameState={gameState} />
           </GameMenuWrapper>
           <GenCounter counter={genCounter} />
+          {gameState === possibleState.finish ? (
+            <Congrat
+              success={isSomePixelsAlive(
+                JSON.parse(JSON.stringify(pixelStatesMatrix))
+              )}
+            />
+          ) : null}
           <PixelField
             pixelStatesMatrix={pixelStatesMatrix}
             onPixelClick={onPixelClick}
+            disabled={gameState === possibleState.finish}
           />
         </Grid>
       </Paper>

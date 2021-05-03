@@ -1,5 +1,5 @@
-import { takeEvery, call } from "redux-saga/effects";
-import { actions, HISTORY_BUFFER } from "./reducer";
+import { takeEvery, call, put } from "redux-saga/effects";
+import { actions, possibleState, HISTORY_BUFFER } from "./reducer";
 import { store } from "@/redux/store";
 import { SagaIterator } from "@redux-saga/types";
 
@@ -68,6 +68,9 @@ const executeCycleSearch = () => {
 
 export function* checkWinConditionSaga(): SagaIterator {
   const isCycleFound = yield call(executeCycleSearch);
+  if (isCycleFound) {
+    yield put(actions.setGameState(possibleState.finish));
+  }
   console.log("IS CYCLE FOUND ", isCycleFound);
 }
 

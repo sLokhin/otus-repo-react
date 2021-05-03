@@ -4,6 +4,7 @@ import { getRandomPixelMass } from "./supportFunctions";
 export enum possibleState {
   play = "play",
   pause = "pause",
+  finish = "finish",
 }
 
 export enum possibleSize {

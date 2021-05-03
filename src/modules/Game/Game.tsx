@@ -67,6 +67,7 @@ export const Game: FC = () => {
         const nextGen = getNextGeneration(pixelStatesMatrix, fieldSize);
         dispatch(actions.setPixelMatrix(nextGen));
         dispatch(actions.incrementGenCounter());
+        dispatch(actions.pushGenToHistory(JSON.stringify(nextGen)));
       }, 200 * gameSpeed);
     }
     return () => {

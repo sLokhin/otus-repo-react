@@ -2,6 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 import { mount } from "enzyme";
 import { GameControls } from "./GameControls";
+import { ControlButton } from "@/components/ControlButton/ControlButton";
 import {
   possibleState,
   possibleSize,
@@ -17,10 +18,7 @@ describe("GameControls test", () => {
         <GameControls />
       </Provider>
     );
-    expect(controls.find("button").length).toBe(3);
-    expect(controls.find("button.control-button-play").length).toBe(1);
-    expect(controls.find("button.control-button-pause").length).toBe(1);
-    expect(controls.find("button.control-button-reset").length).toBe(1);
+    expect(controls.find(ControlButton).length).toBe(3);
   });
   it("click GameControls", () => {
     const setDefaultOptions = jest.fn();
@@ -33,16 +31,16 @@ describe("GameControls test", () => {
         />
       </Provider>
     );
-    controls.find("button.control-button-play").simulate("click");
+    controls.find(ControlButton).at(0).simulate("click");
     expect(setGameState).toHaveBeenCalled();
     expect(setGameState).toHaveBeenCalledTimes(1);
     expect(setGameState.mock.calls[0][0]).toEqual(possibleState.play);
 
-    controls.find("button.control-button-pause").simulate("click");
+    controls.find(ControlButton).at(1).simulate("click");
     expect(setGameState).toHaveBeenCalledTimes(2);
     expect(setGameState.mock.calls[1][0]).toEqual(possibleState.pause);
 
-    controls.find("button.control-button-reset").simulate("click");
+    controls.find(ControlButton).at(2).simulate("click");
     expect(setDefaultOptions).toHaveBeenCalled();
     expect(setDefaultOptions).toHaveBeenCalledTimes(1);
     const gameProcessState = store.getState().gameProcessState;

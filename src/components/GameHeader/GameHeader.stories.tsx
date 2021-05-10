@@ -12,7 +12,7 @@ const onLogout = action("Logout clicked (element)");
 export const gameHeaderDefault = (): React.ReactNode => {
   return (
     <GameHeader
-      name={text("player name from story", "Player-from-story")}
+      name={text("player name from story", "Storybook Player")}
       onLogout={onLogout}
     />
   );

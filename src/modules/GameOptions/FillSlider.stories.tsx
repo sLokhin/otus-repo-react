@@ -7,12 +7,25 @@ export default {
   decorators: [withKnobs],
 };
 
-export const SliderStory = (): React.ReactNode => {
+export const sliderActive = (): React.ReactNode => {
   const [value, setValue] = useState(DEFAULT_SLIDER_PERCENT);
   return (
     <FillSlider
       defaultPercent={DEFAULT_SLIDER_PERCENT}
       currentPercent={value}
+      disabled={false}
+      setFilledPercent={setValue}
+    />
+  );
+};
+
+export const sliderDisabled = (): React.ReactNode => {
+  const [value, setValue] = useState(DEFAULT_SLIDER_PERCENT);
+  return (
+    <FillSlider
+      defaultPercent={DEFAULT_SLIDER_PERCENT}
+      currentPercent={value}
+      disabled={true}
       setFilledPercent={setValue}
     />
   );

@@ -16,9 +16,9 @@ describe("FillSlider test", () => {
       />
     );
 
-    expect(
-      fillSlider.find("input[name='fill-percent-input']").at(0).prop("value")
-    ).toEqual(String(currentPercentTestValue));
+    expect(fillSlider.find("input").at(0).prop("value")).toEqual(
+      String(currentPercentTestValue)
+    );
 
     expect(fillSlider.find(Slider).length).toBe(1);
 

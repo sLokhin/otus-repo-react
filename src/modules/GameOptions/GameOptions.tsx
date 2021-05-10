@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, withStyles } from "@material-ui/core";
-import { lightGreen, lightBlue, blue } from "@material-ui/core/colors";
+import { ControlButton } from "@/components/ControlButton/ControlButton";
 import { FillSlider } from "./FillSlider";
 import {
+  possibleState,
   possibleSize,
   possibleSpeed,
   DEFAULT_SLIDER_PERCENT,
@@ -33,15 +33,18 @@ const OptionsRow = styled.div`
   }
 `;
 
-const LabelWrapper = styled.div`
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  width: 130px;
-  margin-right: 15px;
-  font-size: 20px;
-  text-align: left;
-  font-weight: bold;
-  color: #2f42d0;
-`;
+type LabelProps = { disabled: boolean };
+
+const LabelWrapper = styled.div<LabelProps>((props: LabelProps) => ({
+  fontFamily: `${'"Roboto", "Helvetica", "Arial", sans-serif'}`,
+  width: "130px",
+  marginRight: "15px",
+  fontSize: "20px",
+  textAlign: "left",
+  fontWeight: "bold",
+  color: props.disabled ? "rgba(0, 0, 0, 0.26)" : "#2f42d0",
+  userSelect: props.disabled ? "none" : "auto",
+}));
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -50,34 +53,8 @@ const ButtonWrapper = styled.div`
   width: 300px;
 `;
 
-const BlueButton = withStyles(() => ({
-  root: {
-    backgroundColor: blue[500],
-    "&:hover": {
-      backgroundColor: blue[700],
-    },
-  },
-}))(Button);
-
-const LightBlueButton = withStyles(() => ({
-  root: {
-    backgroundColor: lightBlue[500],
-    "&:hover": {
-      backgroundColor: lightBlue[700],
-    },
-  },
-}))(Button);
-
-const LightGreenButton = withStyles(() => ({
-  root: {
-    backgroundColor: lightGreen[500],
-    "&:hover": {
-      backgroundColor: lightGreen[700],
-    },
-  },
-}))(Button);
-
 interface GameOptionsProps {
+  gameState?: possibleState;
   setFieldSize?: (fieldSize: possibleSize) => void;
   setGameSpeed?: (gameSpeed: possibleSpeed) => void;
   setFilledPercent?: (fillPercent: number) => void;
@@ -87,13 +64,17 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   const fillPercent = useSelector(
     (state: GameOfLifeState) => state.gameProcessState.fillPercent
   );
-  const filedSize = useSelector(
+  const fieldSize = useSelector(
     (state: GameOfLifeState) => state.gameProcessState.fieldSize
+  );
+  const gameSpeed = useSelector(
+    (state: GameOfLifeState) => state.gameProcessState.gameSpeed
   );
   const dispatch = useDispatch();
   const {
+    gameState = possibleState.pause,
     setFieldSize = (newFieldSize: possibleSize): void => {
-      if (filedSize !== newFieldSize) {
+      if (fieldSize !== newFieldSize) {
         const newPixelStatesMatrix = getRandomPixelMass(
           newFieldSize,
           fillPercent
@@ -108,7 +89,7 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
     setFilledPercent = (newFillPercent: number): void => {
       if (fillPercent !== newFillPercent) {
         const newPixelStatesMatrix = getRandomPixelMass(
-          filedSize,
+          fieldSize,
           newFillPercent
         );
         dispatch(actions.setFillPercent(newFillPercent));
@@ -120,66 +101,65 @@ export const GameOptions: FC<GameOptionsProps> = (props: GameOptionsProps) => {
   return (
     <OptionsWrapper>
       <OptionsRow>
-        <LabelWrapper>Field size:</LabelWrapper>
+        <LabelWrapper disabled={gameState === possibleState.finish}>
+          Game speed:
+        </LabelWrapper>
         <ButtonWrapper>
-          <BlueButton
-            classes={{ root: "options-button-size-small" }}
-            variant={"contained"}
-            color={"primary"}
-            onClick={() => setFieldSize(possibleSize.small)}
-          >
-            Small
-          </BlueButton>
-          <LightBlueButton
-            classes={{ root: "options-button-size-medium" }}
-            variant={"contained"}
-            color={"primary"}
-            onClick={() => setFieldSize(possibleSize.medium)}
-          >
-            Medium
-          </LightBlueButton>
-          <LightGreenButton
-            classes={{ root: "options-button-size-large" }}
-            variant={"contained"}
-            color={"primary"}
-            onClick={() => setFieldSize(possibleSize.large)}
-          >
-            Large
-          </LightGreenButton>
+          <ControlButton
+            style={"lightBlue"}
+            text={"Slow"}
+            highlight={gameSpeed === possibleSpeed.slow}
+            disabled={gameState === possibleState.finish}
+            onClick={() => setGameSpeed(possibleSpeed.slow)}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Medium"}
+            highlight={gameSpeed === possibleSpeed.medium}
+            disabled={gameState === possibleState.finish}
+            onClick={() => setGameSpeed(possibleSpeed.medium)}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Fast"}
+            highlight={gameSpeed === possibleSpeed.fast}
+            disabled={gameState === possibleState.finish}
+            onClick={() => setGameSpeed(possibleSpeed.fast)}
+          />
         </ButtonWrapper>
       </OptionsRow>
       <OptionsRow>
-        <LabelWrapper>Game speed:</LabelWrapper>
+        <LabelWrapper disabled={gameState !== possibleState.pause}>
+          Field size:
+        </LabelWrapper>
         <ButtonWrapper>
-          <BlueButton
-            classes={{ root: "options-button-speed-slow" }}
-            variant={"contained"}
-            color={"primary"}
-            onClick={() => setGameSpeed(possibleSpeed.slow)}
-          >
-            Slow
-          </BlueButton>
-          <LightBlueButton
-            classes={{ root: "options-button-speed-medium" }}
-            variant={"contained"}
-            color={"primary"}
-            onClick={() => setGameSpeed(possibleSpeed.medium)}
-          >
-            Medium
-          </LightBlueButton>
-          <LightGreenButton
-            classes={{ root: "options-button-speed-fast" }}
-            variant={"contained"}
-            color={"primary"}
-            onClick={() => setGameSpeed(possibleSpeed.fast)}
-          >
-            Fast
-          </LightGreenButton>
+          <ControlButton
+            style={"lightBlue"}
+            text={"Small"}
+            disabled={gameState !== possibleState.pause}
+            highlight={fieldSize === possibleSize.small}
+            onClick={() => setFieldSize(possibleSize.small)}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Medium"}
+            disabled={gameState !== possibleState.pause}
+            highlight={fieldSize === possibleSize.medium}
+            onClick={() => setFieldSize(possibleSize.medium)}
+          />
+          <ControlButton
+            style={"lightBlue"}
+            text={"Large"}
+            disabled={gameState !== possibleState.pause}
+            highlight={fieldSize === possibleSize.large}
+            onClick={() => setFieldSize(possibleSize.large)}
+          />
         </ButtonWrapper>
       </OptionsRow>
       <FillSlider
         currentPercent={fillPercent}
         defaultPercent={DEFAULT_SLIDER_PERCENT}
+        disabled={gameState !== possibleState.pause}
         setFilledPercent={setFilledPercent}
       ></FillSlider>
     </OptionsWrapper>

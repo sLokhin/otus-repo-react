@@ -25,7 +25,9 @@ export const Congrat: FC<CongratProps> = (props: CongratProps) => {
   return (
     <CongratWrapper>
       <CongratText success={success}>
-        {success ? "Congratulations !!! You Win !!!" : "Oh No !!! You Lost !!!"}
+        {success
+          ? "Congratulations !!! New Ecosystem !!!"
+          : "Oh No !!! Nobody Survived !!!"}
       </CongratText>
     </CongratWrapper>
   );

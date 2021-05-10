@@ -17,57 +17,49 @@ const onClickPlay = action("PlayButton clicked");
 const onClickPause = action("PauseButton clicked");
 const onClickReset = action("ResetButton clicked");
 
-export const controlButtonActive = (): React.ReactNode => {
+export const controlButtonCommon = (): React.ReactNode => {
   return (
     <ControlButton
       style={"lightBlue"}
       text={text("text", "Option Button")}
+      disabled={boolean("disabled", false)}
       highlight={boolean("highlight", false)}
       onClick={onClickCommon}
     />
   );
 };
 
-export const controlButtonDisabled = (): React.ReactNode => {
-  return (
-    <ControlButton
-      style={"lightBlue"}
-      text={text("text", "Option Button")}
-      disabled={true}
-      highlight={false}
-      onClick={onClickCommon}
-    />
-  );
-};
-
-export const playButtonActive = (): React.ReactNode => {
+export const playButton = (): React.ReactNode => {
   return (
     <ControlButton
       style={"blue"}
       startIcon={<PlayArrowIcon />}
       text={"Play"}
+      disabled={boolean("disabled", false)}
       onClick={onClickPlay}
     />
   );
 };
 
-export const pauseButtonActive = (): React.ReactNode => {
+export const pauseButton = (): React.ReactNode => {
   return (
     <ControlButton
       style={"blue"}
       startIcon={<PauseIcon />}
       text={"Pause"}
+      disabled={boolean("disabled", false)}
       onClick={onClickPause}
     />
   );
 };
 
-export const resetButtonActive = (): React.ReactNode => {
+export const resetButton = (): React.ReactNode => {
   return (
     <ControlButton
       style={"blue"}
       startIcon={<RotateLeftIcon />}
       text={"Reset"}
+      disabled={boolean("disabled", false)}
       onClick={onClickReset}
     />
   );

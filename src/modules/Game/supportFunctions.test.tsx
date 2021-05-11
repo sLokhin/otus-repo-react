@@ -1,6 +1,7 @@
 import {
   getInitialPixelMass,
   getRandomPixelMass,
+  getNewPixelMatrix,
   getNextGeneration,
 } from "./supportFunctions";
 
@@ -53,6 +54,21 @@ describe("Game support functions test", () => {
     const percent = 20;
     const pixelMatrix: boolean[][] = getRandomPixelMass(number, percent);
     expect(pixelMatrix.length).toBe(number);
+  });
+
+  it("getNewPixelMatrix test change first element", () => {
+    const number = 2;
+    const emptyPixelMatrix: boolean[][] = getInitialPixelMass(number);
+    const newPixelMatrix: boolean[][] = getNewPixelMatrix(
+      0,
+      0,
+      true,
+      emptyPixelMatrix
+    );
+    expect(newPixelMatrix).toMatchObject([
+      [true, false],
+      [false, false],
+    ]);
   });
 });
 

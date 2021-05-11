@@ -3,7 +3,7 @@ import { actions, possibleState, HISTORY_BUFFER } from "./reducer";
 import { store } from "@/redux/store";
 import { SagaIterator } from "@redux-saga/types";
 
-const findPattern = (genHistory: string[]): string[] => {
+export const findPattern = (genHistory: string[]): string[] => {
   const pattern: string[] = [];
   for (let i = genHistory.length - 1; i >= 0; i--) {
     const currentGen = genHistory[i];
@@ -16,7 +16,7 @@ const findPattern = (genHistory: string[]): string[] => {
   return pattern;
 };
 
-const checkHistoryOnCycle = (
+export const checkHistoryOnCycle = (
   verifiableHistory: string[],
   pattern: string[]
 ): boolean => {
@@ -33,11 +33,14 @@ const checkHistoryOnCycle = (
   }
   return result;
 };
-
-const findCycle = (genHistory: string[]): boolean => {
+export const findCycle = (genHistory: string[]): boolean => {
   const pattern = findPattern(genHistory);
   const patternLength = pattern.length;
   const possibleCyclesAmount = Math.trunc(HISTORY_BUFFER / patternLength);
+
+  if (patternLength === 0) {
+    return false;
+  }
 
   if (possibleCyclesAmount > 1) {
     const length = possibleCyclesAmount * patternLength;
@@ -48,8 +51,7 @@ const findCycle = (genHistory: string[]): boolean => {
   }
 };
 
-const executeCycleSearch = () => {
-  const genHistory = store.getState().gameProcessState.genHistory;
+export const executeCycleSearch = (genHistory: string[]): boolean => {
   if (genHistory.length < HISTORY_BUFFER) {
     return false;
   } else {
@@ -58,7 +60,8 @@ const executeCycleSearch = () => {
 };
 
 export function* checkWinConditionSaga(): SagaIterator {
-  const isCycleFound = yield call(executeCycleSearch);
+  const genHistory = store.getState().gameProcessState.genHistory;
+  const isCycleFound = yield call(executeCycleSearch, genHistory);
   if (isCycleFound) {
     yield put(actions.setGameState(possibleState.finish));
   }

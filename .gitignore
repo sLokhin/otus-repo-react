@@ -3,3 +3,8 @@
 node_modules
 dist
 storybook-static
+coverage
+reports
+
+# stryker temp files
+.stryker-tmp

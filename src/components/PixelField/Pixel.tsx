@@ -12,13 +12,13 @@ type PixelProps = {
   filled: boolean;
   x: number;
   y: number;
-  onClick?: (coordX: number, coordY: number, newFlag: boolean) => void;
+  onClick: (coordX: number, coordY: number, newFlag: boolean) => void;
 };
 
 type ButtonProps = Pick<PixelProps, "filled">;
 
 export const Pixel: FC<PixelProps> = (props: PixelProps) => {
-  const { filled, x, y, onClick = () => null } = props;
+  const { filled, x, y, onClick } = props;
   const onClickHandler = (): void => {
     onClick(x, y, !filled);
   };
